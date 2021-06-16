@@ -1,0 +1,3056 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: jarrod@aryeo.com
+    name: Admin
+    url: https://www.aryeo.com
+  description: |
+    # Introduction
+    The Aryeo API gives access to the Aryeo platform. You can use your favorite HTTP/REST library for interfacing with the Aryeo API, or you can use one of our SDKs. Our SDKs are procedurally generated and a great starting point for experimental testing. If there is an additional language or framework that you want to see supported, then please reach and out and make a contribution!
+
+    <p align="center"> <a href="https://github.com/AryeoHQ/aryeo-api-dart-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/dart.svg" alt="Dart" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-go-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/go.svg" alt="Go" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-js-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/js.svg" alt="Node JS" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-php-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/php.svg" alt="PHP" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-ruby-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/ruby.svg" alt="Ruby" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-rust-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/rust.svg" alt="Rust" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-swift-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/swift.svg" alt="Swift" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> </p>
+
+    **Note**: Some SDKs may require you to manually add the `Accept` header to all Aryeo API requests. If so, use the value `application/json`.
+
+    # Authentication
+    To start using the Aryeo API, you will need to generate an API key from your group's developer settings. You can then authenticate to the Aryeo API by providing your key in the appropriate request header. Requests made without an API key will result in a `401 Unauthorized` error.
+  license:
+    name: Apache 2.0
+    url: https://choosealicense.com/licenses/apache-2.0/
+  termsOfService: https://www.aryeo.com/legal/terms-of-service
+  title: Aryeo
+  version: 1.0.0
+  x-logo:
+    url: https://raw.githubusercontent.com/jarrodparkes/images/master/aryeo-logo.svg
+    backgroundColor: '#fafafa'
+servers:
+- description: Production
+  url: https://api.aryeo.com/v1
+tags:
+- description: Operations related to listings.
+  name: listings
+- description: Operations related to orders.
+  name: orders
+- description: Operations related to vendors.
+  name: vendors
+paths:
+  /listings:
+    get:
+      description: Get the listings available to a group.
+      operationId: get-listings
+      parameters:
+      - description: A search query.
+        explode: true
+        in: query
+        name: query
+        required: false
+        schema:
+          example: thoroughbred trail
+          maxLength: 255
+          minLength: 0
+          type: string
+        style: form
+      - description: The number of items per page. Defaults to 25.
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: "25"
+          maxLength: 5
+          minLength: 1
+          type: string
+        style: form
+      - description: The requested page. Defaults to 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: "2"
+          maxLength: 5
+          minLength: 1
+          type: string
+        style: form
+      - description: The status you want to scope down to, example sold,  coming_soon,  for_sale,
+          sold
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - off_market
+          - pending_lease
+          - vacation_rental
+          - leased
+          - for_sale
+          - draft
+          - coming_soon
+          - soldm
+          - "null"
+          - for_lease
+          - pending_sale
+          - price_reduction
+          - sold
+          example: coming_soon
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: The price value and greater will be returned.
+        explode: true
+        in: query
+        name: price
+        required: false
+        schema:
+          example: 100000
+          type: integer
+        style: form
+      - description: Number of bathrooms minimum.
+        explode: true
+        in: query
+        name: bathrooms
+        required: false
+        schema:
+          example: 3.5
+          type: number
+        style: form
+      - description: Number of bedrooms minimum.
+        explode: true
+        in: query
+        name: bedrooms
+        required: false
+        schema:
+          example: 4
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartialListingCollection'
+          description: PartialListingCollection
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Get the listings available to a group.
+      tags:
+      - listings
+  /listings/{id}:
+    get:
+      description: Get information about a listing.
+      operationId: get-listings-id
+      parameters:
+      - description: The UUID of a listing.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          example: 05a1c594-f469-483c-b490-51d790090593
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingResource'
+          description: ListingResource
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Get information about a listing.
+      tags:
+      - listings
+  /orders:
+    get:
+      description: Get orders of a group.
+      operationId: get-orders
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderCollection'
+          description: OrderCollection
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Get orders available to a group.
+      tags:
+      - orders
+    post:
+      description: Create an order.
+      operationId: post-orders
+      parameters: []
+      requestBody:
+        $ref: '#/components/requestBodies/OrderPostPayload'
+        content:
+          application/json:
+            schema:
+              description: Payload for creating an order.
+              example:
+                product_items:
+                - id: 00000000-0000-0000-0000-000000000000
+                - id: 00000000-0000-0000-0000-000000000000
+                fulfillment_status: fulfilled
+                payment_status: paid
+              properties:
+                fulfillment_status:
+                  description: The fulfillment status of the order.
+                  enum:
+                  - fulfilled
+                  - unfulfilled
+                  example: fulfilled
+                  maxLength: 255
+                  minLength: 0
+                  nullable: true
+                  type: string
+                payment_status:
+                  description: The payment status of the order.
+                  enum:
+                  - paid
+                  - unpaid
+                  example: paid
+                  maxLength: 255
+                  minLength: 0
+                  nullable: true
+                  type: string
+                product_items:
+                  description: product_items
+                  items:
+                    $ref: '#/components/schemas/ProductItem'
+                  type: array
+              title: OrderPostPayload
+              type: object
+        description: OrderPostPayload
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResource'
+          description: OrderResource
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Create an order.
+      tags:
+      - orders
+  /vendors:
+    get:
+      description: Get vendors available to a group.
+      operationId: get-vendors
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupCollection'
+          description: GroupCollection
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Get vendors available to a group.
+      tags:
+      - vendors
+  /vendors/search:
+    get:
+      description: 'Get vendors that can be added to the group''s vendor list, excluding
+        those already available to a group. '
+      operationId: get-vendors-search
+      parameters:
+      - description: A search query.
+        explode: true
+        in: query
+        name: query
+        required: false
+        schema:
+          example: Demo Photography Company
+          maxLength: 255
+          minLength: 0
+          type: string
+        style: form
+      - description: The number of items per page. Defaults to 25.
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: "25"
+          maxLength: 5
+          minLength: 1
+          type: string
+        style: form
+      - description: The requested page. Defaults to 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: "2"
+          maxLength: 255
+          minLength: 1
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupCollection'
+          description: GroupCollection
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Get vendors that can be added to the group's vendor list.
+      tags:
+      - vendors
+components:
+  requestBodies:
+    OrderPostPayload:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrderPostPayload'
+  schemas:
+    PartialAddress:
+      description: A structure containing a street address and additional metadata
+        about a location.
+      example:
+        formatted_address_1: 107 South St
+        city: Boston
+        formatted_address_2: Boston, MA 02111, US
+        latitude: 42.3537627
+        address_line_1: 107 South St
+        id: 1
+        full_address: 107 South St
+        address_line_2: 'Unit #1'
+        state: MA
+        postal_code: "02111"
+        place_id: "000000000000000000000000000"
+        longitude: -71.0530544
+      properties:
+        id:
+          description: ID of address.
+          example: 1
+          nullable: false
+          type: integer
+        full_address:
+          description: The full address string containing address_1 and address_2.
+          example: 107 South St
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        formatted_address_1:
+          description: A formatted address string containing the street.
+          example: 107 South St
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        formatted_address_2:
+          description: A formatted address string containing the city, state, and
+            zipcode.
+          example: Boston, MA 02111, US
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        latitude:
+          description: Latitude of the address.
+          example: 42.3537627
+          format: double
+          nullable: false
+          type: number
+        longitude:
+          description: Longitude of the address.
+          example: -71.0530544
+          format: double
+          nullable: false
+          type: number
+        place_id:
+          description: ID of place.
+          example: "000000000000000000000000000"
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        address_line_1:
+          description: Address line 1
+          example: 107 South St
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        address_line_2:
+          description: Address line 2
+          example: 'Unit #1'
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        city:
+          description: City
+          example: Boston
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        state:
+          description: State
+          example: MA
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        postal_code:
+          description: Postal Code
+          example: "02111"
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - formatted_address_1
+      - formatted_address_2
+      - id
+      - latitude
+      - longitude
+      title: PartialAddress
+      type: object
+    PropertyDetails:
+      description: Details about a real-estate listing.
+      example:
+        bedrooms: 4
+        price: 250000
+        lot_acres: 0.47
+        mls_number: "8137899"
+        property_type: Single Family
+        description: There are technically no designated parking spots; however, the
+          driveway, on the back of the house, can easily park 3 standard-sized vehicles.
+        square_feet: 2511
+        year_built: 1960
+        bathrooms: 3.5
+        parking_spots: 3
+      properties:
+        price:
+          description: The price of the property in dollars.
+          example: 250000
+          nullable: true
+          type: integer
+        mls_number:
+          description: A number assigned to a real-estate listing for the purposes
+            of information sharing.
+          example: "8137899"
+          maxLength: 255
+          minLength: 1
+          nullable: true
+          type: string
+        bedrooms:
+          description: Number of bedrooms.
+          example: 4
+          nullable: true
+          type: integer
+        bathrooms:
+          description: Number of bathrooms. Represented as a number in order to support
+            half-baths.
+          example: 3.5
+          nullable: true
+          type: number
+        square_feet:
+          description: Total number of square feet.
+          example: 2511
+          nullable: true
+          type: number
+        lot_acres:
+          description: Total acres.
+          example: 0.47
+          nullable: true
+          type: number
+        parking_spots:
+          description: Number of parking spaces.
+          example: 3
+          nullable: true
+          type: integer
+        year_built:
+          description: Year the property was built.
+          example: 1960
+          nullable: true
+          type: integer
+        property_type:
+          description: Type of property.
+          enum:
+          - Single Family
+          - Single Family Attached
+          - Single Family Detached
+          - Colonial
+          - Condo
+          - Townhome
+          - Twinhome
+          - Duplex
+          - Lot
+          - Land
+          - Manufactured Home
+          - Semi-Detached
+          - Rental
+          - Row House
+          - Horse Farm
+          - Other
+          example: Single Family
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        description:
+          description: Property description.
+          example: There are technically no designated parking spots; however, the
+            driveway, on the back of the house, can easily park 3 standard-sized vehicles.
+          maxLength: 65535
+          minLength: 1
+          nullable: true
+          type: string
+      title: PropertyDetails
+      type: object
+    PartialGroup:
+      description: A collection of users that can interact with the Aryeo platform.
+        Permissions and properties are determined based on the type which can be creator,
+        agent, or brokerage.
+      example:
+        phone: "6175550173"
+        name: John Doe Reality
+        logo: https://via.placeholder.com/300.jpg
+        id: 00000000-0000-0000-0000-000000000000
+        group_type: agent
+        email: john.doe@gmail.com
+        is_brokerage_or_brokerage_agent: true
+      properties:
+        id:
+          description: ID of the group.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        group_type:
+          description: The type of group.
+          enum:
+          - creator
+          - agent
+          - brokerage
+          example: agent
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        name:
+          description: The name of the group.
+          example: John Doe Reality
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        logo:
+          description: Group logo.
+          example: https://via.placeholder.com/300.jpg
+          format: uri
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        email:
+          description: Email.
+          example: john.doe@gmail.com
+          format: email
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        phone:
+          description: Phone number.
+          example: "6175550173"
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        is_brokerage_or_brokerage_agent:
+          description: Does this group represent a brokerage or an agent who belongs
+            to a brokerage?
+          example: true
+          nullable: false
+          type: boolean
+      required:
+      - group_type
+      - id
+      - is_brokerage_or_brokerage_agent
+      - name
+      title: PartialGroup
+      type: object
+    PartialListing:
+      description: A real-estate property.
+      example:
+        property_details:
+          bedrooms: 4
+          price: 250000
+          lot_acres: 0.47
+          mls_number: "8137899"
+          property_type: Single Family
+          description: There are technically no designated parking spots; however,
+            the driveway, on the back of the house, can easily park 3 standard-sized
+            vehicles.
+          square_feet: 2511
+          year_built: 1960
+          bathrooms: 3.5
+          parking_spots: 3
+        agent:
+          phone: "6175550173"
+          name: John Doe Reality
+          logo: https://via.placeholder.com/300.jpg
+          id: 00000000-0000-0000-0000-000000000000
+          group_type: agent
+          email: john.doe@gmail.com
+          is_brokerage_or_brokerage_agent: true
+        address:
+          formatted_address_1: 107 South St
+          city: Boston
+          formatted_address_2: Boston, MA 02111, US
+          latitude: 42.3537627
+          address_line_1: 107 South St
+          id: 1
+          full_address: 107 South St
+          address_line_2: 'Unit #1'
+          state: MA
+          postal_code: "02111"
+          place_id: "000000000000000000000000000"
+          longitude: -71.0530544
+        downloads_enabled: true
+        thumbnail_url: https://via.placeholder.com/300.jpg
+        bathrooms: 3.5
+        branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+        bedrooms: 4
+        price: 250000
+        co_agent:
+          phone: "6175550173"
+          name: John Doe Reality
+          logo: https://via.placeholder.com/300.jpg
+          id: 00000000-0000-0000-0000-000000000000
+          group_type: agent
+          email: john.doe@gmail.com
+          is_brokerage_or_brokerage_agent: true
+        square_feet: 2511
+        id: 00000000-0000-0000-0000-000000000000
+        delivery_status: delivered
+        status: For Sale
+      properties:
+        id:
+          description: ID of the listing.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        address:
+          $ref: '#/components/schemas/PartialAddress'
+        delivery_status:
+          description: Has the listing been delivered?
+          enum:
+          - delivered
+          - undelivered
+          example: delivered
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        thumbnail_url:
+          description: Thumbnail URL for the listing.
+          example: https://via.placeholder.com/300.jpg
+          maxLength: 1000
+          minLength: 0
+          nullable: true
+          type: string
+        price:
+          description: The price of the property in dollars.
+          example: 250000
+          nullable: true
+          type: integer
+        branded_url:
+          description: URL for branded property website.
+          example: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: true
+          type: string
+        square_feet:
+          description: Total number of square feet.
+          example: 2511
+          nullable: true
+          type: number
+        bedrooms:
+          description: Number of bedrooms.
+          example: 4
+          nullable: true
+          type: integer
+        bathrooms:
+          description: Number of bathrooms.
+          example: 3.5
+          nullable: true
+          type: number
+        downloads_enabled:
+          description: Are downloads enabled for this listing?
+          example: true
+          nullable: false
+          type: boolean
+        status:
+          description: Sales status for the listing.
+          enum:
+          - Off Market
+          - Pending Lease
+          - Vacation Rental
+          - Leased
+          - For Sale
+          - Draft
+          - Coming Soon
+          - Soldm
+          - "NULL"
+          - For Lease
+          - Pending Sale
+          - Price Reduction
+          - Sold
+          example: For Sale
+          maxLength: 100
+          minLength: 1
+          nullable: true
+          type: string
+        property_details:
+          $ref: '#/components/schemas/PropertyDetails'
+        agent:
+          $ref: '#/components/schemas/PartialGroup'
+        co_agent:
+          $ref: '#/components/schemas/PartialGroup'
+      required:
+      - address
+      - delivery_status
+      - downloads_enabled
+      - id
+      title: PartialListing
+      type: object
+    PaginationMeta:
+      description: Metadata about a paginated response.
+      example:
+        per_page: 15
+        path: https://api.aryeo.com/v1/{path}
+        total: 50
+        last_page: 4
+        from: 1
+        to: 15
+        current_page: 1
+      properties:
+        total:
+          description: Total number of records.
+          example: 50
+          nullable: false
+          type: integer
+        per_page:
+          description: Number of records per page.
+          example: 15
+          nullable: false
+          type: integer
+        current_page:
+          description: The current page.
+          example: 1
+          nullable: false
+          type: integer
+        last_page:
+          description: The last page of records.
+          example: 4
+          nullable: false
+          type: integer
+        from:
+          description: The ID of the first record on this page. This is specified
+            as either `integer` or `null` purely for contract testing purposes. The
+            model which is autogenerated from this definition will be thrown out and
+            written by-hand.
+          example: 1
+          nullable: true
+          type: integer
+        to:
+          description: The ID of the last record on this page. This is specified as
+            either `integer` or `null` purely for contract testing purposes. The model
+            which is autogenerated from this definition will be thrown out and written
+            by-hand.
+          example: 15
+          nullable: true
+          type: integer
+        path:
+          description: The current paged path.
+          example: https://api.aryeo.com/v1/{path}
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+      required:
+      - current_page
+      - last_page
+      - path
+      - per_page
+      - total
+      title: PaginationMeta
+      type: object
+    PaginationLinks:
+      description: Related links for a paginated response.
+      example:
+        next: https://api.aryeo.com/v1/{path}?page=3
+        last: https://api.aryeo.com/v1/{path}?page=10
+        prev: https://api.aryeo.com/v1/{path}?page=2
+        first: https://api.aryeo.com/v1/{path}?page=1
+      properties:
+        first:
+          description: The first page.
+          example: https://api.aryeo.com/v1/{path}?page=1
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        last:
+          description: The last page.
+          example: https://api.aryeo.com/v1/{path}?page=10
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        prev:
+          description: The previous page. This is specified as either `string` or
+            `null` purely for contract testing purposes. The model which is autogenerated
+            from this definition will be thrown out and written by-hand.
+          example: https://api.aryeo.com/v1/{path}?page=2
+          maxLength: 65535
+          minLength: 1
+          nullable: true
+          type: string
+        next:
+          description: The next page. This is specified as either `string` or `null`
+            purely for contract testing purposes. The model which is autogenerated
+            from this definition will be thrown out and written by-hand.
+          example: https://api.aryeo.com/v1/{path}?page=3
+          maxLength: 65535
+          minLength: 1
+          nullable: true
+          type: string
+      required:
+      - first
+      - last
+      title: PaginationLinks
+      type: object
+    PartialListingCollection:
+      description: A collection of partial listings.
+      example:
+        data:
+        - property_details:
+            bedrooms: 4
+            price: 250000
+            lot_acres: 0.47
+            mls_number: "8137899"
+            property_type: Single Family
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            square_feet: 2511
+            year_built: 1960
+            bathrooms: 3.5
+            parking_spots: 3
+          agent:
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            id: 00000000-0000-0000-0000-000000000000
+            group_type: agent
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          address:
+            formatted_address_1: 107 South St
+            city: Boston
+            formatted_address_2: Boston, MA 02111, US
+            latitude: 42.3537627
+            address_line_1: 107 South St
+            id: 1
+            full_address: 107 South St
+            address_line_2: 'Unit #1'
+            state: MA
+            postal_code: "02111"
+            place_id: "000000000000000000000000000"
+            longitude: -71.0530544
+          downloads_enabled: true
+          thumbnail_url: https://via.placeholder.com/300.jpg
+          bathrooms: 3.5
+          branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+          bedrooms: 4
+          price: 250000
+          co_agent:
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            id: 00000000-0000-0000-0000-000000000000
+            group_type: agent
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          square_feet: 2511
+          id: 00000000-0000-0000-0000-000000000000
+          delivery_status: delivered
+          status: For Sale
+        - property_details:
+            bedrooms: 4
+            price: 250000
+            lot_acres: 0.47
+            mls_number: "8137899"
+            property_type: Single Family
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            square_feet: 2511
+            year_built: 1960
+            bathrooms: 3.5
+            parking_spots: 3
+          agent:
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            id: 00000000-0000-0000-0000-000000000000
+            group_type: agent
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          address:
+            formatted_address_1: 107 South St
+            city: Boston
+            formatted_address_2: Boston, MA 02111, US
+            latitude: 42.3537627
+            address_line_1: 107 South St
+            id: 1
+            full_address: 107 South St
+            address_line_2: 'Unit #1'
+            state: MA
+            postal_code: "02111"
+            place_id: "000000000000000000000000000"
+            longitude: -71.0530544
+          downloads_enabled: true
+          thumbnail_url: https://via.placeholder.com/300.jpg
+          bathrooms: 3.5
+          branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+          bedrooms: 4
+          price: 250000
+          co_agent:
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            id: 00000000-0000-0000-0000-000000000000
+            group_type: agent
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          square_feet: 2511
+          id: 00000000-0000-0000-0000-000000000000
+          delivery_status: delivered
+          status: For Sale
+        meta:
+          per_page: 15
+          path: https://api.aryeo.com/v1/{path}
+          total: 50
+          last_page: 4
+          from: 1
+          to: 15
+          current_page: 1
+        links:
+          next: https://api.aryeo.com/v1/{path}?page=3
+          last: https://api.aryeo.com/v1/{path}?page=10
+          prev: https://api.aryeo.com/v1/{path}?page=2
+          first: https://api.aryeo.com/v1/{path}?page=1
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PartialListing'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+      title: PartialListingCollection
+      type: object
+    ApiError:
+      description: A generic error returned by the API.
+      properties:
+        message:
+          description: The error message.
+          example: ApiError.
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+      required:
+      - message
+      title: ApiError
+      type: object
+    SocialProfiles:
+      description: Details for a real estate agent.
+      example:
+        instagram_profile_url: https://www.instagram.com/johndoe
+        zillow_profile_url: https://www.zillow.com/profile/johndoe
+        facebook_profile_url: https://www.facebook.com/johndoe
+        twitter_profile_url: https://twitter.com/johndoe
+        linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+      properties:
+        facebook_profile_url:
+          description: URL for Facebook.
+          example: https://www.facebook.com/johndoe
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+        instagram_profile_url:
+          description: URL for Instagram.
+          example: https://www.instagram.com/johndoe
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+        twitter_profile_url:
+          description: URL for Twitter.
+          example: https://twitter.com/johndoe
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+        linkedin_profile_url:
+          description: URL for LinkedIn.
+          example: https://www.linkedin.com/in/johndoe/
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+        zillow_profile_url:
+          description: URL for Zillow.
+          example: https://www.zillow.com/profile/johndoe
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+      title: SocialProfiles
+      type: object
+    GroupAgentProperties:
+      description: A subset of group properties relevant to agents.
+      example:
+        brokerage_name: John Doe Brokerage
+        agent_license_number: "12345678"
+        agent_avatar: https://via.placeholder.com/300.jpg
+      properties:
+        brokerage_name:
+          description: Name of brokerage.
+          example: John Doe Brokerage
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        agent_license_number:
+          description: Agent's license number.
+          example: "12345678"
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        agent_avatar:
+          description: Agent's profile image URL.
+          example: https://via.placeholder.com/300.jpg
+          format: uri
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      title: GroupAgentProperties
+      type: object
+    User:
+      description: A record of a person on the Aryeo platform.
+      example:
+        phone: "123456789"
+        timezone: America/New_York
+        last_name: Doe
+        id: 00000000-0000-0000-0000-000000000000
+        avatar: https://via.placeholder.com/300.jpg
+        relationship: owner
+        first_name: John
+        email: john.doe@gmail.com
+      properties:
+        id:
+          description: UUID of the user.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        avatar:
+          description: Avatar.
+          example: https://via.placeholder.com/300.jpg
+          format: uri
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        email:
+          description: Email.
+          example: john.doe@gmail.com
+          format: email
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        first_name:
+          description: First name.
+          example: John
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        last_name:
+          description: Last name.
+          example: Doe
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        timezone:
+          description: Timezone.
+          example: America/New_York
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        phone:
+          description: Phone number.
+          example: "123456789"
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        relationship:
+          description: Describes user's relationship (access level) to a specified
+            group.
+          example: owner
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - email
+      - id
+      title: User
+      type: object
+    OrderForm:
+      description: 'A mechanism for placing new orders on the Aryeo platform. '
+      example:
+        name: BQ's Photography Order Form
+        id: 00000000-0000-0000-0000-000000000000
+        url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+      properties:
+        id:
+          description: UUID of the order form.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        name:
+          description: The name of the order form.
+          example: BQ's Photography Order Form
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        url:
+          description: A URL of a publicly-accessible webpage for this order form.
+          example: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          format: uri
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+      required:
+      - id
+      - url
+      title: OrderForm
+      type: object
+    Group:
+      description: A collection of users that can interact with the Aryeo platform.
+        Permissions and properties are determined based on the group's type which
+        can be creator, agent, or brokerage.
+      example:
+        default_order_form:
+          name: BQ's Photography Order Form
+          id: 00000000-0000-0000-0000-000000000000
+          url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+        website: https://www.aryeo.com
+        agent_properties:
+          brokerage_name: John Doe Brokerage
+          agent_license_number: "12345678"
+          agent_avatar: https://via.placeholder.com/300.jpg
+        group_type: agent
+        users:
+        - phone: "123456789"
+          timezone: America/New_York
+          last_name: Doe
+          id: 00000000-0000-0000-0000-000000000000
+          avatar: https://via.placeholder.com/300.jpg
+          relationship: owner
+          first_name: John
+          email: john.doe@gmail.com
+        - phone: "123456789"
+          timezone: America/New_York
+          last_name: Doe
+          id: 00000000-0000-0000-0000-000000000000
+          avatar: https://via.placeholder.com/300.jpg
+          relationship: owner
+          first_name: John
+          email: john.doe@gmail.com
+        social_profiles:
+          instagram_profile_url: https://www.instagram.com/johndoe
+          zillow_profile_url: https://www.zillow.com/profile/johndoe
+          facebook_profile_url: https://www.facebook.com/johndoe
+          twitter_profile_url: https://twitter.com/johndoe
+          linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+        phone: "6175550173"
+        name: John Doe Reality
+        logo: https://via.placeholder.com/300.jpg
+        order_forms:
+        - name: BQ's Photography Order Form
+          id: 00000000-0000-0000-0000-000000000000
+          url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+        - name: BQ's Photography Order Form
+          id: 00000000-0000-0000-0000-000000000000
+          url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+        id: 00000000-0000-0000-0000-000000000000
+        email: john.doe@gmail.com
+        is_brokerage_or_brokerage_agent: true
+      properties:
+        id:
+          description: ID of the group.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        group_type:
+          description: The type of group.
+          enum:
+          - creator
+          - agent
+          - brokerage
+          example: agent
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        name:
+          description: The name of the group.
+          example: John Doe Reality
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        logo:
+          description: Group logo.
+          example: https://via.placeholder.com/300.jpg
+          format: uri
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        email:
+          description: Email.
+          example: john.doe@gmail.com
+          format: email
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        phone:
+          description: Phone number.
+          example: "6175550173"
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        website:
+          description: Website.
+          example: https://www.aryeo.com
+          format: uri
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        is_brokerage_or_brokerage_agent:
+          description: Does this group represent a brokerage or an agent who belongs
+            to a brokerage?
+          example: true
+          nullable: false
+          type: boolean
+        social_profiles:
+          $ref: '#/components/schemas/SocialProfiles'
+        agent_properties:
+          $ref: '#/components/schemas/GroupAgentProperties'
+        users:
+          description: users
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+        default_order_form:
+          $ref: '#/components/schemas/OrderForm'
+        order_forms:
+          description: An array of order forms.
+          items:
+            $ref: '#/components/schemas/OrderForm'
+          type: array
+      required:
+      - group_type
+      - id
+      - is_brokerage_or_brokerage_agent
+      - name
+      title: Group
+      type: object
+    Image:
+      description: A visual representation of something.
+      example:
+        original_url: https://via.placeholder.com/2500x2000.jpg
+        index: 2
+        caption: This is the front of the house.
+        display_in_gallery: true
+        id: 1
+        thumbnail_url: https://via.placeholder.com/250x200.jpg
+        large_url: https://via.placeholder.com/1750x1400.jpg
+      properties:
+        id:
+          description: ID of the image.
+          example: 1
+          nullable: false
+          type: integer
+        thumbnail_url:
+          description: A URL for a thumbnail-sized version of the image.
+          example: https://via.placeholder.com/250x200.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        large_url:
+          description: A URL for a large version of the image.
+          example: https://via.placeholder.com/1750x1400.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        original_url:
+          description: A URL for the original, full-resolution version of the image.
+            Useful for downloading.
+          example: https://via.placeholder.com/2500x2000.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        index:
+          description: The order in which the image should be displayed amongst other
+            related images.
+          example: 2
+          nullable: true
+          type: integer
+        caption:
+          description: A brief explanation of the image.
+          example: This is the front of the house.
+          maxLength: 255
+          minLength: 1
+          nullable: true
+          type: string
+        display_in_gallery:
+          description: Should the image be displayed in a gallery?
+          example: true
+          nullable: false
+          type: boolean
+      required:
+      - display_in_gallery
+      - id
+      - large_url
+      - original_url
+      - thumbnail_url
+      title: Image
+      type: object
+    Video:
+      description: A recording of moving visual images. Provided either as a download
+        URL (MP4) or a link (e.g. YouTube, Vimeo).
+      example:
+        display_type: branded
+        seconds: 360
+        share_url: https://www.aryeo.com/v2/00000000-0000-0000-0000-000000000000/videos/1
+        download_url: https://videos.aryeo.com/listings/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000.mp4
+        source_type: optimized
+        id: 1
+        playback_url: https://player.vimeo.com/video/76979871
+        title: 123 Main Street Video Walkthrough
+        thumbnail_url: https://via.placeholder.com/300.jpg
+      properties:
+        id:
+          description: ID of the video.
+          example: 1
+          nullable: false
+          type: integer
+        title:
+          description: The title of the video given by the uploading user.
+          example: 123 Main Street Video Walkthrough
+          maxLength: 255
+          minLength: 1
+          nullable: true
+          type: string
+        display_type:
+          description: The display type determines if the video is branded or unbranded
+            (can also be none or both). This affects whether the video is displayed
+            on branded or unbranded marketing materials such as the property website.
+          enum:
+          - branded
+          - unbranded
+          - both
+          - none
+          example: branded
+          maxLength: 255
+          minLength: 1
+          nullable: false
+          type: string
+        source_type:
+          description: 'The original upload source of the video, used to determine
+            how to handle the playback_url of the video and other display properties. '
+          enum:
+          - youtube
+          - vimeo
+          - optimized
+          - uploaded
+          - link
+          example: optimized
+          maxLength: 255
+          minLength: 1
+          nullable: false
+          type: string
+        thumbnail_url:
+          description: Thumbnail URL for the video.
+          example: https://via.placeholder.com/300.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: false
+          type: string
+        playback_url:
+          description: A URL linking to the video.
+          example: https://player.vimeo.com/video/76979871
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: false
+          type: string
+        download_url:
+          description: A URL for downloading the video.
+          example: https://videos.aryeo.com/listings/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000.mp4
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: true
+          type: string
+        seconds:
+          description: The video's runtime in seconds.
+          example: 360
+          nullable: true
+          type: integer
+        share_url:
+          description: Aryeo iFrame player URL
+          example: https://www.aryeo.com/v2/00000000-0000-0000-0000-000000000000/videos/1
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - display_type
+      - id
+      - playback_url
+      - source_type
+      - thumbnail_url
+      title: Video
+      type: object
+    FloorPlan:
+      description: A scale diagram of the arrangement of a building.
+      example:
+        original_url: https://via.placeholder.com/2500x2000.jpg
+        index: 1
+        id: 1
+        thumbnail_url: https://via.placeholder.com/250x200.jpg
+        title: Downstairs floorplan
+        large_url: https://via.placeholder.com/1750x1400.jpg
+      properties:
+        id:
+          description: ID of the floor plan.
+          example: 1
+          nullable: false
+          type: integer
+        thumbnail_url:
+          description: A URL for a thumbnail-sized version of the floor plan.
+          example: https://via.placeholder.com/250x200.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        large_url:
+          description: A URL for a large version of the floor plan.
+          example: https://via.placeholder.com/1750x1400.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        original_url:
+          description: A URL for the original, full-resolution version of the floor
+            plan. Useful for downloading.
+          example: https://via.placeholder.com/2500x2000.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        title:
+          description: The title (or caption) of the floor plan.
+          example: Downstairs floorplan
+          maxLength: 255
+          minLength: 1
+          nullable: true
+          type: string
+        index:
+          description: Index order position of the floor plan.
+          example: 1
+          format: int32
+          minimum: 0
+          nullable: true
+          type: integer
+      required:
+      - id
+      - large_url
+      - original_url
+      - thumbnail_url
+      title: FloorPlan
+      type: object
+    PropertyWebsites:
+      description: Websites that displays information about a property.
+      example:
+        branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+        unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+        id: 1
+      properties:
+        branded_url:
+          description: URL for website.
+          example: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        unbranded_url:
+          description: URL for website.
+          example: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        id:
+          description: ID for property website
+          example: 1
+          nullable: false
+          type: integer
+      required:
+      - branded_url
+      - id
+      - unbranded_url
+      title: PropertyWebsites
+      type: object
+    InteractiveContent:
+      description: A 3D virtual tour.
+      example:
+        display_type: branded
+        content_type: matterport
+        id: 00000000-0000-0000-0000-000000000000
+        thumbnail_url: https://via.placeholder.com/300.jpg
+        url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+      properties:
+        id:
+          description: ID of the content.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        display_type:
+          description: Is the content branded, unbranded, or both?
+          enum:
+          - branded
+          - unbranded
+          - both
+          example: branded
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        content_type:
+          description: The type of interactive content.
+          enum:
+          - matterport
+          - other
+          example: matterport
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        url:
+          description: URL for the content.
+          example: https://my.matterport.com/show/?m=HFaxPzqNFfm
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: false
+          type: string
+        thumbnail_url:
+          description: A URL for a thumbnail-sized preview of the content.
+          example: https://via.placeholder.com/300.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 1
+          nullable: true
+          type: string
+      required:
+      - content_type
+      - display_type
+      - id
+      - url
+      title: InteractiveContent
+      type: object
+    Currency:
+      description: A system of money used for payment.
+      example:
+        symbol: $
+        name: USD
+        id: usd
+        enabled: true
+      properties:
+        id:
+          description: The ID of the currency.
+          example: usd
+          maxLength: 1000
+          minLength: 1
+          nullable: false
+          type: string
+        name:
+          description: The name of the currency.
+          example: USD
+          maxLength: 100
+          minLength: 1
+          nullable: false
+          type: string
+        symbol:
+          description: The currency symbol.
+          example: $
+          maxLength: 10
+          minLength: 1
+          nullable: false
+          type: string
+        enabled:
+          description: Is this currency enabled for Aryeo?
+          example: true
+          nullable: false
+          type: boolean
+      required:
+      - enabled
+      - id
+      - name
+      - symbol
+      title: Currency
+      type: object
+    Order:
+      description: A payment request for some content or service.
+      example:
+        payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+        fulfillment_status: fulfilled
+        display_id: 100
+        total_price_cents: 2099
+        payment_status: paid
+        currency:
+          symbol: $
+          name: USD
+          id: usd
+          enabled: true
+        id: 00000000-0000-0000-0000-000000000000
+        listing:
+          property_details:
+            bedrooms: 4
+            price: 250000
+            lot_acres: 0.47
+            mls_number: "8137899"
+            property_type: Single Family
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            square_feet: 2511
+            year_built: 1960
+            bathrooms: 3.5
+            parking_spots: 3
+          agent:
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            id: 00000000-0000-0000-0000-000000000000
+            group_type: agent
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          address:
+            formatted_address_1: 107 South St
+            city: Boston
+            formatted_address_2: Boston, MA 02111, US
+            latitude: 42.3537627
+            address_line_1: 107 South St
+            id: 1
+            full_address: 107 South St
+            address_line_2: 'Unit #1'
+            state: MA
+            postal_code: "02111"
+            place_id: "000000000000000000000000000"
+            longitude: -71.0530544
+          downloads_enabled: true
+          thumbnail_url: https://via.placeholder.com/300.jpg
+          bathrooms: 3.5
+          branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+          bedrooms: 4
+          price: 250000
+          co_agent:
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            id: 00000000-0000-0000-0000-000000000000
+            group_type: agent
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          square_feet: 2511
+          id: 00000000-0000-0000-0000-000000000000
+          delivery_status: delivered
+          status: For Sale
+      properties:
+        id:
+          description: ID of the order.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        display_id:
+          description: 'A vanity id to be displayed for the order. For example, "Order
+            #1000".'
+          example: 100
+          nullable: false
+          type: integer
+        total_price_cents:
+          description: The total price of the order given in cents.
+          example: 2099
+          format: double
+          nullable: false
+          type: integer
+        currency:
+          $ref: '#/components/schemas/Currency'
+        payment_status:
+          description: The payment status of the order.
+          enum:
+          - paid
+          - unpaid
+          example: paid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        payment_url:
+          description: A URL for to pay for the order.
+          example: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+        listing:
+          $ref: '#/components/schemas/PartialListing'
+        fulfillment_status:
+          description: The fulfillment status of the order.
+          enum:
+          - fulfilled
+          - unfulfilled
+          example: fulfilled
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+      required:
+      - currency
+      - display_id
+      - fulfillment_status
+      - id
+      - payment_status
+      - total_price_cents
+      title: Order
+      type: object
+    Listing:
+      description: A real-estate property.
+      example:
+        property_details:
+          bedrooms: 4
+          price: 250000
+          lot_acres: 0.47
+          mls_number: "8137899"
+          property_type: Single Family
+          description: There are technically no designated parking spots; however,
+            the driveway, on the back of the house, can easily park 3 standard-sized
+            vehicles.
+          square_feet: 2511
+          year_built: 1960
+          bathrooms: 3.5
+          parking_spots: 3
+        agent:
+          default_order_form:
+            name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          website: https://www.aryeo.com
+          agent_properties:
+            brokerage_name: John Doe Brokerage
+            agent_license_number: "12345678"
+            agent_avatar: https://via.placeholder.com/300.jpg
+          group_type: agent
+          users:
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          social_profiles:
+            instagram_profile_url: https://www.instagram.com/johndoe
+            zillow_profile_url: https://www.zillow.com/profile/johndoe
+            facebook_profile_url: https://www.facebook.com/johndoe
+            twitter_profile_url: https://twitter.com/johndoe
+            linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+          phone: "6175550173"
+          name: John Doe Reality
+          logo: https://via.placeholder.com/300.jpg
+          order_forms:
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          id: 00000000-0000-0000-0000-000000000000
+          email: john.doe@gmail.com
+          is_brokerage_or_brokerage_agent: true
+        images:
+        - original_url: https://via.placeholder.com/2500x2000.jpg
+          index: 2
+          caption: This is the front of the house.
+          display_in_gallery: true
+          id: 1
+          thumbnail_url: https://via.placeholder.com/250x200.jpg
+          large_url: https://via.placeholder.com/1750x1400.jpg
+        - original_url: https://via.placeholder.com/2500x2000.jpg
+          index: 2
+          caption: This is the front of the house.
+          display_in_gallery: true
+          id: 1
+          thumbnail_url: https://via.placeholder.com/250x200.jpg
+          large_url: https://via.placeholder.com/1750x1400.jpg
+        address:
+          formatted_address_1: 107 South St
+          city: Boston
+          formatted_address_2: Boston, MA 02111, US
+          latitude: 42.3537627
+          address_line_1: 107 South St
+          id: 1
+          full_address: 107 South St
+          address_line_2: 'Unit #1'
+          state: MA
+          postal_code: "02111"
+          place_id: "000000000000000000000000000"
+          longitude: -71.0530544
+        videos:
+        - display_type: branded
+          seconds: 360
+          share_url: https://www.aryeo.com/v2/00000000-0000-0000-0000-000000000000/videos/1
+          download_url: https://videos.aryeo.com/listings/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000.mp4
+          source_type: optimized
+          id: 1
+          playback_url: https://player.vimeo.com/video/76979871
+          title: 123 Main Street Video Walkthrough
+          thumbnail_url: https://via.placeholder.com/300.jpg
+        - display_type: branded
+          seconds: 360
+          share_url: https://www.aryeo.com/v2/00000000-0000-0000-0000-000000000000/videos/1
+          download_url: https://videos.aryeo.com/listings/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000.mp4
+          source_type: optimized
+          id: 1
+          playback_url: https://player.vimeo.com/video/76979871
+          title: 123 Main Street Video Walkthrough
+          thumbnail_url: https://via.placeholder.com/300.jpg
+        downloads_enabled: true
+        thumbnail_url: https://via.placeholder.com/300.jpg
+        interactive_content:
+        - display_type: branded
+          content_type: matterport
+          id: 00000000-0000-0000-0000-000000000000
+          thumbnail_url: https://via.placeholder.com/300.jpg
+          url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+        - display_type: branded
+          content_type: matterport
+          id: 00000000-0000-0000-0000-000000000000
+          thumbnail_url: https://via.placeholder.com/300.jpg
+          url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+        co_agent:
+          default_order_form:
+            name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          website: https://www.aryeo.com
+          agent_properties:
+            brokerage_name: John Doe Brokerage
+            agent_license_number: "12345678"
+            agent_avatar: https://via.placeholder.com/300.jpg
+          group_type: agent
+          users:
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          social_profiles:
+            instagram_profile_url: https://www.instagram.com/johndoe
+            zillow_profile_url: https://www.zillow.com/profile/johndoe
+            facebook_profile_url: https://www.facebook.com/johndoe
+            twitter_profile_url: https://twitter.com/johndoe
+            linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+          phone: "6175550173"
+          name: John Doe Reality
+          logo: https://via.placeholder.com/300.jpg
+          order_forms:
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          id: 00000000-0000-0000-0000-000000000000
+          email: john.doe@gmail.com
+          is_brokerage_or_brokerage_agent: true
+        orders:
+        - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+          fulfillment_status: fulfilled
+          display_id: 100
+          total_price_cents: 2099
+          payment_status: paid
+          currency:
+            symbol: $
+            name: USD
+            id: usd
+            enabled: true
+          id: 00000000-0000-0000-0000-000000000000
+          listing:
+            property_details:
+              bedrooms: 4
+              price: 250000
+              lot_acres: 0.47
+              mls_number: "8137899"
+              property_type: Single Family
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+              parking_spots: 3
+            agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            address:
+              formatted_address_1: 107 South St
+              city: Boston
+              formatted_address_2: Boston, MA 02111, US
+              latitude: 42.3537627
+              address_line_1: 107 South St
+              id: 1
+              full_address: 107 South St
+              address_line_2: 'Unit #1'
+              state: MA
+              postal_code: "02111"
+              place_id: "000000000000000000000000000"
+              longitude: -71.0530544
+            downloads_enabled: true
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            bathrooms: 3.5
+            branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+            bedrooms: 4
+            price: 250000
+            co_agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            square_feet: 2511
+            id: 00000000-0000-0000-0000-000000000000
+            delivery_status: delivered
+            status: For Sale
+        - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+          fulfillment_status: fulfilled
+          display_id: 100
+          total_price_cents: 2099
+          payment_status: paid
+          currency:
+            symbol: $
+            name: USD
+            id: usd
+            enabled: true
+          id: 00000000-0000-0000-0000-000000000000
+          listing:
+            property_details:
+              bedrooms: 4
+              price: 250000
+              lot_acres: 0.47
+              mls_number: "8137899"
+              property_type: Single Family
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+              parking_spots: 3
+            agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            address:
+              formatted_address_1: 107 South St
+              city: Boston
+              formatted_address_2: Boston, MA 02111, US
+              latitude: 42.3537627
+              address_line_1: 107 South St
+              id: 1
+              full_address: 107 South St
+              address_line_2: 'Unit #1'
+              state: MA
+              postal_code: "02111"
+              place_id: "000000000000000000000000000"
+              longitude: -71.0530544
+            downloads_enabled: true
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            bathrooms: 3.5
+            branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+            bedrooms: 4
+            price: 250000
+            co_agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            square_feet: 2511
+            id: 00000000-0000-0000-0000-000000000000
+            delivery_status: delivered
+            status: For Sale
+        id: 00000000-0000-0000-0000-000000000000
+        delivery_status: delivered
+        floor_plans:
+        - original_url: https://via.placeholder.com/2500x2000.jpg
+          index: 1
+          id: 1
+          thumbnail_url: https://via.placeholder.com/250x200.jpg
+          title: Downstairs floorplan
+          large_url: https://via.placeholder.com/1750x1400.jpg
+        - original_url: https://via.placeholder.com/2500x2000.jpg
+          index: 1
+          id: 1
+          thumbnail_url: https://via.placeholder.com/250x200.jpg
+          title: Downstairs floorplan
+          large_url: https://via.placeholder.com/1750x1400.jpg
+        property_websites:
+          branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+          unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+          id: 1
+      properties:
+        id:
+          description: ID of the listing.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        address:
+          $ref: '#/components/schemas/PartialAddress'
+        delivery_status:
+          description: Has this listing been delivered?
+          enum:
+          - delivered
+          - undelivered
+          example: delivered
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        thumbnail_url:
+          description: Thumbnail URL for the listing.
+          example: https://via.placeholder.com/300.jpg
+          format: uri
+          maxLength: 65535
+          minLength: 0
+          nullable: true
+          type: string
+        agent:
+          $ref: '#/components/schemas/Group'
+        co_agent:
+          $ref: '#/components/schemas/Group'
+        images:
+          description: images
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+        videos:
+          description: videos
+          items:
+            $ref: '#/components/schemas/Video'
+          type: array
+        floor_plans:
+          description: floor_plans
+          items:
+            $ref: '#/components/schemas/FloorPlan'
+          type: array
+        property_websites:
+          $ref: '#/components/schemas/PropertyWebsites'
+        interactive_content:
+          description: interactive_content
+          items:
+            $ref: '#/components/schemas/InteractiveContent'
+          type: array
+        property_details:
+          $ref: '#/components/schemas/PropertyDetails'
+        downloads_enabled:
+          description: Are downloads enabled for this listing?
+          example: true
+          nullable: false
+          type: boolean
+        orders:
+          description: orders
+          items:
+            $ref: '#/components/schemas/Order'
+          type: array
+      required:
+      - address
+      - delivery_status
+      - downloads_enabled
+      - id
+      title: Listing
+      type: object
+    ListingResource:
+      description: A listing.
+      example:
+        data:
+          property_details:
+            bedrooms: 4
+            price: 250000
+            lot_acres: 0.47
+            mls_number: "8137899"
+            property_type: Single Family
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            square_feet: 2511
+            year_built: 1960
+            bathrooms: 3.5
+            parking_spots: 3
+          agent:
+            default_order_form:
+              name: BQ's Photography Order Form
+              id: 00000000-0000-0000-0000-000000000000
+              url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+            website: https://www.aryeo.com
+            agent_properties:
+              brokerage_name: John Doe Brokerage
+              agent_license_number: "12345678"
+              agent_avatar: https://via.placeholder.com/300.jpg
+            group_type: agent
+            users:
+            - phone: "123456789"
+              timezone: America/New_York
+              last_name: Doe
+              id: 00000000-0000-0000-0000-000000000000
+              avatar: https://via.placeholder.com/300.jpg
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - phone: "123456789"
+              timezone: America/New_York
+              last_name: Doe
+              id: 00000000-0000-0000-0000-000000000000
+              avatar: https://via.placeholder.com/300.jpg
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            social_profiles:
+              instagram_profile_url: https://www.instagram.com/johndoe
+              zillow_profile_url: https://www.zillow.com/profile/johndoe
+              facebook_profile_url: https://www.facebook.com/johndoe
+              twitter_profile_url: https://twitter.com/johndoe
+              linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            order_forms:
+            - name: BQ's Photography Order Form
+              id: 00000000-0000-0000-0000-000000000000
+              url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+            - name: BQ's Photography Order Form
+              id: 00000000-0000-0000-0000-000000000000
+              url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+            id: 00000000-0000-0000-0000-000000000000
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          images:
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 2
+            caption: This is the front of the house.
+            display_in_gallery: true
+            id: 1
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 2
+            caption: This is the front of the house.
+            display_in_gallery: true
+            id: 1
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          address:
+            formatted_address_1: 107 South St
+            city: Boston
+            formatted_address_2: Boston, MA 02111, US
+            latitude: 42.3537627
+            address_line_1: 107 South St
+            id: 1
+            full_address: 107 South St
+            address_line_2: 'Unit #1'
+            state: MA
+            postal_code: "02111"
+            place_id: "000000000000000000000000000"
+            longitude: -71.0530544
+          videos:
+          - display_type: branded
+            seconds: 360
+            share_url: https://www.aryeo.com/v2/00000000-0000-0000-0000-000000000000/videos/1
+            download_url: https://videos.aryeo.com/listings/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000.mp4
+            source_type: optimized
+            id: 1
+            playback_url: https://player.vimeo.com/video/76979871
+            title: 123 Main Street Video Walkthrough
+            thumbnail_url: https://via.placeholder.com/300.jpg
+          - display_type: branded
+            seconds: 360
+            share_url: https://www.aryeo.com/v2/00000000-0000-0000-0000-000000000000/videos/1
+            download_url: https://videos.aryeo.com/listings/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000.mp4
+            source_type: optimized
+            id: 1
+            playback_url: https://player.vimeo.com/video/76979871
+            title: 123 Main Street Video Walkthrough
+            thumbnail_url: https://via.placeholder.com/300.jpg
+          downloads_enabled: true
+          thumbnail_url: https://via.placeholder.com/300.jpg
+          interactive_content:
+          - display_type: branded
+            content_type: matterport
+            id: 00000000-0000-0000-0000-000000000000
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+          - display_type: branded
+            content_type: matterport
+            id: 00000000-0000-0000-0000-000000000000
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+          co_agent:
+            default_order_form:
+              name: BQ's Photography Order Form
+              id: 00000000-0000-0000-0000-000000000000
+              url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+            website: https://www.aryeo.com
+            agent_properties:
+              brokerage_name: John Doe Brokerage
+              agent_license_number: "12345678"
+              agent_avatar: https://via.placeholder.com/300.jpg
+            group_type: agent
+            users:
+            - phone: "123456789"
+              timezone: America/New_York
+              last_name: Doe
+              id: 00000000-0000-0000-0000-000000000000
+              avatar: https://via.placeholder.com/300.jpg
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - phone: "123456789"
+              timezone: America/New_York
+              last_name: Doe
+              id: 00000000-0000-0000-0000-000000000000
+              avatar: https://via.placeholder.com/300.jpg
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            social_profiles:
+              instagram_profile_url: https://www.instagram.com/johndoe
+              zillow_profile_url: https://www.zillow.com/profile/johndoe
+              facebook_profile_url: https://www.facebook.com/johndoe
+              twitter_profile_url: https://twitter.com/johndoe
+              linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+            phone: "6175550173"
+            name: John Doe Reality
+            logo: https://via.placeholder.com/300.jpg
+            order_forms:
+            - name: BQ's Photography Order Form
+              id: 00000000-0000-0000-0000-000000000000
+              url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+            - name: BQ's Photography Order Form
+              id: 00000000-0000-0000-0000-000000000000
+              url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+            id: 00000000-0000-0000-0000-000000000000
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          orders:
+          - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+            fulfillment_status: fulfilled
+            display_id: 100
+            total_price_cents: 2099
+            payment_status: paid
+            currency:
+              symbol: $
+              name: USD
+              id: usd
+              enabled: true
+            id: 00000000-0000-0000-0000-000000000000
+            listing:
+              property_details:
+                bedrooms: 4
+                price: 250000
+                lot_acres: 0.47
+                mls_number: "8137899"
+                property_type: Single Family
+                description: There are technically no designated parking spots; however,
+                  the driveway, on the back of the house, can easily park 3 standard-sized
+                  vehicles.
+                square_feet: 2511
+                year_built: 1960
+                bathrooms: 3.5
+                parking_spots: 3
+              agent:
+                phone: "6175550173"
+                name: John Doe Reality
+                logo: https://via.placeholder.com/300.jpg
+                id: 00000000-0000-0000-0000-000000000000
+                group_type: agent
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              address:
+                formatted_address_1: 107 South St
+                city: Boston
+                formatted_address_2: Boston, MA 02111, US
+                latitude: 42.3537627
+                address_line_1: 107 South St
+                id: 1
+                full_address: 107 South St
+                address_line_2: 'Unit #1'
+                state: MA
+                postal_code: "02111"
+                place_id: "000000000000000000000000000"
+                longitude: -71.0530544
+              downloads_enabled: true
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              bathrooms: 3.5
+              branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+              bedrooms: 4
+              price: 250000
+              co_agent:
+                phone: "6175550173"
+                name: John Doe Reality
+                logo: https://via.placeholder.com/300.jpg
+                id: 00000000-0000-0000-0000-000000000000
+                group_type: agent
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              square_feet: 2511
+              id: 00000000-0000-0000-0000-000000000000
+              delivery_status: delivered
+              status: For Sale
+          - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+            fulfillment_status: fulfilled
+            display_id: 100
+            total_price_cents: 2099
+            payment_status: paid
+            currency:
+              symbol: $
+              name: USD
+              id: usd
+              enabled: true
+            id: 00000000-0000-0000-0000-000000000000
+            listing:
+              property_details:
+                bedrooms: 4
+                price: 250000
+                lot_acres: 0.47
+                mls_number: "8137899"
+                property_type: Single Family
+                description: There are technically no designated parking spots; however,
+                  the driveway, on the back of the house, can easily park 3 standard-sized
+                  vehicles.
+                square_feet: 2511
+                year_built: 1960
+                bathrooms: 3.5
+                parking_spots: 3
+              agent:
+                phone: "6175550173"
+                name: John Doe Reality
+                logo: https://via.placeholder.com/300.jpg
+                id: 00000000-0000-0000-0000-000000000000
+                group_type: agent
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              address:
+                formatted_address_1: 107 South St
+                city: Boston
+                formatted_address_2: Boston, MA 02111, US
+                latitude: 42.3537627
+                address_line_1: 107 South St
+                id: 1
+                full_address: 107 South St
+                address_line_2: 'Unit #1'
+                state: MA
+                postal_code: "02111"
+                place_id: "000000000000000000000000000"
+                longitude: -71.0530544
+              downloads_enabled: true
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              bathrooms: 3.5
+              branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+              bedrooms: 4
+              price: 250000
+              co_agent:
+                phone: "6175550173"
+                name: John Doe Reality
+                logo: https://via.placeholder.com/300.jpg
+                id: 00000000-0000-0000-0000-000000000000
+                group_type: agent
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              square_feet: 2511
+              id: 00000000-0000-0000-0000-000000000000
+              delivery_status: delivered
+              status: For Sale
+          id: 00000000-0000-0000-0000-000000000000
+          delivery_status: delivered
+          floor_plans:
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 1
+            id: 1
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            title: Downstairs floorplan
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 1
+            id: 1
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            title: Downstairs floorplan
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          property_websites:
+            branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+            unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+            id: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/Listing'
+      title: ListingResource
+      type: object
+    OrderCollection:
+      description: A collection of orders.
+      example:
+        data:
+        - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+          fulfillment_status: fulfilled
+          display_id: 100
+          total_price_cents: 2099
+          payment_status: paid
+          currency:
+            symbol: $
+            name: USD
+            id: usd
+            enabled: true
+          id: 00000000-0000-0000-0000-000000000000
+          listing:
+            property_details:
+              bedrooms: 4
+              price: 250000
+              lot_acres: 0.47
+              mls_number: "8137899"
+              property_type: Single Family
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+              parking_spots: 3
+            agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            address:
+              formatted_address_1: 107 South St
+              city: Boston
+              formatted_address_2: Boston, MA 02111, US
+              latitude: 42.3537627
+              address_line_1: 107 South St
+              id: 1
+              full_address: 107 South St
+              address_line_2: 'Unit #1'
+              state: MA
+              postal_code: "02111"
+              place_id: "000000000000000000000000000"
+              longitude: -71.0530544
+            downloads_enabled: true
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            bathrooms: 3.5
+            branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+            bedrooms: 4
+            price: 250000
+            co_agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            square_feet: 2511
+            id: 00000000-0000-0000-0000-000000000000
+            delivery_status: delivered
+            status: For Sale
+        - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+          fulfillment_status: fulfilled
+          display_id: 100
+          total_price_cents: 2099
+          payment_status: paid
+          currency:
+            symbol: $
+            name: USD
+            id: usd
+            enabled: true
+          id: 00000000-0000-0000-0000-000000000000
+          listing:
+            property_details:
+              bedrooms: 4
+              price: 250000
+              lot_acres: 0.47
+              mls_number: "8137899"
+              property_type: Single Family
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+              parking_spots: 3
+            agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            address:
+              formatted_address_1: 107 South St
+              city: Boston
+              formatted_address_2: Boston, MA 02111, US
+              latitude: 42.3537627
+              address_line_1: 107 South St
+              id: 1
+              full_address: 107 South St
+              address_line_2: 'Unit #1'
+              state: MA
+              postal_code: "02111"
+              place_id: "000000000000000000000000000"
+              longitude: -71.0530544
+            downloads_enabled: true
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            bathrooms: 3.5
+            branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+            bedrooms: 4
+            price: 250000
+            co_agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            square_feet: 2511
+            id: 00000000-0000-0000-0000-000000000000
+            delivery_status: delivered
+            status: For Sale
+        meta:
+          per_page: 15
+          path: https://api.aryeo.com/v1/{path}
+          total: 50
+          last_page: 4
+          from: 1
+          to: 15
+          current_page: 1
+        links:
+          next: https://api.aryeo.com/v1/{path}?page=3
+          last: https://api.aryeo.com/v1/{path}?page=10
+          prev: https://api.aryeo.com/v1/{path}?page=2
+          first: https://api.aryeo.com/v1/{path}?page=1
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Order'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+      title: OrderCollection
+      type: object
+    ProductItem:
+      description: A subtype or part of a product that a group is selling.
+      example:
+        id: 00000000-0000-0000-0000-000000000000
+      properties:
+        id:
+          description: ID of the product item.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+      title: ProductItem
+      type: object
+    OrderPostPayload:
+      description: Payload for creating an order.
+      example:
+        product_items:
+        - id: 00000000-0000-0000-0000-000000000000
+        - id: 00000000-0000-0000-0000-000000000000
+        fulfillment_status: fulfilled
+        payment_status: paid
+      properties:
+        fulfillment_status:
+          description: The fulfillment status of the order.
+          enum:
+          - fulfilled
+          - unfulfilled
+          example: fulfilled
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        payment_status:
+          description: The payment status of the order.
+          enum:
+          - paid
+          - unpaid
+          example: paid
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
+        product_items:
+          description: product_items
+          items:
+            $ref: '#/components/schemas/ProductItem'
+          type: array
+      title: OrderPostPayload
+      type: object
+    OrderResource:
+      description: An order.
+      example:
+        data:
+          payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
+          fulfillment_status: fulfilled
+          display_id: 100
+          total_price_cents: 2099
+          payment_status: paid
+          currency:
+            symbol: $
+            name: USD
+            id: usd
+            enabled: true
+          id: 00000000-0000-0000-0000-000000000000
+          listing:
+            property_details:
+              bedrooms: 4
+              price: 250000
+              lot_acres: 0.47
+              mls_number: "8137899"
+              property_type: Single Family
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+              parking_spots: 3
+            agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            address:
+              formatted_address_1: 107 South St
+              city: Boston
+              formatted_address_2: Boston, MA 02111, US
+              latitude: 42.3537627
+              address_line_1: 107 South St
+              id: 1
+              full_address: 107 South St
+              address_line_2: 'Unit #1'
+              state: MA
+              postal_code: "02111"
+              place_id: "000000000000000000000000000"
+              longitude: -71.0530544
+            downloads_enabled: true
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            bathrooms: 3.5
+            branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+            bedrooms: 4
+            price: 250000
+            co_agent:
+              phone: "6175550173"
+              name: John Doe Reality
+              logo: https://via.placeholder.com/300.jpg
+              id: 00000000-0000-0000-0000-000000000000
+              group_type: agent
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            square_feet: 2511
+            id: 00000000-0000-0000-0000-000000000000
+            delivery_status: delivered
+            status: For Sale
+      properties:
+        data:
+          $ref: '#/components/schemas/Order'
+      title: OrderResource
+      type: object
+    GroupCollection:
+      description: A collection of groups.
+      example:
+        data:
+        - default_order_form:
+            name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          website: https://www.aryeo.com
+          agent_properties:
+            brokerage_name: John Doe Brokerage
+            agent_license_number: "12345678"
+            agent_avatar: https://via.placeholder.com/300.jpg
+          group_type: agent
+          users:
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          social_profiles:
+            instagram_profile_url: https://www.instagram.com/johndoe
+            zillow_profile_url: https://www.zillow.com/profile/johndoe
+            facebook_profile_url: https://www.facebook.com/johndoe
+            twitter_profile_url: https://twitter.com/johndoe
+            linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+          phone: "6175550173"
+          name: John Doe Reality
+          logo: https://via.placeholder.com/300.jpg
+          order_forms:
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          id: 00000000-0000-0000-0000-000000000000
+          email: john.doe@gmail.com
+          is_brokerage_or_brokerage_agent: true
+        - default_order_form:
+            name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          website: https://www.aryeo.com
+          agent_properties:
+            brokerage_name: John Doe Brokerage
+            agent_license_number: "12345678"
+            agent_avatar: https://via.placeholder.com/300.jpg
+          group_type: agent
+          users:
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - phone: "123456789"
+            timezone: America/New_York
+            last_name: Doe
+            id: 00000000-0000-0000-0000-000000000000
+            avatar: https://via.placeholder.com/300.jpg
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          social_profiles:
+            instagram_profile_url: https://www.instagram.com/johndoe
+            zillow_profile_url: https://www.zillow.com/profile/johndoe
+            facebook_profile_url: https://www.facebook.com/johndoe
+            twitter_profile_url: https://twitter.com/johndoe
+            linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+          phone: "6175550173"
+          name: John Doe Reality
+          logo: https://via.placeholder.com/300.jpg
+          order_forms:
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          - name: BQ's Photography Order Form
+            id: 00000000-0000-0000-0000-000000000000
+            url: https://www.aryeo.com/order-forms/00000000-0000-0000-0000-000000000000
+          id: 00000000-0000-0000-0000-000000000000
+          email: john.doe@gmail.com
+          is_brokerage_or_brokerage_agent: true
+        meta:
+          per_page: 15
+          path: https://api.aryeo.com/v1/{path}
+          total: 50
+          last_page: 4
+          from: 1
+          to: 15
+          current_page: 1
+        links:
+          next: https://api.aryeo.com/v1/{path}?page=3
+          last: https://api.aryeo.com/v1/{path}?page=10
+          prev: https://api.aryeo.com/v1/{path}?page=2
+          first: https://api.aryeo.com/v1/{path}?page=1
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Group'
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+      title: GroupCollection
+      type: object
+  securitySchemes:
+    JWT:
+      bearerFormat: JWT
+      description: 'A JSON Web Token (JWT) overriden to accept your API key. The API
+        key should be supplied in the authorization header: `Authorization: Bearer
+        {key}`.'
+      scheme: bearer
+      type: http
