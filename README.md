@@ -35,11 +35,11 @@ import (
 )
 
 func main() {
-    id := "68f7116c-4811-4c96-8a23-8a25ede18455"
+    id := "UUID"
 
     configuration := aryeo.NewConfiguration()
     api_client := aryeo.NewAPIClient(configuration)
-    auth := context.WithValue(context.Background(), aryeo.ContextAccessToken, "439|hYl9ugFazT7f2a4d7Mc9nxj6ZycMJDX7P0VoqAJM")
+    auth := context.WithValue(context.Background(), aryeo.ContextAccessToken, "API_KEY")
     resp, r, err := api_client.ListingsApi.GetListingsId(auth, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ListingsApi.GetListingsId``: %v\n", err)
