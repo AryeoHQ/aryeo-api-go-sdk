@@ -31,6 +31,8 @@ servers:
 tags:
 - description: Operations related to listings.
   name: listings
+- description: Operations related to marketing materials.
+  name: marketing-materials
 - description: Operations related to orders.
   name: orders
 - description: Operations related to vendors.
@@ -424,6 +426,72 @@ paths:
       summary: Get vendors that can be added to the group's vendor list.
       tags:
       - vendors
+  /marketing-materials/{uuid}/publish:
+    put:
+      description: Publish a marketing material.
+      operationId: put-marketing-materials-uuid-publish
+      parameters:
+      - description: UUID of the marketing material record.
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          example: 05a1c594-f469-483c-b490-51d790090593
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/MarketingMaterialPublishPayload'
+        content:
+          application/json:
+            schema:
+              description: Payload for publishing a marketing material record.
+              example:
+                polotno_json: '{"width": 850, "height": 1100}'
+              properties:
+                polotno_json:
+                  description: String representation of a polotno JSON object.
+                  example: '{"width": 850, "height": 1100}'
+                  maxLength: 99999999
+                  minLength: 0
+                  type: string
+              title: MarketingMaterialPublishPayload
+              type: object
+      responses:
+        "204":
+          description: No Content
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Publish a marketing material.
+      tags:
+      - marketing-materials
 components:
   requestBodies:
     OrderPostPayload:
@@ -431,6 +499,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/OrderPostPayload'
+    MarketingMaterialPublishPayload:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MarketingMaterialPublishPayload'
   schemas:
     PartialAddress:
       description: A structure containing a street address and additional metadata
@@ -1450,6 +1523,7 @@ components:
         display_in_gallery: true
         id: 1
         thumbnail_url: https://via.placeholder.com/250x200.jpg
+        uuid: 08a5e64a-519e-422e-8030-80eece6a5501
         large_url: https://via.placeholder.com/1750x1400.jpg
       properties:
         id:
@@ -1457,6 +1531,14 @@ components:
           example: 1
           nullable: false
           type: integer
+        uuid:
+          description: The UUID of the image.
+          example: 08a5e64a-519e-422e-8030-80eece6a5501
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          nullable: true
+          type: string
         thumbnail_url:
           description: A URL for a thumbnail-sized version of the image.
           example: https://via.placeholder.com/250x200.jpg
@@ -1871,6 +1953,7 @@ components:
           id: 00000000-0000-0000-0000-000000000000
           delivery_status: delivered
           status: For Sale
+        status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
       properties:
         id:
           description: ID of the order.
@@ -1922,6 +2005,13 @@ components:
           maxLength: 255
           minLength: 0
           nullable: false
+          type: string
+        status_url:
+          description: A URL to see the order's status.
+          example: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
+          maxLength: 65535
+          minLength: 0
+          nullable: true
           type: string
       required:
       - currency
@@ -2002,6 +2092,7 @@ components:
           display_in_gallery: true
           id: 1
           thumbnail_url: https://via.placeholder.com/250x200.jpg
+          uuid: 08a5e64a-519e-422e-8030-80eece6a5501
           large_url: https://via.placeholder.com/1750x1400.jpg
         - original_url: https://via.placeholder.com/2500x2000.jpg
           index: 2
@@ -2009,6 +2100,7 @@ components:
           display_in_gallery: true
           id: 1
           thumbnail_url: https://via.placeholder.com/250x200.jpg
+          uuid: 08a5e64a-519e-422e-8030-80eece6a5501
           large_url: https://via.placeholder.com/1750x1400.jpg
         address:
           formatted_address_1: 107 South St
@@ -2167,6 +2259,7 @@ components:
             id: 00000000-0000-0000-0000-000000000000
             delivery_status: delivered
             status: For Sale
+          status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
         - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
           fulfillment_status: fulfilled
           display_id: 100
@@ -2231,6 +2324,7 @@ components:
             id: 00000000-0000-0000-0000-000000000000
             delivery_status: delivered
             status: For Sale
+          status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
         id: 00000000-0000-0000-0000-000000000000
         delivery_status: delivered
         floor_plans:
@@ -2395,6 +2489,7 @@ components:
             display_in_gallery: true
             id: 1
             thumbnail_url: https://via.placeholder.com/250x200.jpg
+            uuid: 08a5e64a-519e-422e-8030-80eece6a5501
             large_url: https://via.placeholder.com/1750x1400.jpg
           - original_url: https://via.placeholder.com/2500x2000.jpg
             index: 2
@@ -2402,6 +2497,7 @@ components:
             display_in_gallery: true
             id: 1
             thumbnail_url: https://via.placeholder.com/250x200.jpg
+            uuid: 08a5e64a-519e-422e-8030-80eece6a5501
             large_url: https://via.placeholder.com/1750x1400.jpg
           address:
             formatted_address_1: 107 South St
@@ -2560,6 +2656,7 @@ components:
               id: 00000000-0000-0000-0000-000000000000
               delivery_status: delivered
               status: For Sale
+            status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
           - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
             fulfillment_status: fulfilled
             display_id: 100
@@ -2624,6 +2721,7 @@ components:
               id: 00000000-0000-0000-0000-000000000000
               delivery_status: delivered
               status: For Sale
+            status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
           id: 00000000-0000-0000-0000-000000000000
           delivery_status: delivered
           floor_plans:
@@ -2716,6 +2814,7 @@ components:
             id: 00000000-0000-0000-0000-000000000000
             delivery_status: delivered
             status: For Sale
+          status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
         - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-0000-0000-000000000000?pageType=order
           fulfillment_status: fulfilled
           display_id: 100
@@ -2780,6 +2879,7 @@ components:
             id: 00000000-0000-0000-0000-000000000000
             delivery_status: delivered
             status: For Sale
+          status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
         meta:
           per_page: 15
           path: https://api.aryeo.com/v1/{path}
@@ -2923,6 +3023,7 @@ components:
             id: 00000000-0000-0000-0000-000000000000
             delivery_status: delivered
             status: For Sale
+          status_url: https://www.aryeo.com/v2/orders/92b714d7-4a95-4707-8f25-16e6ae077d1f/status/public
       properties:
         data:
           $ref: '#/components/schemas/Order'
@@ -3047,6 +3148,19 @@ components:
         links:
           $ref: '#/components/schemas/PaginationLinks'
       title: GroupCollection
+      type: object
+    MarketingMaterialPublishPayload:
+      description: Payload for publishing a marketing material record.
+      example:
+        polotno_json: '{"width": 850, "height": 1100}'
+      properties:
+        polotno_json:
+          description: String representation of a polotno JSON object.
+          example: '{"width": 850, "height": 1100}'
+          maxLength: 99999999
+          minLength: 0
+          type: string
+      title: MarketingMaterialPublishPayload
       type: object
   securitySchemes:
     JWT:

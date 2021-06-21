@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int32** | ID of the image. | 
+**Uuid** | Pointer to **NullableString** | The UUID of the image. | [optional] 
 **ThumbnailUrl** | **string** | A URL for a thumbnail-sized version of the image. | 
 **LargeUrl** | **string** | A URL for a large version of the image. | 
 **OriginalUrl** | **string** | A URL for the original, full-resolution version of the image. Useful for downloading. | 
@@ -51,6 +52,41 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
+### GetUuid
+
+`func (o *Image) GetUuid() string`
+
+GetUuid returns the Uuid field if non-nil, zero value otherwise.
+
+### GetUuidOk
+
+`func (o *Image) GetUuidOk() (*string, bool)`
+
+GetUuidOk returns a tuple with the Uuid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUuid
+
+`func (o *Image) SetUuid(v string)`
+
+SetUuid sets Uuid field to given value.
+
+### HasUuid
+
+`func (o *Image) HasUuid() bool`
+
+HasUuid returns a boolean if a field has been set.
+
+### SetUuidNil
+
+`func (o *Image) SetUuidNil(b bool)`
+
+ SetUuidNil sets the value for Uuid to be an explicit nil
+
+### UnsetUuid
+`func (o *Image) UnsetUuid()`
+
+UnsetUuid ensures that no value is present for Uuid, not even an explicit nil
 ### GetThumbnailUrl
 
 `func (o *Image) GetThumbnailUrl() string`

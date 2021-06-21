@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **PaymentUrl** | Pointer to **NullableString** | A URL for to pay for the order. | [optional] 
 **Listing** | Pointer to [**PartialListing**](PartialListing.md) |  | [optional] 
 **FulfillmentStatus** | **string** | The fulfillment status of the order. | 
+**StatusUrl** | Pointer to **NullableString** | A URL to see the order&#39;s status. | [optional] 
 
 ## Methods
 
@@ -212,6 +213,41 @@ and a boolean to check if the value has been set.
 SetFulfillmentStatus sets FulfillmentStatus field to given value.
 
 
+### GetStatusUrl
+
+`func (o *Order) GetStatusUrl() string`
+
+GetStatusUrl returns the StatusUrl field if non-nil, zero value otherwise.
+
+### GetStatusUrlOk
+
+`func (o *Order) GetStatusUrlOk() (*string, bool)`
+
+GetStatusUrlOk returns a tuple with the StatusUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatusUrl
+
+`func (o *Order) SetStatusUrl(v string)`
+
+SetStatusUrl sets StatusUrl field to given value.
+
+### HasStatusUrl
+
+`func (o *Order) HasStatusUrl() bool`
+
+HasStatusUrl returns a boolean if a field has been set.
+
+### SetStatusUrlNil
+
+`func (o *Order) SetStatusUrlNil(b bool)`
+
+ SetStatusUrlNil sets the value for StatusUrl to be an explicit nil
+
+### UnsetStatusUrl
+`func (o *Order) UnsetStatusUrl()`
+
+UnsetStatusUrl ensures that no value is present for StatusUrl, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

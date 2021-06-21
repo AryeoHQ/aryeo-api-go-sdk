@@ -28,6 +28,8 @@ type Order struct {
 	Listing *PartialListing `json:"listing,omitempty"`
 	// The fulfillment status of the order.
 	FulfillmentStatus string `json:"fulfillment_status"`
+	// A URL to see the order's status.
+	StatusUrl NullableString `json:"status_url,omitempty"`
 }
 
 // NewOrder instantiates a new Order object
@@ -271,6 +273,48 @@ func (o *Order) SetFulfillmentStatus(v string) {
 	o.FulfillmentStatus = v
 }
 
+// GetStatusUrl returns the StatusUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Order) GetStatusUrl() string {
+	if o == nil || o.StatusUrl.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.StatusUrl.Get()
+}
+
+// GetStatusUrlOk returns a tuple with the StatusUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Order) GetStatusUrlOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.StatusUrl.Get(), o.StatusUrl.IsSet()
+}
+
+// HasStatusUrl returns a boolean if a field has been set.
+func (o *Order) HasStatusUrl() bool {
+	if o != nil && o.StatusUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStatusUrl gets a reference to the given NullableString and assigns it to the StatusUrl field.
+func (o *Order) SetStatusUrl(v string) {
+	o.StatusUrl.Set(&v)
+}
+// SetStatusUrlNil sets the value for StatusUrl to be an explicit nil
+func (o *Order) SetStatusUrlNil() {
+	o.StatusUrl.Set(nil)
+}
+
+// UnsetStatusUrl ensures that no value is present for StatusUrl, not even an explicit nil
+func (o *Order) UnsetStatusUrl() {
+	o.StatusUrl.Unset()
+}
+
 func (o Order) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -296,6 +340,9 @@ func (o Order) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["fulfillment_status"] = o.FulfillmentStatus
+	}
+	if o.StatusUrl.IsSet() {
+		toSerialize["status_url"] = o.StatusUrl.Get()
 	}
 	return json.Marshal(toSerialize)
 }
