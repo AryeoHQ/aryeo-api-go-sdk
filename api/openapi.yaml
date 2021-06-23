@@ -492,8 +492,79 @@ paths:
       summary: Publish a marketing material.
       tags:
       - marketing-materials
+  /marketing-materials/templates/{uuid}/publish:
+    put:
+      description: Publish a marketing material template.
+      operationId: put-marketing-materials-templates-uuid-publish
+      parameters:
+      - description: UUID of the marketing material template record.
+        explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          example: 05a1c594-f469-483c-b490-51d790090593
+          format: uuid
+          maxLength: 255
+          minLength: 0
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/MarketingMaterialTemplatePublishPayload'
+        content:
+          application/json:
+            schema:
+              description: Payload for publishing a marketing material template record.
+              example:
+                polotno_json: '{"width": 850, "height": 1100}'
+              properties:
+                polotno_json:
+                  description: String representation of a polotno JSON object.
+                  example: '{"width": 850, "height": 1100}'
+                  maxLength: 99999999
+                  minLength: 0
+                  type: string
+              title: MarketingMaterialTemplatePublishPayload
+              type: object
+      responses:
+        "204":
+          description: No Content
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - JWT: []
+      summary: Publish a marketing material template.
+      tags:
+      - marketing-materials
 components:
   requestBodies:
+    MarketingMaterialTemplatePublishPayload:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MarketingMaterialTemplatePublishPayload'
     OrderPostPayload:
       content:
         application/json:
@@ -3161,6 +3232,19 @@ components:
           minLength: 0
           type: string
       title: MarketingMaterialPublishPayload
+      type: object
+    MarketingMaterialTemplatePublishPayload:
+      description: Payload for publishing a marketing material template record.
+      example:
+        polotno_json: '{"width": 850, "height": 1100}'
+      properties:
+        polotno_json:
+          description: String representation of a polotno JSON object.
+          example: '{"width": 850, "height": 1100}'
+          maxLength: 99999999
+          minLength: 0
+          type: string
+      title: MarketingMaterialTemplatePublishPayload
       type: object
   securitySchemes:
     JWT:
