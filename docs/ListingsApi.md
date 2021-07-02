@@ -5,7 +5,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetListings**](ListingsApi.md#GetListings) | **Get** /listings | Get the listings available to a group.
-[**GetListingsId**](ListingsApi.md#GetListingsId) | **Get** /listings/{id} | Get information about a listing.
+[**GetListingsId**](ListingsApi.md#GetListingsId) | **Get** /listings/{uuid} | Get information about a listing.
 
 
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ## GetListingsId
 
-> ListingResource GetListingsId(ctx, id).Execute()
+> ListingResource GetListingsId(ctx, uuid).Execute()
 
 Get information about a listing.
 
@@ -108,11 +108,11 @@ import (
 )
 
 func main() {
-    id := TODO // string | The UUID of a listing.
+    uuid := TODO // string | The UUID of a listing.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ListingsApi.GetListingsId(context.Background(), id).Execute()
+    resp, r, err := api_client.ListingsApi.GetListingsId(context.Background(), uuid).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ListingsApi.GetListingsId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -128,7 +128,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | [**string**](.md) | The UUID of a listing. | 
+**uuid** | [**string**](.md) | The UUID of a listing. | 
 
 ### Other Parameters
 

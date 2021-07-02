@@ -35,12 +35,12 @@ import (
 )
 
 func main() {
-    id := "UUID"
+    uuid := "UUID"
 
     configuration := aryeo.NewConfiguration()
     api_client := aryeo.NewAPIClient(configuration)
     auth := context.WithValue(context.Background(), aryeo.ContextAccessToken, "API_KEY")
-    resp, r, err := api_client.ListingsApi.GetListingsId(auth, id).Execute()
+    resp, r, err := api_client.ListingsApi.GetListingsId(auth, uuid).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ListingsApi.GetListingsId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -98,9 +98,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ListingsApi* | [**GetListings**](docs/ListingsApi.md#getlistings) | **Get** /listings | Get the listings available to a group.
-*ListingsApi* | [**GetListingsId**](docs/ListingsApi.md#getlistingsid) | **Get** /listings/{id} | Get information about a listing.
-*MarketingMaterialsApi* | [**PutMarketingMaterialsTemplatesUuidPublish**](docs/MarketingMaterialsApi.md#putmarketingmaterialstemplatesuuidpublish) | **Put** /marketing-materials/templates/{uuid}/publish | Publish a marketing material template.
-*MarketingMaterialsApi* | [**PutMarketingMaterialsUuidPublish**](docs/MarketingMaterialsApi.md#putmarketingmaterialsuuidpublish) | **Put** /marketing-materials/{uuid}/publish | Publish a marketing material.
+*ListingsApi* | [**GetListingsId**](docs/ListingsApi.md#getlistingsid) | **Get** /listings/{uuid} | Get information about a listing.
 *OrdersApi* | [**GetOrders**](docs/OrdersApi.md#getorders) | **Get** /orders | Get orders available to a group.
 *OrdersApi* | [**PostOrders**](docs/OrdersApi.md#postorders) | **Post** /orders | Create an order.
 *VendorsApi* | [**GetVendors**](docs/VendorsApi.md#getvendors) | **Get** /vendors | Get vendors available to a group.
@@ -119,8 +117,6 @@ Class | Method | HTTP request | Description
  - [InteractiveContent](docs/InteractiveContent.md)
  - [Listing](docs/Listing.md)
  - [ListingResource](docs/ListingResource.md)
- - [MarketingMaterialPublishPayload](docs/MarketingMaterialPublishPayload.md)
- - [MarketingMaterialTemplatePublishPayload](docs/MarketingMaterialTemplatePublishPayload.md)
  - [Order](docs/Order.md)
  - [OrderCollection](docs/OrderCollection.md)
  - [OrderForm](docs/OrderForm.md)

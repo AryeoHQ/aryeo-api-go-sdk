@@ -215,7 +215,7 @@ func (a *ListingsApiService) GetListingsExecute(r ApiGetListingsRequest) (Partia
 type ApiGetListingsIdRequest struct {
 	ctx _context.Context
 	ApiService *ListingsApiService
-	id string
+	uuid string
 }
 
 
@@ -227,14 +227,14 @@ func (r ApiGetListingsIdRequest) Execute() (ListingResource, *_nethttp.Response,
  * GetListingsId Get information about a listing.
  * Get information about a listing.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id The UUID of a listing.
+ * @param uuid The UUID of a listing.
  * @return ApiGetListingsIdRequest
  */
-func (a *ListingsApiService) GetListingsId(ctx _context.Context, id string) ApiGetListingsIdRequest {
+func (a *ListingsApiService) GetListingsId(ctx _context.Context, uuid string) ApiGetListingsIdRequest {
 	return ApiGetListingsIdRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		uuid: uuid,
 	}
 }
 
@@ -257,17 +257,17 @@ func (a *ListingsApiService) GetListingsIdExecute(r ApiGetListingsIdRequest) (Li
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/listings/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/listings/{uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if strlen(r.id) < 0 {
-		return localVarReturnValue, nil, reportError("id must have at least 0 elements")
+	if strlen(r.uuid) < 0 {
+		return localVarReturnValue, nil, reportError("uuid must have at least 0 elements")
 	}
-	if strlen(r.id) > 255 {
-		return localVarReturnValue, nil, reportError("id must have less than 255 elements")
+	if strlen(r.uuid) > 255 {
+		return localVarReturnValue, nil, reportError("uuid must have less than 255 elements")
 	}
 
 	// to determine the Content-Type header
