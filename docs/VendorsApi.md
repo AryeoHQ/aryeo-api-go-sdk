@@ -5,13 +5,13 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetVendors**](VendorsApi.md#GetVendors) | **Get** /vendors | Get vendors available to a group.
-[**GetVendorsSearch**](VendorsApi.md#GetVendorsSearch) | **Get** /vendors/search | Get vendors that can be added to the group&#39;s vendor list.
+[**GetVendorsId**](VendorsApi.md#GetVendorsId) | **Get** /vendors/{vendor_id} | Get vendors available to a group.
 
 
 
 ## GetVendors
 
-> GroupCollection GetVendors(ctx).Execute()
+> GroupCollection GetVendors(ctx).Include(include).Execute()
 
 Get vendors available to a group.
 
@@ -30,10 +30,11 @@ import (
 )
 
 func main() {
+    include := "users" // string | Comma separated list of optional data to include in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.VendorsApi.GetVendors(context.Background()).Execute()
+    resp, r, err := api_client.VendorsApi.GetVendors(context.Background()).Include(include).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `VendorsApi.GetVendors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -45,12 +46,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetVendorsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **include** | **string** | Comma separated list of optional data to include in the response. | 
 
 ### Return type
 
@@ -58,7 +63,7 @@ Other parameters are passed through a pointer to a apiGetVendorsRequest struct v
 
 ### Authorization
 
-[JWT](../README.md#JWT)
+[Token](../README.md#Token)
 
 ### HTTP request headers
 
@@ -70,11 +75,11 @@ Other parameters are passed through a pointer to a apiGetVendorsRequest struct v
 [[Back to README]](../README.md)
 
 
-## GetVendorsSearch
+## GetVendorsId
 
-> GroupCollection GetVendorsSearch(ctx).Query(query).PerPage(perPage).Page(page).Execute()
+> GroupResource GetVendorsId(ctx, vendorId).Include(include).Execute()
 
-Get vendors that can be added to the group's vendor list.
+Get vendors available to a group.
 
 
 
@@ -91,44 +96,46 @@ import (
 )
 
 func main() {
-    query := "Demo Photography Company" // string | A search query. (optional)
-    perPage := "25" // string | The number of items per page. Defaults to 25. (optional)
-    page := "2" // string | The requested page. Defaults to 1. (optional)
+    vendorId := TODO // string | ID of the group that is associated as a vendor.
+    include := "default_order_form" // string | Comma separated list of optional data to include in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.VendorsApi.GetVendorsSearch(context.Background()).Query(query).PerPage(perPage).Page(page).Execute()
+    resp, r, err := api_client.VendorsApi.GetVendorsId(context.Background(), vendorId).Include(include).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `VendorsApi.GetVendorsSearch``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `VendorsApi.GetVendorsId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetVendorsSearch`: GroupCollection
-    fmt.Fprintf(os.Stdout, "Response from `VendorsApi.GetVendorsSearch`: %v\n", resp)
+    // response from `GetVendorsId`: GroupResource
+    fmt.Fprintf(os.Stdout, "Response from `VendorsApi.GetVendorsId`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**vendorId** | [**string**](.md) | ID of the group that is associated as a vendor. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetVendorsSearchRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetVendorsIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **string** | A search query. | 
- **perPage** | **string** | The number of items per page. Defaults to 25. | 
- **page** | **string** | The requested page. Defaults to 1. | 
+
+ **include** | **string** | Comma separated list of optional data to include in the response. | 
 
 ### Return type
 
-[**GroupCollection**](GroupCollection.md)
+[**GroupResource**](GroupResource.md)
 
 ### Authorization
 
-[JWT](../README.md#JWT)
+[Token](../README.md#Token)
 
 ### HTTP request headers
 

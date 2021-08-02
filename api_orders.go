@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -27,8 +27,23 @@ type OrdersApiService service
 type ApiGetOrdersRequest struct {
 	ctx _context.Context
 	ApiService *OrdersApiService
+	sort *string
+	perPage *string
+	page *string
 }
 
+func (r ApiGetOrdersRequest) Sort(sort string) ApiGetOrdersRequest {
+	r.sort = &sort
+	return r
+}
+func (r ApiGetOrdersRequest) PerPage(perPage string) ApiGetOrdersRequest {
+	r.perPage = &perPage
+	return r
+}
+func (r ApiGetOrdersRequest) Page(page string) ApiGetOrdersRequest {
+	r.page = &page
+	return r
+}
 
 func (r ApiGetOrdersRequest) Execute() (OrderCollection, *_nethttp.Response, error) {
 	return r.ApiService.GetOrdersExecute(r)
@@ -72,6 +87,15 @@ func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollect
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.sort != nil {
+		localVarQueryParams.Add("sort", parameterToString(*r.sort, ""))
+	}
+	if r.perPage != nil {
+		localVarQueryParams.Add("per_page", parameterToString(*r.perPage, ""))
+	}
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -122,7 +146,7 @@ func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollect
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiFail
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -270,7 +294,7 @@ func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResou
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiFail
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

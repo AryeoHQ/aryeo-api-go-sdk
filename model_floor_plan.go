@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -15,13 +15,13 @@ import (
 // FloorPlan A scale diagram of the arrangement of a building.
 type FloorPlan struct {
 	// ID of the floor plan.
-	Id int32 `json:"id"`
-	// A URL for a thumbnail-sized version of the floor plan.
-	ThumbnailUrl string `json:"thumbnail_url"`
-	// A URL for a large version of the floor plan.
-	LargeUrl string `json:"large_url"`
+	Id string `json:"id"`
 	// A URL for the original, full-resolution version of the floor plan. Useful for downloading.
 	OriginalUrl string `json:"original_url"`
+	// A URL for a large version of the floor plan.
+	LargeUrl string `json:"large_url"`
+	// A URL for a thumbnail-sized version of the floor plan.
+	ThumbnailUrl string `json:"thumbnail_url"`
 	// The title (or caption) of the floor plan.
 	Title NullableString `json:"title,omitempty"`
 	// Index order position of the floor plan.
@@ -32,12 +32,12 @@ type FloorPlan struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFloorPlan(id int32, thumbnailUrl string, largeUrl string, originalUrl string) *FloorPlan {
+func NewFloorPlan(id string, originalUrl string, largeUrl string, thumbnailUrl string) *FloorPlan {
 	this := FloorPlan{}
 	this.Id = id
-	this.ThumbnailUrl = thumbnailUrl
-	this.LargeUrl = largeUrl
 	this.OriginalUrl = originalUrl
+	this.LargeUrl = largeUrl
+	this.ThumbnailUrl = thumbnailUrl
 	return &this
 }
 
@@ -50,9 +50,9 @@ func NewFloorPlanWithDefaults() *FloorPlan {
 }
 
 // GetId returns the Id field value
-func (o *FloorPlan) GetId() int32 {
+func (o *FloorPlan) GetId() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
@@ -61,7 +61,7 @@ func (o *FloorPlan) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *FloorPlan) GetIdOk() (*int32, bool) {
+func (o *FloorPlan) GetIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -69,32 +69,32 @@ func (o *FloorPlan) GetIdOk() (*int32, bool) {
 }
 
 // SetId sets field value
-func (o *FloorPlan) SetId(v int32) {
+func (o *FloorPlan) SetId(v string) {
 	o.Id = v
 }
 
-// GetThumbnailUrl returns the ThumbnailUrl field value
-func (o *FloorPlan) GetThumbnailUrl() string {
+// GetOriginalUrl returns the OriginalUrl field value
+func (o *FloorPlan) GetOriginalUrl() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ThumbnailUrl
+	return o.OriginalUrl
 }
 
-// GetThumbnailUrlOk returns a tuple with the ThumbnailUrl field value
+// GetOriginalUrlOk returns a tuple with the OriginalUrl field value
 // and a boolean to check if the value has been set.
-func (o *FloorPlan) GetThumbnailUrlOk() (*string, bool) {
+func (o *FloorPlan) GetOriginalUrlOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.ThumbnailUrl, true
+	return &o.OriginalUrl, true
 }
 
-// SetThumbnailUrl sets field value
-func (o *FloorPlan) SetThumbnailUrl(v string) {
-	o.ThumbnailUrl = v
+// SetOriginalUrl sets field value
+func (o *FloorPlan) SetOriginalUrl(v string) {
+	o.OriginalUrl = v
 }
 
 // GetLargeUrl returns the LargeUrl field value
@@ -121,28 +121,28 @@ func (o *FloorPlan) SetLargeUrl(v string) {
 	o.LargeUrl = v
 }
 
-// GetOriginalUrl returns the OriginalUrl field value
-func (o *FloorPlan) GetOriginalUrl() string {
+// GetThumbnailUrl returns the ThumbnailUrl field value
+func (o *FloorPlan) GetThumbnailUrl() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.OriginalUrl
+	return o.ThumbnailUrl
 }
 
-// GetOriginalUrlOk returns a tuple with the OriginalUrl field value
+// GetThumbnailUrlOk returns a tuple with the ThumbnailUrl field value
 // and a boolean to check if the value has been set.
-func (o *FloorPlan) GetOriginalUrlOk() (*string, bool) {
+func (o *FloorPlan) GetThumbnailUrlOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.OriginalUrl, true
+	return &o.ThumbnailUrl, true
 }
 
-// SetOriginalUrl sets field value
-func (o *FloorPlan) SetOriginalUrl(v string) {
-	o.OriginalUrl = v
+// SetThumbnailUrl sets field value
+func (o *FloorPlan) SetThumbnailUrl(v string) {
+	o.ThumbnailUrl = v
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -235,13 +235,13 @@ func (o FloorPlan) MarshalJSON() ([]byte, error) {
 		toSerialize["id"] = o.Id
 	}
 	if true {
-		toSerialize["thumbnail_url"] = o.ThumbnailUrl
+		toSerialize["original_url"] = o.OriginalUrl
 	}
 	if true {
 		toSerialize["large_url"] = o.LargeUrl
 	}
 	if true {
-		toSerialize["original_url"] = o.OriginalUrl
+		toSerialize["thumbnail_url"] = o.ThumbnailUrl
 	}
 	if o.Title.IsSet() {
 		toSerialize["title"] = o.Title.Get()

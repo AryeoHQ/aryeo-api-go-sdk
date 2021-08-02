@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -16,37 +16,43 @@ import (
 type Group struct {
 	// ID of the group.
 	Id string `json:"id"`
-	// The type of group.
-	GroupType string `json:"group_type"`
+	// The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned.
+	Type string `json:"type"`
 	// The name of the group.
 	Name string `json:"name"`
-	// Group logo.
-	Logo NullableString `json:"logo,omitempty"`
-	// Email.
+	// The email address of a group.
 	Email NullableString `json:"email,omitempty"`
-	// Phone number.
+	// A phone number represented in whichever standards specified by the group, typically ###-###-#### (separated by hyphens).
 	Phone NullableString `json:"phone,omitempty"`
-	// Website.
-	Website NullableString `json:"website,omitempty"`
+	// The website URL of a group.
+	WebsiteUrl NullableString `json:"website_url,omitempty"`
+	// The logo URL of a group.
+	LogoUrl NullableString `json:"logo_url,omitempty"`
+	// The profile image URL of a real estate agent. Only returned if group's type is AGENT.
+	AvatarUrl NullableString `json:"avatar_url,omitempty"`
+	// The name of the brokerage or team of a real estate agent. Only returned if group's type is AGENT.
+	OfficeName NullableString `json:"office_name,omitempty"`
+	// The license number of a real estate agent. Only returned if group's type is AGENT.
+	LicenseNumber NullableString `json:"license_number,omitempty"`
+	SocialProfiles *SocialProfiles `json:"social_profiles,omitempty"`
+	DefaultOrderForm *OrderForm `json:"default_order_form,omitempty"`
+	// An array of order forms a vendor group provides for placing orders. Only returned if group's type is CREATOR. 
+	OrderForms []OrderForm `json:"order_forms,omitempty"`
+	Owner *User `json:"owner,omitempty"`
+	// The Aryeo users associated with this group.
+	Users []User `json:"users,omitempty"`
 	// Does this group represent a brokerage or an agent who belongs to a brokerage?
 	IsBrokerageOrBrokerageAgent bool `json:"is_brokerage_or_brokerage_agent"`
-	SocialProfiles *SocialProfiles `json:"social_profiles,omitempty"`
-	AgentProperties *GroupAgentProperties `json:"agent_properties,omitempty"`
-	// users
-	Users *[]User `json:"users,omitempty"`
-	DefaultOrderForm *OrderForm `json:"default_order_form,omitempty"`
-	// An array of order forms.
-	OrderForms *[]OrderForm `json:"order_forms,omitempty"`
 }
 
 // NewGroup instantiates a new Group object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroup(id string, groupType string, name string, isBrokerageOrBrokerageAgent bool) *Group {
+func NewGroup(id string, type_ string, name string, isBrokerageOrBrokerageAgent bool) *Group {
 	this := Group{}
 	this.Id = id
-	this.GroupType = groupType
+	this.Type = type_
 	this.Name = name
 	this.IsBrokerageOrBrokerageAgent = isBrokerageOrBrokerageAgent
 	return &this
@@ -84,28 +90,28 @@ func (o *Group) SetId(v string) {
 	o.Id = v
 }
 
-// GetGroupType returns the GroupType field value
-func (o *Group) GetGroupType() string {
+// GetType returns the Type field value
+func (o *Group) GetType() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.GroupType
+	return o.Type
 }
 
-// GetGroupTypeOk returns a tuple with the GroupType field value
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *Group) GetGroupTypeOk() (*string, bool) {
+func (o *Group) GetTypeOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.GroupType, true
+	return &o.Type, true
 }
 
-// SetGroupType sets field value
-func (o *Group) SetGroupType(v string) {
-	o.GroupType = v
+// SetType sets field value
+func (o *Group) SetType(v string) {
+	o.Type = v
 }
 
 // GetName returns the Name field value
@@ -130,48 +136,6 @@ func (o *Group) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *Group) SetName(v string) {
 	o.Name = v
-}
-
-// GetLogo returns the Logo field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Group) GetLogo() string {
-	if o == nil || o.Logo.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.Logo.Get()
-}
-
-// GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Group) GetLogoOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Logo.Get(), o.Logo.IsSet()
-}
-
-// HasLogo returns a boolean if a field has been set.
-func (o *Group) HasLogo() bool {
-	if o != nil && o.Logo.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetLogo gets a reference to the given NullableString and assigns it to the Logo field.
-func (o *Group) SetLogo(v string) {
-	o.Logo.Set(&v)
-}
-// SetLogoNil sets the value for Logo to be an explicit nil
-func (o *Group) SetLogoNil() {
-	o.Logo.Set(nil)
-}
-
-// UnsetLogo ensures that no value is present for Logo, not even an explicit nil
-func (o *Group) UnsetLogo() {
-	o.Logo.Unset()
 }
 
 // GetEmail returns the Email field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -258,70 +222,214 @@ func (o *Group) UnsetPhone() {
 	o.Phone.Unset()
 }
 
-// GetWebsite returns the Website field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Group) GetWebsite() string {
-	if o == nil || o.Website.Get() == nil {
+// GetWebsiteUrl returns the WebsiteUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Group) GetWebsiteUrl() string {
+	if o == nil || o.WebsiteUrl.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.Website.Get()
+	return *o.WebsiteUrl.Get()
 }
 
-// GetWebsiteOk returns a tuple with the Website field value if set, nil otherwise
+// GetWebsiteUrlOk returns a tuple with the WebsiteUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Group) GetWebsiteOk() (*string, bool) {
+func (o *Group) GetWebsiteUrlOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Website.Get(), o.Website.IsSet()
+	return o.WebsiteUrl.Get(), o.WebsiteUrl.IsSet()
 }
 
-// HasWebsite returns a boolean if a field has been set.
-func (o *Group) HasWebsite() bool {
-	if o != nil && o.Website.IsSet() {
+// HasWebsiteUrl returns a boolean if a field has been set.
+func (o *Group) HasWebsiteUrl() bool {
+	if o != nil && o.WebsiteUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetWebsite gets a reference to the given NullableString and assigns it to the Website field.
-func (o *Group) SetWebsite(v string) {
-	o.Website.Set(&v)
+// SetWebsiteUrl gets a reference to the given NullableString and assigns it to the WebsiteUrl field.
+func (o *Group) SetWebsiteUrl(v string) {
+	o.WebsiteUrl.Set(&v)
 }
-// SetWebsiteNil sets the value for Website to be an explicit nil
-func (o *Group) SetWebsiteNil() {
-	o.Website.Set(nil)
-}
-
-// UnsetWebsite ensures that no value is present for Website, not even an explicit nil
-func (o *Group) UnsetWebsite() {
-	o.Website.Unset()
+// SetWebsiteUrlNil sets the value for WebsiteUrl to be an explicit nil
+func (o *Group) SetWebsiteUrlNil() {
+	o.WebsiteUrl.Set(nil)
 }
 
-// GetIsBrokerageOrBrokerageAgent returns the IsBrokerageOrBrokerageAgent field value
-func (o *Group) GetIsBrokerageOrBrokerageAgent() bool {
-	if o == nil {
-		var ret bool
+// UnsetWebsiteUrl ensures that no value is present for WebsiteUrl, not even an explicit nil
+func (o *Group) UnsetWebsiteUrl() {
+	o.WebsiteUrl.Unset()
+}
+
+// GetLogoUrl returns the LogoUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Group) GetLogoUrl() string {
+	if o == nil || o.LogoUrl.Get() == nil {
+		var ret string
 		return ret
 	}
-
-	return o.IsBrokerageOrBrokerageAgent
+	return *o.LogoUrl.Get()
 }
 
-// GetIsBrokerageOrBrokerageAgentOk returns a tuple with the IsBrokerageOrBrokerageAgent field value
+// GetLogoUrlOk returns a tuple with the LogoUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Group) GetIsBrokerageOrBrokerageAgentOk() (*bool, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Group) GetLogoUrlOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.IsBrokerageOrBrokerageAgent, true
+	return o.LogoUrl.Get(), o.LogoUrl.IsSet()
 }
 
-// SetIsBrokerageOrBrokerageAgent sets field value
-func (o *Group) SetIsBrokerageOrBrokerageAgent(v bool) {
-	o.IsBrokerageOrBrokerageAgent = v
+// HasLogoUrl returns a boolean if a field has been set.
+func (o *Group) HasLogoUrl() bool {
+	if o != nil && o.LogoUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLogoUrl gets a reference to the given NullableString and assigns it to the LogoUrl field.
+func (o *Group) SetLogoUrl(v string) {
+	o.LogoUrl.Set(&v)
+}
+// SetLogoUrlNil sets the value for LogoUrl to be an explicit nil
+func (o *Group) SetLogoUrlNil() {
+	o.LogoUrl.Set(nil)
+}
+
+// UnsetLogoUrl ensures that no value is present for LogoUrl, not even an explicit nil
+func (o *Group) UnsetLogoUrl() {
+	o.LogoUrl.Unset()
+}
+
+// GetAvatarUrl returns the AvatarUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Group) GetAvatarUrl() string {
+	if o == nil || o.AvatarUrl.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.AvatarUrl.Get()
+}
+
+// GetAvatarUrlOk returns a tuple with the AvatarUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Group) GetAvatarUrlOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.AvatarUrl.Get(), o.AvatarUrl.IsSet()
+}
+
+// HasAvatarUrl returns a boolean if a field has been set.
+func (o *Group) HasAvatarUrl() bool {
+	if o != nil && o.AvatarUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatarUrl gets a reference to the given NullableString and assigns it to the AvatarUrl field.
+func (o *Group) SetAvatarUrl(v string) {
+	o.AvatarUrl.Set(&v)
+}
+// SetAvatarUrlNil sets the value for AvatarUrl to be an explicit nil
+func (o *Group) SetAvatarUrlNil() {
+	o.AvatarUrl.Set(nil)
+}
+
+// UnsetAvatarUrl ensures that no value is present for AvatarUrl, not even an explicit nil
+func (o *Group) UnsetAvatarUrl() {
+	o.AvatarUrl.Unset()
+}
+
+// GetOfficeName returns the OfficeName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Group) GetOfficeName() string {
+	if o == nil || o.OfficeName.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.OfficeName.Get()
+}
+
+// GetOfficeNameOk returns a tuple with the OfficeName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Group) GetOfficeNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.OfficeName.Get(), o.OfficeName.IsSet()
+}
+
+// HasOfficeName returns a boolean if a field has been set.
+func (o *Group) HasOfficeName() bool {
+	if o != nil && o.OfficeName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOfficeName gets a reference to the given NullableString and assigns it to the OfficeName field.
+func (o *Group) SetOfficeName(v string) {
+	o.OfficeName.Set(&v)
+}
+// SetOfficeNameNil sets the value for OfficeName to be an explicit nil
+func (o *Group) SetOfficeNameNil() {
+	o.OfficeName.Set(nil)
+}
+
+// UnsetOfficeName ensures that no value is present for OfficeName, not even an explicit nil
+func (o *Group) UnsetOfficeName() {
+	o.OfficeName.Unset()
+}
+
+// GetLicenseNumber returns the LicenseNumber field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Group) GetLicenseNumber() string {
+	if o == nil || o.LicenseNumber.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.LicenseNumber.Get()
+}
+
+// GetLicenseNumberOk returns a tuple with the LicenseNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Group) GetLicenseNumberOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.LicenseNumber.Get(), o.LicenseNumber.IsSet()
+}
+
+// HasLicenseNumber returns a boolean if a field has been set.
+func (o *Group) HasLicenseNumber() bool {
+	if o != nil && o.LicenseNumber.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLicenseNumber gets a reference to the given NullableString and assigns it to the LicenseNumber field.
+func (o *Group) SetLicenseNumber(v string) {
+	o.LicenseNumber.Set(&v)
+}
+// SetLicenseNumberNil sets the value for LicenseNumber to be an explicit nil
+func (o *Group) SetLicenseNumberNil() {
+	o.LicenseNumber.Set(nil)
+}
+
+// UnsetLicenseNumber ensures that no value is present for LicenseNumber, not even an explicit nil
+func (o *Group) UnsetLicenseNumber() {
+	o.LicenseNumber.Unset()
 }
 
 // GetSocialProfiles returns the SocialProfiles field value if set, zero value otherwise.
@@ -356,70 +464,6 @@ func (o *Group) SetSocialProfiles(v SocialProfiles) {
 	o.SocialProfiles = &v
 }
 
-// GetAgentProperties returns the AgentProperties field value if set, zero value otherwise.
-func (o *Group) GetAgentProperties() GroupAgentProperties {
-	if o == nil || o.AgentProperties == nil {
-		var ret GroupAgentProperties
-		return ret
-	}
-	return *o.AgentProperties
-}
-
-// GetAgentPropertiesOk returns a tuple with the AgentProperties field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Group) GetAgentPropertiesOk() (*GroupAgentProperties, bool) {
-	if o == nil || o.AgentProperties == nil {
-		return nil, false
-	}
-	return o.AgentProperties, true
-}
-
-// HasAgentProperties returns a boolean if a field has been set.
-func (o *Group) HasAgentProperties() bool {
-	if o != nil && o.AgentProperties != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAgentProperties gets a reference to the given GroupAgentProperties and assigns it to the AgentProperties field.
-func (o *Group) SetAgentProperties(v GroupAgentProperties) {
-	o.AgentProperties = &v
-}
-
-// GetUsers returns the Users field value if set, zero value otherwise.
-func (o *Group) GetUsers() []User {
-	if o == nil || o.Users == nil {
-		var ret []User
-		return ret
-	}
-	return *o.Users
-}
-
-// GetUsersOk returns a tuple with the Users field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Group) GetUsersOk() (*[]User, bool) {
-	if o == nil || o.Users == nil {
-		return nil, false
-	}
-	return o.Users, true
-}
-
-// HasUsers returns a boolean if a field has been set.
-func (o *Group) HasUsers() bool {
-	if o != nil && o.Users != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUsers gets a reference to the given []User and assigns it to the Users field.
-func (o *Group) SetUsers(v []User) {
-	o.Users = &v
-}
-
 // GetDefaultOrderForm returns the DefaultOrderForm field value if set, zero value otherwise.
 func (o *Group) GetDefaultOrderForm() OrderForm {
 	if o == nil || o.DefaultOrderForm == nil {
@@ -452,22 +496,23 @@ func (o *Group) SetDefaultOrderForm(v OrderForm) {
 	o.DefaultOrderForm = &v
 }
 
-// GetOrderForms returns the OrderForms field value if set, zero value otherwise.
+// GetOrderForms returns the OrderForms field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Group) GetOrderForms() []OrderForm {
-	if o == nil || o.OrderForms == nil {
+	if o == nil  {
 		var ret []OrderForm
 		return ret
 	}
-	return *o.OrderForms
+	return o.OrderForms
 }
 
 // GetOrderFormsOk returns a tuple with the OrderForms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Group) GetOrderFormsOk() (*[]OrderForm, bool) {
 	if o == nil || o.OrderForms == nil {
 		return nil, false
 	}
-	return o.OrderForms, true
+	return &o.OrderForms, true
 }
 
 // HasOrderForms returns a boolean if a field has been set.
@@ -481,7 +526,96 @@ func (o *Group) HasOrderForms() bool {
 
 // SetOrderForms gets a reference to the given []OrderForm and assigns it to the OrderForms field.
 func (o *Group) SetOrderForms(v []OrderForm) {
-	o.OrderForms = &v
+	o.OrderForms = v
+}
+
+// GetOwner returns the Owner field value if set, zero value otherwise.
+func (o *Group) GetOwner() User {
+	if o == nil || o.Owner == nil {
+		var ret User
+		return ret
+	}
+	return *o.Owner
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Group) GetOwnerOk() (*User, bool) {
+	if o == nil || o.Owner == nil {
+		return nil, false
+	}
+	return o.Owner, true
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *Group) HasOwner() bool {
+	if o != nil && o.Owner != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given User and assigns it to the Owner field.
+func (o *Group) SetOwner(v User) {
+	o.Owner = &v
+}
+
+// GetUsers returns the Users field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Group) GetUsers() []User {
+	if o == nil  {
+		var ret []User
+		return ret
+	}
+	return o.Users
+}
+
+// GetUsersOk returns a tuple with the Users field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Group) GetUsersOk() (*[]User, bool) {
+	if o == nil || o.Users == nil {
+		return nil, false
+	}
+	return &o.Users, true
+}
+
+// HasUsers returns a boolean if a field has been set.
+func (o *Group) HasUsers() bool {
+	if o != nil && o.Users != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUsers gets a reference to the given []User and assigns it to the Users field.
+func (o *Group) SetUsers(v []User) {
+	o.Users = v
+}
+
+// GetIsBrokerageOrBrokerageAgent returns the IsBrokerageOrBrokerageAgent field value
+func (o *Group) GetIsBrokerageOrBrokerageAgent() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsBrokerageOrBrokerageAgent
+}
+
+// GetIsBrokerageOrBrokerageAgentOk returns a tuple with the IsBrokerageOrBrokerageAgent field value
+// and a boolean to check if the value has been set.
+func (o *Group) GetIsBrokerageOrBrokerageAgentOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.IsBrokerageOrBrokerageAgent, true
+}
+
+// SetIsBrokerageOrBrokerageAgent sets field value
+func (o *Group) SetIsBrokerageOrBrokerageAgent(v bool) {
+	o.IsBrokerageOrBrokerageAgent = v
 }
 
 func (o Group) MarshalJSON() ([]byte, error) {
@@ -490,13 +624,10 @@ func (o Group) MarshalJSON() ([]byte, error) {
 		toSerialize["id"] = o.Id
 	}
 	if true {
-		toSerialize["group_type"] = o.GroupType
+		toSerialize["type"] = o.Type
 	}
 	if true {
 		toSerialize["name"] = o.Name
-	}
-	if o.Logo.IsSet() {
-		toSerialize["logo"] = o.Logo.Get()
 	}
 	if o.Email.IsSet() {
 		toSerialize["email"] = o.Email.Get()
@@ -504,26 +635,38 @@ func (o Group) MarshalJSON() ([]byte, error) {
 	if o.Phone.IsSet() {
 		toSerialize["phone"] = o.Phone.Get()
 	}
-	if o.Website.IsSet() {
-		toSerialize["website"] = o.Website.Get()
+	if o.WebsiteUrl.IsSet() {
+		toSerialize["website_url"] = o.WebsiteUrl.Get()
 	}
-	if true {
-		toSerialize["is_brokerage_or_brokerage_agent"] = o.IsBrokerageOrBrokerageAgent
+	if o.LogoUrl.IsSet() {
+		toSerialize["logo_url"] = o.LogoUrl.Get()
+	}
+	if o.AvatarUrl.IsSet() {
+		toSerialize["avatar_url"] = o.AvatarUrl.Get()
+	}
+	if o.OfficeName.IsSet() {
+		toSerialize["office_name"] = o.OfficeName.Get()
+	}
+	if o.LicenseNumber.IsSet() {
+		toSerialize["license_number"] = o.LicenseNumber.Get()
 	}
 	if o.SocialProfiles != nil {
 		toSerialize["social_profiles"] = o.SocialProfiles
-	}
-	if o.AgentProperties != nil {
-		toSerialize["agent_properties"] = o.AgentProperties
-	}
-	if o.Users != nil {
-		toSerialize["users"] = o.Users
 	}
 	if o.DefaultOrderForm != nil {
 		toSerialize["default_order_form"] = o.DefaultOrderForm
 	}
 	if o.OrderForms != nil {
 		toSerialize["order_forms"] = o.OrderForms
+	}
+	if o.Owner != nil {
+		toSerialize["owner"] = o.Owner
+	}
+	if o.Users != nil {
+		toSerialize["users"] = o.Users
+	}
+	if true {
+		toSerialize["is_brokerage_or_brokerage_agent"] = o.IsBrokerageOrBrokerageAgent
 	}
 	return json.Marshal(toSerialize)
 }

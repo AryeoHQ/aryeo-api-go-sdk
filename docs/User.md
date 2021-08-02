@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | UUID of the user. | 
-**Avatar** | Pointer to **NullableString** | Avatar. | [optional] 
-**Email** | **string** | Email. | 
-**FirstName** | Pointer to **NullableString** | First name. | [optional] 
-**LastName** | Pointer to **NullableString** | Last name. | [optional] 
-**Timezone** | Pointer to **NullableString** | Timezone. | [optional] 
-**Phone** | Pointer to **NullableString** | Phone number. | [optional] 
-**Relationship** | Pointer to **NullableString** | Describes user&#39;s relationship (access level) to a specified group. | [optional] 
+**Id** | **string** | ID of the user. | 
+**Email** | **string** | Email address of the user. | 
+**FirstName** | Pointer to **NullableString** | First name of the user. | [optional] 
+**LastName** | Pointer to **NullableString** | Last name of the user. | [optional] 
+**Phone** | Pointer to **NullableString** | A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens). | [optional] 
+**AvatarUrl** | Pointer to **NullableString** | The avatar image URL of a user. | [optional] 
+**Relationship** | Pointer to **NullableString** | Describes user&#39;s relationship (access level) to a specified group. Only returned if this resource is returned as a sub-resource of a group. | [optional] 
 
 ## Methods
 
@@ -52,41 +51,6 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetAvatar
-
-`func (o *User) GetAvatar() string`
-
-GetAvatar returns the Avatar field if non-nil, zero value otherwise.
-
-### GetAvatarOk
-
-`func (o *User) GetAvatarOk() (*string, bool)`
-
-GetAvatarOk returns a tuple with the Avatar field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAvatar
-
-`func (o *User) SetAvatar(v string)`
-
-SetAvatar sets Avatar field to given value.
-
-### HasAvatar
-
-`func (o *User) HasAvatar() bool`
-
-HasAvatar returns a boolean if a field has been set.
-
-### SetAvatarNil
-
-`func (o *User) SetAvatarNil(b bool)`
-
- SetAvatarNil sets the value for Avatar to be an explicit nil
-
-### UnsetAvatar
-`func (o *User) UnsetAvatar()`
-
-UnsetAvatar ensures that no value is present for Avatar, not even an explicit nil
 ### GetEmail
 
 `func (o *User) GetEmail() string`
@@ -177,41 +141,6 @@ HasLastName returns a boolean if a field has been set.
 `func (o *User) UnsetLastName()`
 
 UnsetLastName ensures that no value is present for LastName, not even an explicit nil
-### GetTimezone
-
-`func (o *User) GetTimezone() string`
-
-GetTimezone returns the Timezone field if non-nil, zero value otherwise.
-
-### GetTimezoneOk
-
-`func (o *User) GetTimezoneOk() (*string, bool)`
-
-GetTimezoneOk returns a tuple with the Timezone field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTimezone
-
-`func (o *User) SetTimezone(v string)`
-
-SetTimezone sets Timezone field to given value.
-
-### HasTimezone
-
-`func (o *User) HasTimezone() bool`
-
-HasTimezone returns a boolean if a field has been set.
-
-### SetTimezoneNil
-
-`func (o *User) SetTimezoneNil(b bool)`
-
- SetTimezoneNil sets the value for Timezone to be an explicit nil
-
-### UnsetTimezone
-`func (o *User) UnsetTimezone()`
-
-UnsetTimezone ensures that no value is present for Timezone, not even an explicit nil
 ### GetPhone
 
 `func (o *User) GetPhone() string`
@@ -247,6 +176,41 @@ HasPhone returns a boolean if a field has been set.
 `func (o *User) UnsetPhone()`
 
 UnsetPhone ensures that no value is present for Phone, not even an explicit nil
+### GetAvatarUrl
+
+`func (o *User) GetAvatarUrl() string`
+
+GetAvatarUrl returns the AvatarUrl field if non-nil, zero value otherwise.
+
+### GetAvatarUrlOk
+
+`func (o *User) GetAvatarUrlOk() (*string, bool)`
+
+GetAvatarUrlOk returns a tuple with the AvatarUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvatarUrl
+
+`func (o *User) SetAvatarUrl(v string)`
+
+SetAvatarUrl sets AvatarUrl field to given value.
+
+### HasAvatarUrl
+
+`func (o *User) HasAvatarUrl() bool`
+
+HasAvatarUrl returns a boolean if a field has been set.
+
+### SetAvatarUrlNil
+
+`func (o *User) SetAvatarUrlNil(b bool)`
+
+ SetAvatarUrlNil sets the value for AvatarUrl to be an explicit nil
+
+### UnsetAvatarUrl
+`func (o *User) UnsetAvatarUrl()`
+
+UnsetAvatarUrl ensures that no value is present for AvatarUrl, not even an explicit nil
 ### GetRelationship
 
 `func (o *User) GetRelationship() string`

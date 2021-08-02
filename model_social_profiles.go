@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -12,7 +12,7 @@ import (
 	"encoding/json"
 )
 
-// SocialProfiles Details for a real estate agent.
+// SocialProfiles External profile URLs for an agent or brokerage group.
 type SocialProfiles struct {
 	// URL for Facebook.
 	FacebookProfileUrl NullableString `json:"facebook_profile_url,omitempty"`

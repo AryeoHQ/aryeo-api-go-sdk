@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -14,21 +14,19 @@ import (
 
 // User A record of a person on the Aryeo platform.
 type User struct {
-	// UUID of the user.
+	// ID of the user.
 	Id string `json:"id"`
-	// Avatar.
-	Avatar NullableString `json:"avatar,omitempty"`
-	// Email.
+	// Email address of the user.
 	Email string `json:"email"`
-	// First name.
+	// First name of the user.
 	FirstName NullableString `json:"first_name,omitempty"`
-	// Last name.
+	// Last name of the user.
 	LastName NullableString `json:"last_name,omitempty"`
-	// Timezone.
-	Timezone NullableString `json:"timezone,omitempty"`
-	// Phone number.
+	// A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens).
 	Phone NullableString `json:"phone,omitempty"`
-	// Describes user's relationship (access level) to a specified group.
+	// The avatar image URL of a user.
+	AvatarUrl NullableString `json:"avatar_url,omitempty"`
+	// Describes user's relationship (access level) to a specified group. Only returned if this resource is returned as a sub-resource of a group.
 	Relationship NullableString `json:"relationship,omitempty"`
 }
 
@@ -73,48 +71,6 @@ func (o *User) GetIdOk() (*string, bool) {
 // SetId sets field value
 func (o *User) SetId(v string) {
 	o.Id = v
-}
-
-// GetAvatar returns the Avatar field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *User) GetAvatar() string {
-	if o == nil || o.Avatar.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.Avatar.Get()
-}
-
-// GetAvatarOk returns a tuple with the Avatar field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *User) GetAvatarOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Avatar.Get(), o.Avatar.IsSet()
-}
-
-// HasAvatar returns a boolean if a field has been set.
-func (o *User) HasAvatar() bool {
-	if o != nil && o.Avatar.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetAvatar gets a reference to the given NullableString and assigns it to the Avatar field.
-func (o *User) SetAvatar(v string) {
-	o.Avatar.Set(&v)
-}
-// SetAvatarNil sets the value for Avatar to be an explicit nil
-func (o *User) SetAvatarNil() {
-	o.Avatar.Set(nil)
-}
-
-// UnsetAvatar ensures that no value is present for Avatar, not even an explicit nil
-func (o *User) UnsetAvatar() {
-	o.Avatar.Unset()
 }
 
 // GetEmail returns the Email field value
@@ -225,48 +181,6 @@ func (o *User) UnsetLastName() {
 	o.LastName.Unset()
 }
 
-// GetTimezone returns the Timezone field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *User) GetTimezone() string {
-	if o == nil || o.Timezone.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.Timezone.Get()
-}
-
-// GetTimezoneOk returns a tuple with the Timezone field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *User) GetTimezoneOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Timezone.Get(), o.Timezone.IsSet()
-}
-
-// HasTimezone returns a boolean if a field has been set.
-func (o *User) HasTimezone() bool {
-	if o != nil && o.Timezone.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetTimezone gets a reference to the given NullableString and assigns it to the Timezone field.
-func (o *User) SetTimezone(v string) {
-	o.Timezone.Set(&v)
-}
-// SetTimezoneNil sets the value for Timezone to be an explicit nil
-func (o *User) SetTimezoneNil() {
-	o.Timezone.Set(nil)
-}
-
-// UnsetTimezone ensures that no value is present for Timezone, not even an explicit nil
-func (o *User) UnsetTimezone() {
-	o.Timezone.Unset()
-}
-
 // GetPhone returns the Phone field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *User) GetPhone() string {
 	if o == nil || o.Phone.Get() == nil {
@@ -307,6 +221,48 @@ func (o *User) SetPhoneNil() {
 // UnsetPhone ensures that no value is present for Phone, not even an explicit nil
 func (o *User) UnsetPhone() {
 	o.Phone.Unset()
+}
+
+// GetAvatarUrl returns the AvatarUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetAvatarUrl() string {
+	if o == nil || o.AvatarUrl.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.AvatarUrl.Get()
+}
+
+// GetAvatarUrlOk returns a tuple with the AvatarUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetAvatarUrlOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.AvatarUrl.Get(), o.AvatarUrl.IsSet()
+}
+
+// HasAvatarUrl returns a boolean if a field has been set.
+func (o *User) HasAvatarUrl() bool {
+	if o != nil && o.AvatarUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAvatarUrl gets a reference to the given NullableString and assigns it to the AvatarUrl field.
+func (o *User) SetAvatarUrl(v string) {
+	o.AvatarUrl.Set(&v)
+}
+// SetAvatarUrlNil sets the value for AvatarUrl to be an explicit nil
+func (o *User) SetAvatarUrlNil() {
+	o.AvatarUrl.Set(nil)
+}
+
+// UnsetAvatarUrl ensures that no value is present for AvatarUrl, not even an explicit nil
+func (o *User) UnsetAvatarUrl() {
+	o.AvatarUrl.Unset()
 }
 
 // GetRelationship returns the Relationship field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -356,9 +312,6 @@ func (o User) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
-	if o.Avatar.IsSet() {
-		toSerialize["avatar"] = o.Avatar.Get()
-	}
 	if true {
 		toSerialize["email"] = o.Email
 	}
@@ -368,11 +321,11 @@ func (o User) MarshalJSON() ([]byte, error) {
 	if o.LastName.IsSet() {
 		toSerialize["last_name"] = o.LastName.Get()
 	}
-	if o.Timezone.IsSet() {
-		toSerialize["timezone"] = o.Timezone.Get()
-	}
 	if o.Phone.IsSet() {
 		toSerialize["phone"] = o.Phone.Get()
+	}
+	if o.AvatarUrl.IsSet() {
+		toSerialize["avatar_url"] = o.AvatarUrl.Get()
 	}
 	if o.Relationship.IsSet() {
 		toSerialize["relationship"] = o.Relationship.Get()

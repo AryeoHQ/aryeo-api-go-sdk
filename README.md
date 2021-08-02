@@ -35,12 +35,12 @@ import (
 )
 
 func main() {
-    id := "UUID"
+    uuid := "UUID"
 
     configuration := aryeo.NewConfiguration()
     api_client := aryeo.NewAPIClient(configuration)
     auth := context.WithValue(context.Background(), aryeo.ContextAccessToken, "API_KEY")
-    resp, r, err := api_client.ListingsApi.GetListingsId(auth, id).Execute()
+    resp, r, err := api_client.ListingsApi.GetListingsId(auth, uuid).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ListingsApi.GetListingsId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -98,29 +98,30 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ListingsApi* | [**GetListings**](docs/ListingsApi.md#getlistings) | **Get** /listings | Get the listings available to a group.
-*ListingsApi* | [**GetListingsId**](docs/ListingsApi.md#getlistingsid) | **Get** /listings/{id} | Get information about a listing.
-*MarketingMaterialsApi* | [**PutMarketingMaterialsTemplatesUuidPublish**](docs/MarketingMaterialsApi.md#putmarketingmaterialstemplatesuuidpublish) | **Put** /marketing-materials/templates/{uuid}/publish | Publish a marketing material template.
-*MarketingMaterialsApi* | [**PutMarketingMaterialsUuidPublish**](docs/MarketingMaterialsApi.md#putmarketingmaterialsuuidpublish) | **Put** /marketing-materials/{uuid}/publish | Publish a marketing material.
+*ListingsApi* | [**GetListingsId**](docs/ListingsApi.md#getlistingsid) | **Get** /listings/{listing_id} | Get information about a listing.
 *OrdersApi* | [**GetOrders**](docs/OrdersApi.md#getorders) | **Get** /orders | Get orders available to a group.
 *OrdersApi* | [**PostOrders**](docs/OrdersApi.md#postorders) | **Post** /orders | Create an order.
 *VendorsApi* | [**GetVendors**](docs/VendorsApi.md#getvendors) | **Get** /vendors | Get vendors available to a group.
-*VendorsApi* | [**GetVendorsSearch**](docs/VendorsApi.md#getvendorssearch) | **Get** /vendors/search | Get vendors that can be added to the group&#39;s vendor list.
+*VendorsApi* | [**GetVendorsId**](docs/VendorsApi.md#getvendorsid) | **Get** /vendors/{vendor_id} | Get vendors available to a group.
 
 
 ## Documentation For Models
 
+ - [Address](docs/Address.md)
  - [ApiError](docs/ApiError.md)
- - [Currency](docs/Currency.md)
+ - [ApiFail](docs/ApiFail.md)
  - [FloorPlan](docs/FloorPlan.md)
  - [Group](docs/Group.md)
- - [GroupAgentProperties](docs/GroupAgentProperties.md)
  - [GroupCollection](docs/GroupCollection.md)
+ - [GroupResource](docs/GroupResource.md)
  - [Image](docs/Image.md)
  - [InteractiveContent](docs/InteractiveContent.md)
  - [Listing](docs/Listing.md)
+ - [ListingBuilding](docs/ListingBuilding.md)
+ - [ListingCollection](docs/ListingCollection.md)
+ - [ListingLot](docs/ListingLot.md)
+ - [ListingPrice](docs/ListingPrice.md)
  - [ListingResource](docs/ListingResource.md)
- - [MarketingMaterialPublishPayload](docs/MarketingMaterialPublishPayload.md)
- - [MarketingMaterialTemplatePublishPayload](docs/MarketingMaterialTemplatePublishPayload.md)
  - [Order](docs/Order.md)
  - [OrderCollection](docs/OrderCollection.md)
  - [OrderForm](docs/OrderForm.md)
@@ -128,13 +129,7 @@ Class | Method | HTTP request | Description
  - [OrderResource](docs/OrderResource.md)
  - [PaginationLinks](docs/PaginationLinks.md)
  - [PaginationMeta](docs/PaginationMeta.md)
- - [PartialAddress](docs/PartialAddress.md)
- - [PartialGroup](docs/PartialGroup.md)
- - [PartialListing](docs/PartialListing.md)
- - [PartialListingCollection](docs/PartialListingCollection.md)
- - [ProductItem](docs/ProductItem.md)
- - [PropertyDetails](docs/PropertyDetails.md)
- - [PropertyWebsites](docs/PropertyWebsites.md)
+ - [PropertyWebsite](docs/PropertyWebsite.md)
  - [SocialProfiles](docs/SocialProfiles.md)
  - [User](docs/User.md)
  - [Video](docs/Video.md)
@@ -144,7 +139,7 @@ Class | Method | HTTP request | Description
 
 
 
-### JWT
+### Token
 
 - **Type**: HTTP Bearer token authentication
 

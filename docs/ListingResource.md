@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Status** | **string** | What was the state of the request? | 
 **Data** | Pointer to [**Listing**](Listing.md) |  | [optional] 
 
 ## Methods
 
 ### NewListingResource
 
-`func NewListingResource() *ListingResource`
+`func NewListingResource(status string, ) *ListingResource`
 
 NewListingResource instantiates a new ListingResource object
 This constructor will assign default values to properties that have it defined,
@@ -24,6 +25,26 @@ will change when the set of required properties is changed
 NewListingResourceWithDefaults instantiates a new ListingResource object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetStatus
+
+`func (o *ListingResource) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *ListingResource) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *ListingResource) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 ### GetData
 

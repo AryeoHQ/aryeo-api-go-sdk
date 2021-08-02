@@ -5,25 +5,31 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | ID of the listing. | 
-**Address** | [**PartialAddress**](PartialAddress.md) |  | 
-**DeliveryStatus** | **string** | Has this listing been delivered? | 
-**ThumbnailUrl** | Pointer to **NullableString** | Thumbnail URL for the listing. | [optional] 
-**Agent** | Pointer to [**Group**](Group.md) |  | [optional] 
-**CoAgent** | Pointer to [**Group**](Group.md) |  | [optional] 
+**Address** | [**Address**](Address.md) |  | 
+**MlsNumber** | Pointer to **NullableString** | The identifier for a listing on its local MLS.  | [optional] 
+**Type** | Pointer to **NullableString** | General type of the listing, primarily categorizing its use case. Examples include residential and commercial.  | [optional] 
+**SubType** | Pointer to **NullableString** | Further specifies the listing type. Examples include family residence and condominium. | [optional] 
+**Status** | Pointer to **NullableString** | Local, regional, or otherwise custom status for the listing used by the parties involved in the listing transaction. While variable, these statuses are typically mapped to the listing&#39;s standard status. | [optional] 
+**StandardStatus** | Pointer to **NullableString** | The status of the listing as it reflects the state of the contract between the listing agent and seller or an agreement with a buyer, including Active, Active Under Contract, Canceled, Closed, Expired, Pending, and Withdrawn. | [optional] 
+**Description** | Pointer to **NullableString** | Description of the selling points of the building and/or land for sale.  | [optional] 
+**Lot** | Pointer to [**ListingLot**](ListingLot.md) |  | [optional] 
+**Building** | Pointer to [**ListingBuilding**](ListingBuilding.md) |  | [optional] 
+**Price** | Pointer to [**ListingPrice**](ListingPrice.md) |  | [optional] 
+**ListAgent** | Pointer to [**Group**](Group.md) |  | [optional] 
+**CoListAgent** | Pointer to [**Group**](Group.md) |  | [optional] 
 **Images** | Pointer to [**[]Image**](Image.md) | images | [optional] 
 **Videos** | Pointer to [**[]Video**](Video.md) | videos | [optional] 
 **FloorPlans** | Pointer to [**[]FloorPlan**](FloorPlan.md) | floor_plans | [optional] 
-**PropertyWebsites** | Pointer to [**PropertyWebsites**](PropertyWebsites.md) |  | [optional] 
 **InteractiveContent** | Pointer to [**[]InteractiveContent**](InteractiveContent.md) | interactive_content | [optional] 
-**PropertyDetails** | Pointer to [**PropertyDetails**](PropertyDetails.md) |  | [optional] 
-**DownloadsEnabled** | **bool** | Are downloads enabled for this listing? | 
+**PropertyWebsite** | Pointer to [**PropertyWebsite**](PropertyWebsite.md) |  | [optional] 
 **Orders** | Pointer to [**[]Order**](Order.md) | orders | [optional] 
+**DownloadsEnabled** | **bool** | Are downloads enabled for this listing? | 
 
 ## Methods
 
 ### NewListing
 
-`func NewListing(id string, address PartialAddress, deliveryStatus string, downloadsEnabled bool, ) *Listing`
+`func NewListing(id string, address Address, downloadsEnabled bool, ) *Listing`
 
 NewListing instantiates a new Listing object
 This constructor will assign default values to properties that have it defined,
@@ -60,128 +66,358 @@ SetId sets Id field to given value.
 
 ### GetAddress
 
-`func (o *Listing) GetAddress() PartialAddress`
+`func (o *Listing) GetAddress() Address`
 
 GetAddress returns the Address field if non-nil, zero value otherwise.
 
 ### GetAddressOk
 
-`func (o *Listing) GetAddressOk() (*PartialAddress, bool)`
+`func (o *Listing) GetAddressOk() (*Address, bool)`
 
 GetAddressOk returns a tuple with the Address field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAddress
 
-`func (o *Listing) SetAddress(v PartialAddress)`
+`func (o *Listing) SetAddress(v Address)`
 
 SetAddress sets Address field to given value.
 
 
-### GetDeliveryStatus
+### GetMlsNumber
 
-`func (o *Listing) GetDeliveryStatus() string`
+`func (o *Listing) GetMlsNumber() string`
 
-GetDeliveryStatus returns the DeliveryStatus field if non-nil, zero value otherwise.
+GetMlsNumber returns the MlsNumber field if non-nil, zero value otherwise.
 
-### GetDeliveryStatusOk
+### GetMlsNumberOk
 
-`func (o *Listing) GetDeliveryStatusOk() (*string, bool)`
+`func (o *Listing) GetMlsNumberOk() (*string, bool)`
 
-GetDeliveryStatusOk returns a tuple with the DeliveryStatus field if it's non-nil, zero value otherwise
+GetMlsNumberOk returns a tuple with the MlsNumber field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDeliveryStatus
+### SetMlsNumber
 
-`func (o *Listing) SetDeliveryStatus(v string)`
+`func (o *Listing) SetMlsNumber(v string)`
 
-SetDeliveryStatus sets DeliveryStatus field to given value.
+SetMlsNumber sets MlsNumber field to given value.
 
+### HasMlsNumber
 
-### GetThumbnailUrl
+`func (o *Listing) HasMlsNumber() bool`
 
-`func (o *Listing) GetThumbnailUrl() string`
+HasMlsNumber returns a boolean if a field has been set.
 
-GetThumbnailUrl returns the ThumbnailUrl field if non-nil, zero value otherwise.
+### SetMlsNumberNil
 
-### GetThumbnailUrlOk
+`func (o *Listing) SetMlsNumberNil(b bool)`
 
-`func (o *Listing) GetThumbnailUrlOk() (*string, bool)`
+ SetMlsNumberNil sets the value for MlsNumber to be an explicit nil
 
-GetThumbnailUrlOk returns a tuple with the ThumbnailUrl field if it's non-nil, zero value otherwise
+### UnsetMlsNumber
+`func (o *Listing) UnsetMlsNumber()`
+
+UnsetMlsNumber ensures that no value is present for MlsNumber, not even an explicit nil
+### GetType
+
+`func (o *Listing) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Listing) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetThumbnailUrl
+### SetType
 
-`func (o *Listing) SetThumbnailUrl(v string)`
+`func (o *Listing) SetType(v string)`
 
-SetThumbnailUrl sets ThumbnailUrl field to given value.
+SetType sets Type field to given value.
 
-### HasThumbnailUrl
+### HasType
 
-`func (o *Listing) HasThumbnailUrl() bool`
+`func (o *Listing) HasType() bool`
 
-HasThumbnailUrl returns a boolean if a field has been set.
+HasType returns a boolean if a field has been set.
 
-### SetThumbnailUrlNil
+### SetTypeNil
 
-`func (o *Listing) SetThumbnailUrlNil(b bool)`
+`func (o *Listing) SetTypeNil(b bool)`
 
- SetThumbnailUrlNil sets the value for ThumbnailUrl to be an explicit nil
+ SetTypeNil sets the value for Type to be an explicit nil
 
-### UnsetThumbnailUrl
-`func (o *Listing) UnsetThumbnailUrl()`
+### UnsetType
+`func (o *Listing) UnsetType()`
 
-UnsetThumbnailUrl ensures that no value is present for ThumbnailUrl, not even an explicit nil
-### GetAgent
+UnsetType ensures that no value is present for Type, not even an explicit nil
+### GetSubType
 
-`func (o *Listing) GetAgent() Group`
+`func (o *Listing) GetSubType() string`
 
-GetAgent returns the Agent field if non-nil, zero value otherwise.
+GetSubType returns the SubType field if non-nil, zero value otherwise.
 
-### GetAgentOk
+### GetSubTypeOk
 
-`func (o *Listing) GetAgentOk() (*Group, bool)`
+`func (o *Listing) GetSubTypeOk() (*string, bool)`
 
-GetAgentOk returns a tuple with the Agent field if it's non-nil, zero value otherwise
+GetSubTypeOk returns a tuple with the SubType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAgent
+### SetSubType
 
-`func (o *Listing) SetAgent(v Group)`
+`func (o *Listing) SetSubType(v string)`
 
-SetAgent sets Agent field to given value.
+SetSubType sets SubType field to given value.
 
-### HasAgent
+### HasSubType
 
-`func (o *Listing) HasAgent() bool`
+`func (o *Listing) HasSubType() bool`
 
-HasAgent returns a boolean if a field has been set.
+HasSubType returns a boolean if a field has been set.
 
-### GetCoAgent
+### SetSubTypeNil
 
-`func (o *Listing) GetCoAgent() Group`
+`func (o *Listing) SetSubTypeNil(b bool)`
 
-GetCoAgent returns the CoAgent field if non-nil, zero value otherwise.
+ SetSubTypeNil sets the value for SubType to be an explicit nil
 
-### GetCoAgentOk
+### UnsetSubType
+`func (o *Listing) UnsetSubType()`
 
-`func (o *Listing) GetCoAgentOk() (*Group, bool)`
+UnsetSubType ensures that no value is present for SubType, not even an explicit nil
+### GetStatus
 
-GetCoAgentOk returns a tuple with the CoAgent field if it's non-nil, zero value otherwise
+`func (o *Listing) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *Listing) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCoAgent
+### SetStatus
 
-`func (o *Listing) SetCoAgent(v Group)`
+`func (o *Listing) SetStatus(v string)`
 
-SetCoAgent sets CoAgent field to given value.
+SetStatus sets Status field to given value.
 
-### HasCoAgent
+### HasStatus
 
-`func (o *Listing) HasCoAgent() bool`
+`func (o *Listing) HasStatus() bool`
 
-HasCoAgent returns a boolean if a field has been set.
+HasStatus returns a boolean if a field has been set.
+
+### SetStatusNil
+
+`func (o *Listing) SetStatusNil(b bool)`
+
+ SetStatusNil sets the value for Status to be an explicit nil
+
+### UnsetStatus
+`func (o *Listing) UnsetStatus()`
+
+UnsetStatus ensures that no value is present for Status, not even an explicit nil
+### GetStandardStatus
+
+`func (o *Listing) GetStandardStatus() string`
+
+GetStandardStatus returns the StandardStatus field if non-nil, zero value otherwise.
+
+### GetStandardStatusOk
+
+`func (o *Listing) GetStandardStatusOk() (*string, bool)`
+
+GetStandardStatusOk returns a tuple with the StandardStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStandardStatus
+
+`func (o *Listing) SetStandardStatus(v string)`
+
+SetStandardStatus sets StandardStatus field to given value.
+
+### HasStandardStatus
+
+`func (o *Listing) HasStandardStatus() bool`
+
+HasStandardStatus returns a boolean if a field has been set.
+
+### SetStandardStatusNil
+
+`func (o *Listing) SetStandardStatusNil(b bool)`
+
+ SetStandardStatusNil sets the value for StandardStatus to be an explicit nil
+
+### UnsetStandardStatus
+`func (o *Listing) UnsetStandardStatus()`
+
+UnsetStandardStatus ensures that no value is present for StandardStatus, not even an explicit nil
+### GetDescription
+
+`func (o *Listing) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *Listing) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *Listing) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *Listing) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### SetDescriptionNil
+
+`func (o *Listing) SetDescriptionNil(b bool)`
+
+ SetDescriptionNil sets the value for Description to be an explicit nil
+
+### UnsetDescription
+`func (o *Listing) UnsetDescription()`
+
+UnsetDescription ensures that no value is present for Description, not even an explicit nil
+### GetLot
+
+`func (o *Listing) GetLot() ListingLot`
+
+GetLot returns the Lot field if non-nil, zero value otherwise.
+
+### GetLotOk
+
+`func (o *Listing) GetLotOk() (*ListingLot, bool)`
+
+GetLotOk returns a tuple with the Lot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLot
+
+`func (o *Listing) SetLot(v ListingLot)`
+
+SetLot sets Lot field to given value.
+
+### HasLot
+
+`func (o *Listing) HasLot() bool`
+
+HasLot returns a boolean if a field has been set.
+
+### GetBuilding
+
+`func (o *Listing) GetBuilding() ListingBuilding`
+
+GetBuilding returns the Building field if non-nil, zero value otherwise.
+
+### GetBuildingOk
+
+`func (o *Listing) GetBuildingOk() (*ListingBuilding, bool)`
+
+GetBuildingOk returns a tuple with the Building field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuilding
+
+`func (o *Listing) SetBuilding(v ListingBuilding)`
+
+SetBuilding sets Building field to given value.
+
+### HasBuilding
+
+`func (o *Listing) HasBuilding() bool`
+
+HasBuilding returns a boolean if a field has been set.
+
+### GetPrice
+
+`func (o *Listing) GetPrice() ListingPrice`
+
+GetPrice returns the Price field if non-nil, zero value otherwise.
+
+### GetPriceOk
+
+`func (o *Listing) GetPriceOk() (*ListingPrice, bool)`
+
+GetPriceOk returns a tuple with the Price field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrice
+
+`func (o *Listing) SetPrice(v ListingPrice)`
+
+SetPrice sets Price field to given value.
+
+### HasPrice
+
+`func (o *Listing) HasPrice() bool`
+
+HasPrice returns a boolean if a field has been set.
+
+### GetListAgent
+
+`func (o *Listing) GetListAgent() Group`
+
+GetListAgent returns the ListAgent field if non-nil, zero value otherwise.
+
+### GetListAgentOk
+
+`func (o *Listing) GetListAgentOk() (*Group, bool)`
+
+GetListAgentOk returns a tuple with the ListAgent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListAgent
+
+`func (o *Listing) SetListAgent(v Group)`
+
+SetListAgent sets ListAgent field to given value.
+
+### HasListAgent
+
+`func (o *Listing) HasListAgent() bool`
+
+HasListAgent returns a boolean if a field has been set.
+
+### GetCoListAgent
+
+`func (o *Listing) GetCoListAgent() Group`
+
+GetCoListAgent returns the CoListAgent field if non-nil, zero value otherwise.
+
+### GetCoListAgentOk
+
+`func (o *Listing) GetCoListAgentOk() (*Group, bool)`
+
+GetCoListAgentOk returns a tuple with the CoListAgent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCoListAgent
+
+`func (o *Listing) SetCoListAgent(v Group)`
+
+SetCoListAgent sets CoListAgent field to given value.
+
+### HasCoListAgent
+
+`func (o *Listing) HasCoListAgent() bool`
+
+HasCoListAgent returns a boolean if a field has been set.
 
 ### GetImages
 
@@ -258,31 +494,6 @@ SetFloorPlans sets FloorPlans field to given value.
 
 HasFloorPlans returns a boolean if a field has been set.
 
-### GetPropertyWebsites
-
-`func (o *Listing) GetPropertyWebsites() PropertyWebsites`
-
-GetPropertyWebsites returns the PropertyWebsites field if non-nil, zero value otherwise.
-
-### GetPropertyWebsitesOk
-
-`func (o *Listing) GetPropertyWebsitesOk() (*PropertyWebsites, bool)`
-
-GetPropertyWebsitesOk returns a tuple with the PropertyWebsites field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPropertyWebsites
-
-`func (o *Listing) SetPropertyWebsites(v PropertyWebsites)`
-
-SetPropertyWebsites sets PropertyWebsites field to given value.
-
-### HasPropertyWebsites
-
-`func (o *Listing) HasPropertyWebsites() bool`
-
-HasPropertyWebsites returns a boolean if a field has been set.
-
 ### GetInteractiveContent
 
 `func (o *Listing) GetInteractiveContent() []InteractiveContent`
@@ -308,50 +519,30 @@ SetInteractiveContent sets InteractiveContent field to given value.
 
 HasInteractiveContent returns a boolean if a field has been set.
 
-### GetPropertyDetails
+### GetPropertyWebsite
 
-`func (o *Listing) GetPropertyDetails() PropertyDetails`
+`func (o *Listing) GetPropertyWebsite() PropertyWebsite`
 
-GetPropertyDetails returns the PropertyDetails field if non-nil, zero value otherwise.
+GetPropertyWebsite returns the PropertyWebsite field if non-nil, zero value otherwise.
 
-### GetPropertyDetailsOk
+### GetPropertyWebsiteOk
 
-`func (o *Listing) GetPropertyDetailsOk() (*PropertyDetails, bool)`
+`func (o *Listing) GetPropertyWebsiteOk() (*PropertyWebsite, bool)`
 
-GetPropertyDetailsOk returns a tuple with the PropertyDetails field if it's non-nil, zero value otherwise
+GetPropertyWebsiteOk returns a tuple with the PropertyWebsite field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPropertyDetails
+### SetPropertyWebsite
 
-`func (o *Listing) SetPropertyDetails(v PropertyDetails)`
+`func (o *Listing) SetPropertyWebsite(v PropertyWebsite)`
 
-SetPropertyDetails sets PropertyDetails field to given value.
+SetPropertyWebsite sets PropertyWebsite field to given value.
 
-### HasPropertyDetails
+### HasPropertyWebsite
 
-`func (o *Listing) HasPropertyDetails() bool`
+`func (o *Listing) HasPropertyWebsite() bool`
 
-HasPropertyDetails returns a boolean if a field has been set.
-
-### GetDownloadsEnabled
-
-`func (o *Listing) GetDownloadsEnabled() bool`
-
-GetDownloadsEnabled returns the DownloadsEnabled field if non-nil, zero value otherwise.
-
-### GetDownloadsEnabledOk
-
-`func (o *Listing) GetDownloadsEnabledOk() (*bool, bool)`
-
-GetDownloadsEnabledOk returns a tuple with the DownloadsEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDownloadsEnabled
-
-`func (o *Listing) SetDownloadsEnabled(v bool)`
-
-SetDownloadsEnabled sets DownloadsEnabled field to given value.
-
+HasPropertyWebsite returns a boolean if a field has been set.
 
 ### GetOrders
 
@@ -377,6 +568,26 @@ SetOrders sets Orders field to given value.
 `func (o *Listing) HasOrders() bool`
 
 HasOrders returns a boolean if a field has been set.
+
+### GetDownloadsEnabled
+
+`func (o *Listing) GetDownloadsEnabled() bool`
+
+GetDownloadsEnabled returns the DownloadsEnabled field if non-nil, zero value otherwise.
+
+### GetDownloadsEnabledOk
+
+`func (o *Listing) GetDownloadsEnabledOk() (*bool, bool)`
+
+GetDownloadsEnabledOk returns a tuple with the DownloadsEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDownloadsEnabled
+
+`func (o *Listing) SetDownloadsEnabled(v bool)`
+
+SetDownloadsEnabled sets DownloadsEnabled field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

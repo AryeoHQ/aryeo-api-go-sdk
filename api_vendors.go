@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -14,6 +14,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"strings"
 )
 
 // Linger please
@@ -27,8 +28,13 @@ type VendorsApiService service
 type ApiGetVendorsRequest struct {
 	ctx _context.Context
 	ApiService *VendorsApiService
+	include *string
 }
 
+func (r ApiGetVendorsRequest) Include(include string) ApiGetVendorsRequest {
+	r.include = &include
+	return r
+}
 
 func (r ApiGetVendorsRequest) Execute() (GroupCollection, *_nethttp.Response, error) {
 	return r.ApiService.GetVendorsExecute(r)
@@ -72,6 +78,9 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.include != nil {
+		localVarQueryParams.Add("include", parameterToString(*r.include, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -122,7 +131,7 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiFail
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -155,77 +164,71 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetVendorsSearchRequest struct {
+type ApiGetVendorsIdRequest struct {
 	ctx _context.Context
 	ApiService *VendorsApiService
-	query *string
-	perPage *string
-	page *string
+	vendorId string
+	include *string
 }
 
-func (r ApiGetVendorsSearchRequest) Query(query string) ApiGetVendorsSearchRequest {
-	r.query = &query
-	return r
-}
-func (r ApiGetVendorsSearchRequest) PerPage(perPage string) ApiGetVendorsSearchRequest {
-	r.perPage = &perPage
-	return r
-}
-func (r ApiGetVendorsSearchRequest) Page(page string) ApiGetVendorsSearchRequest {
-	r.page = &page
+func (r ApiGetVendorsIdRequest) Include(include string) ApiGetVendorsIdRequest {
+	r.include = &include
 	return r
 }
 
-func (r ApiGetVendorsSearchRequest) Execute() (GroupCollection, *_nethttp.Response, error) {
-	return r.ApiService.GetVendorsSearchExecute(r)
+func (r ApiGetVendorsIdRequest) Execute() (GroupResource, *_nethttp.Response, error) {
+	return r.ApiService.GetVendorsIdExecute(r)
 }
 
 /*
- * GetVendorsSearch Get vendors that can be added to the group's vendor list.
- * Get vendors that can be added to the group's vendor list, excluding those already available to a group. 
+ * GetVendorsId Get vendors available to a group.
+ * Get information about a vendor.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetVendorsSearchRequest
+ * @param vendorId ID of the group that is associated as a vendor.
+ * @return ApiGetVendorsIdRequest
  */
-func (a *VendorsApiService) GetVendorsSearch(ctx _context.Context) ApiGetVendorsSearchRequest {
-	return ApiGetVendorsSearchRequest{
+func (a *VendorsApiService) GetVendorsId(ctx _context.Context, vendorId string) ApiGetVendorsIdRequest {
+	return ApiGetVendorsIdRequest{
 		ApiService: a,
 		ctx: ctx,
+		vendorId: vendorId,
 	}
 }
 
 /*
  * Execute executes the request
- * @return GroupCollection
+ * @return GroupResource
  */
-func (a *VendorsApiService) GetVendorsSearchExecute(r ApiGetVendorsSearchRequest) (GroupCollection, *_nethttp.Response, error) {
+func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (GroupResource, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  GroupCollection
+		localVarReturnValue  GroupResource
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VendorsApiService.GetVendorsSearch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VendorsApiService.GetVendorsId")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/vendors/search"
+	localVarPath := localBasePath + "/vendors/{vendor_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"vendor_id"+"}", _neturl.PathEscape(parameterToString(r.vendorId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
+	if strlen(r.vendorId) < 0 {
+		return localVarReturnValue, nil, reportError("vendorId must have at least 0 elements")
+	}
+	if strlen(r.vendorId) > 255 {
+		return localVarReturnValue, nil, reportError("vendorId must have less than 255 elements")
+	}
 
-	if r.query != nil {
-		localVarQueryParams.Add("query", parameterToString(*r.query, ""))
-	}
-	if r.perPage != nil {
-		localVarQueryParams.Add("per_page", parameterToString(*r.perPage, ""))
-	}
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.include != nil {
+		localVarQueryParams.Add("include", parameterToString(*r.include, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -277,7 +280,7 @@ func (a *VendorsApiService) GetVendorsSearchExecute(r ApiGetVendorsSearchRequest
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiFail
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

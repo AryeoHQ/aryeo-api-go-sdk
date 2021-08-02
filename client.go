@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -39,7 +39,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Aryeo API v1.0.0
+// APIClient manages communication with the Aryeo API v2021-06-17
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -48,8 +48,6 @@ type APIClient struct {
 	// API Services
 
 	ListingsApi *ListingsApiService
-
-	MarketingMaterialsApi *MarketingMaterialsApiService
 
 	OrdersApi *OrdersApiService
 
@@ -73,7 +71,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.ListingsApi = (*ListingsApiService)(&c.common)
-	c.MarketingMaterialsApi = (*MarketingMaterialsApiService)(&c.common)
 	c.OrdersApi = (*OrdersApiService)(&c.common)
 	c.VendorsApi = (*VendorsApiService)(&c.common)
 

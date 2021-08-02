@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int32** | ID of the floor plan. | 
-**ThumbnailUrl** | **string** | A URL for a thumbnail-sized version of the floor plan. | 
-**LargeUrl** | **string** | A URL for a large version of the floor plan. | 
+**Id** | **string** | ID of the floor plan. | 
 **OriginalUrl** | **string** | A URL for the original, full-resolution version of the floor plan. Useful for downloading. | 
+**LargeUrl** | **string** | A URL for a large version of the floor plan. | 
+**ThumbnailUrl** | **string** | A URL for a thumbnail-sized version of the floor plan. | 
 **Title** | Pointer to **NullableString** | The title (or caption) of the floor plan. | [optional] 
 **Index** | Pointer to **NullableInt32** | Index order position of the floor plan. | [optional] 
 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewFloorPlan
 
-`func NewFloorPlan(id int32, thumbnailUrl string, largeUrl string, originalUrl string, ) *FloorPlan`
+`func NewFloorPlan(id string, originalUrl string, largeUrl string, thumbnailUrl string, ) *FloorPlan`
 
 NewFloorPlan instantiates a new FloorPlan object
 This constructor will assign default values to properties that have it defined,
@@ -32,42 +32,42 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetId
 
-`func (o *FloorPlan) GetId() int32`
+`func (o *FloorPlan) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *FloorPlan) GetIdOk() (*int32, bool)`
+`func (o *FloorPlan) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *FloorPlan) SetId(v int32)`
+`func (o *FloorPlan) SetId(v string)`
 
 SetId sets Id field to given value.
 
 
-### GetThumbnailUrl
+### GetOriginalUrl
 
-`func (o *FloorPlan) GetThumbnailUrl() string`
+`func (o *FloorPlan) GetOriginalUrl() string`
 
-GetThumbnailUrl returns the ThumbnailUrl field if non-nil, zero value otherwise.
+GetOriginalUrl returns the OriginalUrl field if non-nil, zero value otherwise.
 
-### GetThumbnailUrlOk
+### GetOriginalUrlOk
 
-`func (o *FloorPlan) GetThumbnailUrlOk() (*string, bool)`
+`func (o *FloorPlan) GetOriginalUrlOk() (*string, bool)`
 
-GetThumbnailUrlOk returns a tuple with the ThumbnailUrl field if it's non-nil, zero value otherwise
+GetOriginalUrlOk returns a tuple with the OriginalUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetThumbnailUrl
+### SetOriginalUrl
 
-`func (o *FloorPlan) SetThumbnailUrl(v string)`
+`func (o *FloorPlan) SetOriginalUrl(v string)`
 
-SetThumbnailUrl sets ThumbnailUrl field to given value.
+SetOriginalUrl sets OriginalUrl field to given value.
 
 
 ### GetLargeUrl
@@ -90,24 +90,24 @@ and a boolean to check if the value has been set.
 SetLargeUrl sets LargeUrl field to given value.
 
 
-### GetOriginalUrl
+### GetThumbnailUrl
 
-`func (o *FloorPlan) GetOriginalUrl() string`
+`func (o *FloorPlan) GetThumbnailUrl() string`
 
-GetOriginalUrl returns the OriginalUrl field if non-nil, zero value otherwise.
+GetThumbnailUrl returns the ThumbnailUrl field if non-nil, zero value otherwise.
 
-### GetOriginalUrlOk
+### GetThumbnailUrlOk
 
-`func (o *FloorPlan) GetOriginalUrlOk() (*string, bool)`
+`func (o *FloorPlan) GetThumbnailUrlOk() (*string, bool)`
 
-GetOriginalUrlOk returns a tuple with the OriginalUrl field if it's non-nil, zero value otherwise
+GetThumbnailUrlOk returns a tuple with the ThumbnailUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOriginalUrl
+### SetThumbnailUrl
 
-`func (o *FloorPlan) SetOriginalUrl(v string)`
+`func (o *FloorPlan) SetThumbnailUrl(v string)`
 
-SetOriginalUrl sets OriginalUrl field to given value.
+SetThumbnailUrl sets ThumbnailUrl field to given value.
 
 
 ### GetTitle

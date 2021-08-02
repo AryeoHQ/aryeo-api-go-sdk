@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -16,8 +16,8 @@ import (
 type OrderForm struct {
 	// UUID of the order form.
 	Id string `json:"id"`
-	// The name of the order form.
-	Name NullableString `json:"name,omitempty"`
+	// The title or name of the order form.
+	Title NullableString `json:"title,omitempty"`
 	// A URL of a publicly-accessible webpage for this order form.
 	Url string `json:"url"`
 }
@@ -65,46 +65,46 @@ func (o *OrderForm) SetId(v string) {
 	o.Id = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *OrderForm) GetName() string {
-	if o == nil || o.Name.Get() == nil {
+// GetTitle returns the Title field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OrderForm) GetTitle() string {
+	if o == nil || o.Title.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name.Get()
+	return *o.Title.Get()
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *OrderForm) GetNameOk() (*string, bool) {
+func (o *OrderForm) GetTitleOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Name.Get(), o.Name.IsSet()
+	return o.Title.Get(), o.Title.IsSet()
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *OrderForm) HasName() bool {
-	if o != nil && o.Name.IsSet() {
+// HasTitle returns a boolean if a field has been set.
+func (o *OrderForm) HasTitle() bool {
+	if o != nil && o.Title.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given NullableString and assigns it to the Name field.
-func (o *OrderForm) SetName(v string) {
-	o.Name.Set(&v)
+// SetTitle gets a reference to the given NullableString and assigns it to the Title field.
+func (o *OrderForm) SetTitle(v string) {
+	o.Title.Set(&v)
 }
-// SetNameNil sets the value for Name to be an explicit nil
-func (o *OrderForm) SetNameNil() {
-	o.Name.Set(nil)
+// SetTitleNil sets the value for Title to be an explicit nil
+func (o *OrderForm) SetTitleNil() {
+	o.Title.Set(nil)
 }
 
-// UnsetName ensures that no value is present for Name, not even an explicit nil
-func (o *OrderForm) UnsetName() {
-	o.Name.Unset()
+// UnsetTitle ensures that no value is present for Title, not even an explicit nil
+func (o *OrderForm) UnsetTitle() {
+	o.Title.Unset()
 }
 
 // GetUrl returns the Url field value
@@ -136,8 +136,8 @@ func (o OrderForm) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name.IsSet() {
-		toSerialize["name"] = o.Name.Get()
+	if o.Title.IsSet() {
+		toSerialize["title"] = o.Title.Get()
 	}
 	if true {
 		toSerialize["url"] = o.Url

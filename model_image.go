@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -15,9 +15,7 @@ import (
 // Image A visual representation of something.
 type Image struct {
 	// ID of the image.
-	Id int32 `json:"id"`
-	// The UUID of the image.
-	Uuid NullableString `json:"uuid,omitempty"`
+	Id string `json:"id"`
 	// A URL for a thumbnail-sized version of the image.
 	ThumbnailUrl string `json:"thumbnail_url"`
 	// A URL for a large version of the image.
@@ -36,7 +34,7 @@ type Image struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImage(id int32, thumbnailUrl string, largeUrl string, originalUrl string, displayInGallery bool) *Image {
+func NewImage(id string, thumbnailUrl string, largeUrl string, originalUrl string, displayInGallery bool) *Image {
 	this := Image{}
 	this.Id = id
 	this.ThumbnailUrl = thumbnailUrl
@@ -55,9 +53,9 @@ func NewImageWithDefaults() *Image {
 }
 
 // GetId returns the Id field value
-func (o *Image) GetId() int32 {
+func (o *Image) GetId() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
@@ -66,7 +64,7 @@ func (o *Image) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Image) GetIdOk() (*int32, bool) {
+func (o *Image) GetIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -74,50 +72,8 @@ func (o *Image) GetIdOk() (*int32, bool) {
 }
 
 // SetId sets field value
-func (o *Image) SetId(v int32) {
+func (o *Image) SetId(v string) {
 	o.Id = v
-}
-
-// GetUuid returns the Uuid field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Image) GetUuid() string {
-	if o == nil || o.Uuid.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.Uuid.Get()
-}
-
-// GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Image) GetUuidOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Uuid.Get(), o.Uuid.IsSet()
-}
-
-// HasUuid returns a boolean if a field has been set.
-func (o *Image) HasUuid() bool {
-	if o != nil && o.Uuid.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetUuid gets a reference to the given NullableString and assigns it to the Uuid field.
-func (o *Image) SetUuid(v string) {
-	o.Uuid.Set(&v)
-}
-// SetUuidNil sets the value for Uuid to be an explicit nil
-func (o *Image) SetUuidNil() {
-	o.Uuid.Set(nil)
-}
-
-// UnsetUuid ensures that no value is present for Uuid, not even an explicit nil
-func (o *Image) UnsetUuid() {
-	o.Uuid.Unset()
 }
 
 // GetThumbnailUrl returns the ThumbnailUrl field value
@@ -304,9 +260,6 @@ func (o Image) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["id"] = o.Id
-	}
-	if o.Uuid.IsSet() {
-		toSerialize["uuid"] = o.Uuid.Get()
 	}
 	if true {
 		toSerialize["thumbnail_url"] = o.ThumbnailUrl

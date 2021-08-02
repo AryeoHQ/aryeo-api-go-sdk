@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | UUID of the order form. | 
-**Name** | Pointer to **NullableString** | The name of the order form. | [optional] 
+**Title** | Pointer to **NullableString** | The title or name of the order form. | [optional] 
 **Url** | **string** | A URL of a publicly-accessible webpage for this order form. | 
 
 ## Methods
@@ -47,41 +47,41 @@ and a boolean to check if the value has been set.
 SetId sets Id field to given value.
 
 
-### GetName
+### GetTitle
 
-`func (o *OrderForm) GetName() string`
+`func (o *OrderForm) GetTitle() string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetTitle returns the Title field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetTitleOk
 
-`func (o *OrderForm) GetNameOk() (*string, bool)`
+`func (o *OrderForm) GetTitleOk() (*string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetTitle
 
-`func (o *OrderForm) SetName(v string)`
+`func (o *OrderForm) SetTitle(v string)`
 
-SetName sets Name field to given value.
+SetTitle sets Title field to given value.
 
-### HasName
+### HasTitle
 
-`func (o *OrderForm) HasName() bool`
+`func (o *OrderForm) HasTitle() bool`
 
-HasName returns a boolean if a field has been set.
+HasTitle returns a boolean if a field has been set.
 
-### SetNameNil
+### SetTitleNil
 
-`func (o *OrderForm) SetNameNil(b bool)`
+`func (o *OrderForm) SetTitleNil(b bool)`
 
- SetNameNil sets the value for Name to be an explicit nil
+ SetTitleNil sets the value for Title to be an explicit nil
 
-### UnsetName
-`func (o *OrderForm) UnsetName()`
+### UnsetTitle
+`func (o *OrderForm) UnsetTitle()`
 
-UnsetName ensures that no value is present for Name, not even an explicit nil
+UnsetTitle ensures that no value is present for Title, not even an explicit nil
 ### GetUrl
 
 `func (o *OrderForm) GetUrl() string`

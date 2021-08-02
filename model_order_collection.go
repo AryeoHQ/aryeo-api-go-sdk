@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -14,7 +14,10 @@ import (
 
 // OrderCollection A collection of orders.
 type OrderCollection struct {
-	Data *[]Order `json:"data,omitempty"`
+	// What was the state of the request?
+	Status string `json:"status"`
+	// 
+	Data []Order `json:"data,omitempty"`
 	Meta *PaginationMeta `json:"meta,omitempty"`
 	Links *PaginationLinks `json:"links,omitempty"`
 }
@@ -23,8 +26,9 @@ type OrderCollection struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrderCollection() *OrderCollection {
+func NewOrderCollection(status string) *OrderCollection {
 	this := OrderCollection{}
+	this.Status = status
 	return &this
 }
 
@@ -36,22 +40,47 @@ func NewOrderCollectionWithDefaults() *OrderCollection {
 	return &this
 }
 
-// GetData returns the Data field value if set, zero value otherwise.
+// GetStatus returns the Status field value
+func (o *OrderCollection) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *OrderCollection) GetStatusOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *OrderCollection) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetData returns the Data field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OrderCollection) GetData() []Order {
-	if o == nil || o.Data == nil {
+	if o == nil  {
 		var ret []Order
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *OrderCollection) GetDataOk() (*[]Order, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
-	return o.Data, true
+	return &o.Data, true
 }
 
 // HasData returns a boolean if a field has been set.
@@ -65,7 +94,7 @@ func (o *OrderCollection) HasData() bool {
 
 // SetData gets a reference to the given []Order and assigns it to the Data field.
 func (o *OrderCollection) SetData(v []Order) {
-	o.Data = &v
+	o.Data = v
 }
 
 // GetMeta returns the Meta field value if set, zero value otherwise.
@@ -134,6 +163,9 @@ func (o *OrderCollection) SetLinks(v PaginationLinks) {
 
 func (o OrderCollection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["status"] = o.Status
+	}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}

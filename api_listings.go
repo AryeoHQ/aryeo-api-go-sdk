@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -28,17 +28,83 @@ type ListingsApiService service
 type ApiGetListingsRequest struct {
 	ctx _context.Context
 	ApiService *ListingsApiService
-	query *string
+	include *string
+	filterSearch *string
+	filterAddress *string
+	filterListAgent *string
+	filterStatus *string
+	filterActive *bool
+	filterPriceGte *float32
+	filterPriceLte *float32
+	filterSquareFeetGte *float32
+	filterSquareFeetLte *float32
+	filterBedroomsGte *int32
+	filterBedroomsLte *int32
+	filterBathroomsGte *float32
+	filterBathroomsLte *float32
+	sort *string
 	perPage *string
 	page *string
-	status *string
-	price *int32
-	bathrooms *float32
-	bedrooms *int32
 }
 
-func (r ApiGetListingsRequest) Query(query string) ApiGetListingsRequest {
-	r.query = &query
+func (r ApiGetListingsRequest) Include(include string) ApiGetListingsRequest {
+	r.include = &include
+	return r
+}
+func (r ApiGetListingsRequest) FilterSearch(filterSearch string) ApiGetListingsRequest {
+	r.filterSearch = &filterSearch
+	return r
+}
+func (r ApiGetListingsRequest) FilterAddress(filterAddress string) ApiGetListingsRequest {
+	r.filterAddress = &filterAddress
+	return r
+}
+func (r ApiGetListingsRequest) FilterListAgent(filterListAgent string) ApiGetListingsRequest {
+	r.filterListAgent = &filterListAgent
+	return r
+}
+func (r ApiGetListingsRequest) FilterStatus(filterStatus string) ApiGetListingsRequest {
+	r.filterStatus = &filterStatus
+	return r
+}
+func (r ApiGetListingsRequest) FilterActive(filterActive bool) ApiGetListingsRequest {
+	r.filterActive = &filterActive
+	return r
+}
+func (r ApiGetListingsRequest) FilterPriceGte(filterPriceGte float32) ApiGetListingsRequest {
+	r.filterPriceGte = &filterPriceGte
+	return r
+}
+func (r ApiGetListingsRequest) FilterPriceLte(filterPriceLte float32) ApiGetListingsRequest {
+	r.filterPriceLte = &filterPriceLte
+	return r
+}
+func (r ApiGetListingsRequest) FilterSquareFeetGte(filterSquareFeetGte float32) ApiGetListingsRequest {
+	r.filterSquareFeetGte = &filterSquareFeetGte
+	return r
+}
+func (r ApiGetListingsRequest) FilterSquareFeetLte(filterSquareFeetLte float32) ApiGetListingsRequest {
+	r.filterSquareFeetLte = &filterSquareFeetLte
+	return r
+}
+func (r ApiGetListingsRequest) FilterBedroomsGte(filterBedroomsGte int32) ApiGetListingsRequest {
+	r.filterBedroomsGte = &filterBedroomsGte
+	return r
+}
+func (r ApiGetListingsRequest) FilterBedroomsLte(filterBedroomsLte int32) ApiGetListingsRequest {
+	r.filterBedroomsLte = &filterBedroomsLte
+	return r
+}
+func (r ApiGetListingsRequest) FilterBathroomsGte(filterBathroomsGte float32) ApiGetListingsRequest {
+	r.filterBathroomsGte = &filterBathroomsGte
+	return r
+}
+func (r ApiGetListingsRequest) FilterBathroomsLte(filterBathroomsLte float32) ApiGetListingsRequest {
+	r.filterBathroomsLte = &filterBathroomsLte
+	return r
+}
+func (r ApiGetListingsRequest) Sort(sort string) ApiGetListingsRequest {
+	r.sort = &sort
 	return r
 }
 func (r ApiGetListingsRequest) PerPage(perPage string) ApiGetListingsRequest {
@@ -49,24 +115,8 @@ func (r ApiGetListingsRequest) Page(page string) ApiGetListingsRequest {
 	r.page = &page
 	return r
 }
-func (r ApiGetListingsRequest) Status(status string) ApiGetListingsRequest {
-	r.status = &status
-	return r
-}
-func (r ApiGetListingsRequest) Price(price int32) ApiGetListingsRequest {
-	r.price = &price
-	return r
-}
-func (r ApiGetListingsRequest) Bathrooms(bathrooms float32) ApiGetListingsRequest {
-	r.bathrooms = &bathrooms
-	return r
-}
-func (r ApiGetListingsRequest) Bedrooms(bedrooms int32) ApiGetListingsRequest {
-	r.bedrooms = &bedrooms
-	return r
-}
 
-func (r ApiGetListingsRequest) Execute() (PartialListingCollection, *_nethttp.Response, error) {
+func (r ApiGetListingsRequest) Execute() (ListingCollection, *_nethttp.Response, error) {
 	return r.ApiService.GetListingsExecute(r)
 }
 
@@ -85,16 +135,16 @@ func (a *ListingsApiService) GetListings(ctx _context.Context) ApiGetListingsReq
 
 /*
  * Execute executes the request
- * @return PartialListingCollection
+ * @return ListingCollection
  */
-func (a *ListingsApiService) GetListingsExecute(r ApiGetListingsRequest) (PartialListingCollection, *_nethttp.Response, error) {
+func (a *ListingsApiService) GetListingsExecute(r ApiGetListingsRequest) (ListingCollection, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PartialListingCollection
+		localVarReturnValue  ListingCollection
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ListingsApiService.GetListings")
@@ -108,26 +158,56 @@ func (a *ListingsApiService) GetListingsExecute(r ApiGetListingsRequest) (Partia
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	if r.query != nil {
-		localVarQueryParams.Add("query", parameterToString(*r.query, ""))
+	if r.include != nil {
+		localVarQueryParams.Add("include", parameterToString(*r.include, ""))
+	}
+	if r.filterSearch != nil {
+		localVarQueryParams.Add("filter[search]", parameterToString(*r.filterSearch, ""))
+	}
+	if r.filterAddress != nil {
+		localVarQueryParams.Add("filter[address]", parameterToString(*r.filterAddress, ""))
+	}
+	if r.filterListAgent != nil {
+		localVarQueryParams.Add("filter[list_agent]", parameterToString(*r.filterListAgent, ""))
+	}
+	if r.filterStatus != nil {
+		localVarQueryParams.Add("filter[status]", parameterToString(*r.filterStatus, ""))
+	}
+	if r.filterActive != nil {
+		localVarQueryParams.Add("filter[active]", parameterToString(*r.filterActive, ""))
+	}
+	if r.filterPriceGte != nil {
+		localVarQueryParams.Add("filter[price_gte]", parameterToString(*r.filterPriceGte, ""))
+	}
+	if r.filterPriceLte != nil {
+		localVarQueryParams.Add("filter[price_lte]", parameterToString(*r.filterPriceLte, ""))
+	}
+	if r.filterSquareFeetGte != nil {
+		localVarQueryParams.Add("filter[square_feet_gte]", parameterToString(*r.filterSquareFeetGte, ""))
+	}
+	if r.filterSquareFeetLte != nil {
+		localVarQueryParams.Add("filter[square_feet_lte]", parameterToString(*r.filterSquareFeetLte, ""))
+	}
+	if r.filterBedroomsGte != nil {
+		localVarQueryParams.Add("filter[bedrooms_gte]", parameterToString(*r.filterBedroomsGte, ""))
+	}
+	if r.filterBedroomsLte != nil {
+		localVarQueryParams.Add("filter[bedrooms_lte]", parameterToString(*r.filterBedroomsLte, ""))
+	}
+	if r.filterBathroomsGte != nil {
+		localVarQueryParams.Add("filter[bathrooms_gte]", parameterToString(*r.filterBathroomsGte, ""))
+	}
+	if r.filterBathroomsLte != nil {
+		localVarQueryParams.Add("filter[bathrooms_lte]", parameterToString(*r.filterBathroomsLte, ""))
+	}
+	if r.sort != nil {
+		localVarQueryParams.Add("sort", parameterToString(*r.sort, ""))
 	}
 	if r.perPage != nil {
 		localVarQueryParams.Add("per_page", parameterToString(*r.perPage, ""))
 	}
 	if r.page != nil {
 		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
-	}
-	if r.status != nil {
-		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
-	}
-	if r.price != nil {
-		localVarQueryParams.Add("price", parameterToString(*r.price, ""))
-	}
-	if r.bathrooms != nil {
-		localVarQueryParams.Add("bathrooms", parameterToString(*r.bathrooms, ""))
-	}
-	if r.bedrooms != nil {
-		localVarQueryParams.Add("bedrooms", parameterToString(*r.bedrooms, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -179,7 +259,7 @@ func (a *ListingsApiService) GetListingsExecute(r ApiGetListingsRequest) (Partia
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiFail
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -215,9 +295,14 @@ func (a *ListingsApiService) GetListingsExecute(r ApiGetListingsRequest) (Partia
 type ApiGetListingsIdRequest struct {
 	ctx _context.Context
 	ApiService *ListingsApiService
-	id string
+	listingId string
+	include *string
 }
 
+func (r ApiGetListingsIdRequest) Include(include string) ApiGetListingsIdRequest {
+	r.include = &include
+	return r
+}
 
 func (r ApiGetListingsIdRequest) Execute() (ListingResource, *_nethttp.Response, error) {
 	return r.ApiService.GetListingsIdExecute(r)
@@ -227,14 +312,14 @@ func (r ApiGetListingsIdRequest) Execute() (ListingResource, *_nethttp.Response,
  * GetListingsId Get information about a listing.
  * Get information about a listing.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id The UUID of a listing.
+ * @param listingId The ID of a listing.
  * @return ApiGetListingsIdRequest
  */
-func (a *ListingsApiService) GetListingsId(ctx _context.Context, id string) ApiGetListingsIdRequest {
+func (a *ListingsApiService) GetListingsId(ctx _context.Context, listingId string) ApiGetListingsIdRequest {
 	return ApiGetListingsIdRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		listingId: listingId,
 	}
 }
 
@@ -257,19 +342,22 @@ func (a *ListingsApiService) GetListingsIdExecute(r ApiGetListingsIdRequest) (Li
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/listings/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/listings/{listing_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"listing_id"+"}", _neturl.PathEscape(parameterToString(r.listingId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if strlen(r.id) < 0 {
-		return localVarReturnValue, nil, reportError("id must have at least 0 elements")
+	if strlen(r.listingId) < 0 {
+		return localVarReturnValue, nil, reportError("listingId must have at least 0 elements")
 	}
-	if strlen(r.id) > 255 {
-		return localVarReturnValue, nil, reportError("id must have less than 255 elements")
+	if strlen(r.listingId) > 255 {
+		return localVarReturnValue, nil, reportError("listingId must have less than 255 elements")
 	}
 
+	if r.include != nil {
+		localVarQueryParams.Add("include", parameterToString(*r.include, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -320,7 +408,7 @@ func (a *ListingsApiService) GetListingsIdExecute(r ApiGetListingsIdRequest) (Li
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiError
+			var v ApiFail
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **int32** | ID of the video. | 
+**Id** | **string** | ID of the video. | 
 **Title** | Pointer to **NullableString** | The title of the video given by the uploading user. | [optional] 
+**Duration** | Pointer to **NullableInt32** | The video&#39;s runtime in seconds. | [optional] 
 **DisplayType** | **string** | The display type determines if the video is branded or unbranded (can also be none or both). This affects whether the video is displayed on branded or unbranded marketing materials such as the property website. | 
 **SourceType** | **string** | The original upload source of the video, used to determine how to handle the playback_url of the video and other display properties.  | 
-**ThumbnailUrl** | **string** | Thumbnail URL for the video. | 
-**PlaybackUrl** | **string** | A URL linking to the video. | 
+**ThumbnailUrl** | **string** | A thumbnail image URL for the video. | 
+**PlaybackUrl** | **string** | A URL linking to playback stream of the video. | 
 **DownloadUrl** | Pointer to **NullableString** | A URL for downloading the video. | [optional] 
-**Seconds** | Pointer to **NullableInt32** | The video&#39;s runtime in seconds. | [optional] 
-**ShareUrl** | Pointer to **NullableString** | Aryeo iFrame player URL | [optional] 
+**ShareUrl** | Pointer to **NullableString** | A URL linking to a public viewing optimized webpage the video. | [optional] 
 
 ## Methods
 
 ### NewVideo
 
-`func NewVideo(id int32, displayType string, sourceType string, thumbnailUrl string, playbackUrl string, ) *Video`
+`func NewVideo(id string, displayType string, sourceType string, thumbnailUrl string, playbackUrl string, ) *Video`
 
 NewVideo instantiates a new Video object
 This constructor will assign default values to properties that have it defined,
@@ -35,20 +35,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetId
 
-`func (o *Video) GetId() int32`
+`func (o *Video) GetId() string`
 
 GetId returns the Id field if non-nil, zero value otherwise.
 
 ### GetIdOk
 
-`func (o *Video) GetIdOk() (*int32, bool)`
+`func (o *Video) GetIdOk() (*string, bool)`
 
 GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetId
 
-`func (o *Video) SetId(v int32)`
+`func (o *Video) SetId(v string)`
 
 SetId sets Id field to given value.
 
@@ -88,6 +88,41 @@ HasTitle returns a boolean if a field has been set.
 `func (o *Video) UnsetTitle()`
 
 UnsetTitle ensures that no value is present for Title, not even an explicit nil
+### GetDuration
+
+`func (o *Video) GetDuration() int32`
+
+GetDuration returns the Duration field if non-nil, zero value otherwise.
+
+### GetDurationOk
+
+`func (o *Video) GetDurationOk() (*int32, bool)`
+
+GetDurationOk returns a tuple with the Duration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDuration
+
+`func (o *Video) SetDuration(v int32)`
+
+SetDuration sets Duration field to given value.
+
+### HasDuration
+
+`func (o *Video) HasDuration() bool`
+
+HasDuration returns a boolean if a field has been set.
+
+### SetDurationNil
+
+`func (o *Video) SetDurationNil(b bool)`
+
+ SetDurationNil sets the value for Duration to be an explicit nil
+
+### UnsetDuration
+`func (o *Video) UnsetDuration()`
+
+UnsetDuration ensures that no value is present for Duration, not even an explicit nil
 ### GetDisplayType
 
 `func (o *Video) GetDisplayType() string`
@@ -203,41 +238,6 @@ HasDownloadUrl returns a boolean if a field has been set.
 `func (o *Video) UnsetDownloadUrl()`
 
 UnsetDownloadUrl ensures that no value is present for DownloadUrl, not even an explicit nil
-### GetSeconds
-
-`func (o *Video) GetSeconds() int32`
-
-GetSeconds returns the Seconds field if non-nil, zero value otherwise.
-
-### GetSecondsOk
-
-`func (o *Video) GetSecondsOk() (*int32, bool)`
-
-GetSecondsOk returns a tuple with the Seconds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSeconds
-
-`func (o *Video) SetSeconds(v int32)`
-
-SetSeconds sets Seconds field to given value.
-
-### HasSeconds
-
-`func (o *Video) HasSeconds() bool`
-
-HasSeconds returns a boolean if a field has been set.
-
-### SetSecondsNil
-
-`func (o *Video) SetSecondsNil(b bool)`
-
- SetSecondsNil sets the value for Seconds to be an explicit nil
-
-### UnsetSeconds
-`func (o *Video) UnsetSeconds()`
-
-UnsetSeconds ensures that no value is present for Seconds, not even an explicit nil
 ### GetShareUrl
 
 `func (o *Video) GetShareUrl() string`

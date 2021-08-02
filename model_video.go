@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -15,22 +15,22 @@ import (
 // Video A recording of moving visual images. Provided either as a download URL (MP4) or a link (e.g. YouTube, Vimeo).
 type Video struct {
 	// ID of the video.
-	Id int32 `json:"id"`
+	Id string `json:"id"`
 	// The title of the video given by the uploading user.
 	Title NullableString `json:"title,omitempty"`
+	// The video's runtime in seconds.
+	Duration NullableInt32 `json:"duration,omitempty"`
 	// The display type determines if the video is branded or unbranded (can also be none or both). This affects whether the video is displayed on branded or unbranded marketing materials such as the property website.
 	DisplayType string `json:"display_type"`
 	// The original upload source of the video, used to determine how to handle the playback_url of the video and other display properties. 
 	SourceType string `json:"source_type"`
-	// Thumbnail URL for the video.
+	// A thumbnail image URL for the video.
 	ThumbnailUrl string `json:"thumbnail_url"`
-	// A URL linking to the video.
+	// A URL linking to playback stream of the video.
 	PlaybackUrl string `json:"playback_url"`
 	// A URL for downloading the video.
 	DownloadUrl NullableString `json:"download_url,omitempty"`
-	// The video's runtime in seconds.
-	Seconds NullableInt32 `json:"seconds,omitempty"`
-	// Aryeo iFrame player URL
+	// A URL linking to a public viewing optimized webpage the video.
 	ShareUrl NullableString `json:"share_url,omitempty"`
 }
 
@@ -38,7 +38,7 @@ type Video struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVideo(id int32, displayType string, sourceType string, thumbnailUrl string, playbackUrl string) *Video {
+func NewVideo(id string, displayType string, sourceType string, thumbnailUrl string, playbackUrl string) *Video {
 	this := Video{}
 	this.Id = id
 	this.DisplayType = displayType
@@ -57,9 +57,9 @@ func NewVideoWithDefaults() *Video {
 }
 
 // GetId returns the Id field value
-func (o *Video) GetId() int32 {
+func (o *Video) GetId() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
@@ -68,7 +68,7 @@ func (o *Video) GetId() int32 {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Video) GetIdOk() (*int32, bool) {
+func (o *Video) GetIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -76,7 +76,7 @@ func (o *Video) GetIdOk() (*int32, bool) {
 }
 
 // SetId sets field value
-func (o *Video) SetId(v int32) {
+func (o *Video) SetId(v string) {
 	o.Id = v
 }
 
@@ -120,6 +120,48 @@ func (o *Video) SetTitleNil() {
 // UnsetTitle ensures that no value is present for Title, not even an explicit nil
 func (o *Video) UnsetTitle() {
 	o.Title.Unset()
+}
+
+// GetDuration returns the Duration field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Video) GetDuration() int32 {
+	if o == nil || o.Duration.Get() == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Duration.Get()
+}
+
+// GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Video) GetDurationOk() (*int32, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Duration.Get(), o.Duration.IsSet()
+}
+
+// HasDuration returns a boolean if a field has been set.
+func (o *Video) HasDuration() bool {
+	if o != nil && o.Duration.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDuration gets a reference to the given NullableInt32 and assigns it to the Duration field.
+func (o *Video) SetDuration(v int32) {
+	o.Duration.Set(&v)
+}
+// SetDurationNil sets the value for Duration to be an explicit nil
+func (o *Video) SetDurationNil() {
+	o.Duration.Set(nil)
+}
+
+// UnsetDuration ensures that no value is present for Duration, not even an explicit nil
+func (o *Video) UnsetDuration() {
+	o.Duration.Unset()
 }
 
 // GetDisplayType returns the DisplayType field value
@@ -260,48 +302,6 @@ func (o *Video) UnsetDownloadUrl() {
 	o.DownloadUrl.Unset()
 }
 
-// GetSeconds returns the Seconds field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Video) GetSeconds() int32 {
-	if o == nil || o.Seconds.Get() == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Seconds.Get()
-}
-
-// GetSecondsOk returns a tuple with the Seconds field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Video) GetSecondsOk() (*int32, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Seconds.Get(), o.Seconds.IsSet()
-}
-
-// HasSeconds returns a boolean if a field has been set.
-func (o *Video) HasSeconds() bool {
-	if o != nil && o.Seconds.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetSeconds gets a reference to the given NullableInt32 and assigns it to the Seconds field.
-func (o *Video) SetSeconds(v int32) {
-	o.Seconds.Set(&v)
-}
-// SetSecondsNil sets the value for Seconds to be an explicit nil
-func (o *Video) SetSecondsNil() {
-	o.Seconds.Set(nil)
-}
-
-// UnsetSeconds ensures that no value is present for Seconds, not even an explicit nil
-func (o *Video) UnsetSeconds() {
-	o.Seconds.Unset()
-}
-
 // GetShareUrl returns the ShareUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Video) GetShareUrl() string {
 	if o == nil || o.ShareUrl.Get() == nil {
@@ -352,6 +352,9 @@ func (o Video) MarshalJSON() ([]byte, error) {
 	if o.Title.IsSet() {
 		toSerialize["title"] = o.Title.Get()
 	}
+	if o.Duration.IsSet() {
+		toSerialize["duration"] = o.Duration.Get()
+	}
 	if true {
 		toSerialize["display_type"] = o.DisplayType
 	}
@@ -366,9 +369,6 @@ func (o Video) MarshalJSON() ([]byte, error) {
 	}
 	if o.DownloadUrl.IsSet() {
 		toSerialize["download_url"] = o.DownloadUrl.Get()
-	}
-	if o.Seconds.IsSet() {
-		toSerialize["seconds"] = o.Seconds.Get()
 	}
 	if o.ShareUrl.IsSet() {
 		toSerialize["share_url"] = o.ShareUrl.Get()

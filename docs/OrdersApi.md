@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetOrders
 
-> OrderCollection GetOrders(ctx).Execute()
+> OrderCollection GetOrders(ctx).Sort(sort).PerPage(perPage).Page(page).Execute()
 
 Get orders available to a group.
 
@@ -30,10 +30,13 @@ import (
 )
 
 func main() {
+    sort := "-created_at" // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-created_at`. (optional)
+    perPage := "25" // string | The number of items per page. Defaults to 25. (optional)
+    page := "2" // string | The requested page. Defaults to 1. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.OrdersApi.GetOrders(context.Background()).Execute()
+    resp, r, err := api_client.OrdersApi.GetOrders(context.Background()).Sort(sort).PerPage(perPage).Page(page).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `OrdersApi.GetOrders``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -45,12 +48,18 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetOrdersRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string** | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. | 
+ **perPage** | **string** | The number of items per page. Defaults to 25. | 
+ **page** | **string** | The requested page. Defaults to 1. | 
 
 ### Return type
 
@@ -58,7 +67,7 @@ Other parameters are passed through a pointer to a apiGetOrdersRequest struct vi
 
 ### Authorization
 
-[JWT](../README.md#JWT)
+[Token](../README.md#Token)
 
 ### HTTP request headers
 
@@ -91,7 +100,7 @@ import (
 )
 
 func main() {
-    orderPostPayload := *openapiclient.NewOrderPostPayload() // OrderPostPayload |  (optional)
+    orderPostPayload := *openapiclient.NewOrderPostPayload() // OrderPostPayload | OrderPostPayload (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -116,7 +125,7 @@ Other parameters are passed through a pointer to a apiPostOrdersRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **orderPostPayload** | [**OrderPostPayload**](OrderPostPayload.md) |  | 
+ **orderPostPayload** | [**OrderPostPayload**](OrderPostPayload.md) | OrderPostPayload | 
 
 ### Return type
 
@@ -124,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[JWT](../README.md#JWT)
+[Token](../README.md#Token)
 
 ### HTTP request headers
 

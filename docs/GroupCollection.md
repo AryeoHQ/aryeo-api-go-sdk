@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Status** | **string** | What was the state of the request? | 
 **Data** | Pointer to [**[]Group**](Group.md) |  | [optional] 
 **Meta** | Pointer to [**PaginationMeta**](PaginationMeta.md) |  | [optional] 
 **Links** | Pointer to [**PaginationLinks**](PaginationLinks.md) |  | [optional] 
@@ -12,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewGroupCollection
 
-`func NewGroupCollection() *GroupCollection`
+`func NewGroupCollection(status string, ) *GroupCollection`
 
 NewGroupCollection instantiates a new GroupCollection object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,26 @@ will change when the set of required properties is changed
 NewGroupCollectionWithDefaults instantiates a new GroupCollection object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetStatus
+
+`func (o *GroupCollection) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *GroupCollection) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *GroupCollection) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 ### GetData
 
@@ -52,6 +73,16 @@ SetData sets Data field to given value.
 
 HasData returns a boolean if a field has been set.
 
+### SetDataNil
+
+`func (o *GroupCollection) SetDataNil(b bool)`
+
+ SetDataNil sets the value for Data to be an explicit nil
+
+### UnsetData
+`func (o *GroupCollection) UnsetData()`
+
+UnsetData ensures that no value is present for Data, not even an explicit nil
 ### GetMeta
 
 `func (o *GroupCollection) GetMeta() PaginationMeta`

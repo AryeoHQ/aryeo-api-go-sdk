@@ -12,36 +12,36 @@ import (
 	"encoding/json"
 )
 
-// GroupCollection A collection of groups.
-type GroupCollection struct {
+// ListingCollection A collection of listings.
+type ListingCollection struct {
 	// What was the state of the request?
 	Status string `json:"status"`
 	// 
-	Data []Group `json:"data,omitempty"`
+	Data []Listing `json:"data,omitempty"`
 	Meta *PaginationMeta `json:"meta,omitempty"`
 	Links *PaginationLinks `json:"links,omitempty"`
 }
 
-// NewGroupCollection instantiates a new GroupCollection object
+// NewListingCollection instantiates a new ListingCollection object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGroupCollection(status string) *GroupCollection {
-	this := GroupCollection{}
+func NewListingCollection(status string) *ListingCollection {
+	this := ListingCollection{}
 	this.Status = status
 	return &this
 }
 
-// NewGroupCollectionWithDefaults instantiates a new GroupCollection object
+// NewListingCollectionWithDefaults instantiates a new ListingCollection object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGroupCollectionWithDefaults() *GroupCollection {
-	this := GroupCollection{}
+func NewListingCollectionWithDefaults() *ListingCollection {
+	this := ListingCollection{}
 	return &this
 }
 
 // GetStatus returns the Status field value
-func (o *GroupCollection) GetStatus() string {
+func (o *ListingCollection) GetStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -52,7 +52,7 @@ func (o *GroupCollection) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *GroupCollection) GetStatusOk() (*string, bool) {
+func (o *ListingCollection) GetStatusOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -60,14 +60,14 @@ func (o *GroupCollection) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *GroupCollection) SetStatus(v string) {
+func (o *ListingCollection) SetStatus(v string) {
 	o.Status = v
 }
 
 // GetData returns the Data field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GroupCollection) GetData() []Group {
+func (o *ListingCollection) GetData() []Listing {
 	if o == nil  {
-		var ret []Group
+		var ret []Listing
 		return ret
 	}
 	return o.Data
@@ -76,7 +76,7 @@ func (o *GroupCollection) GetData() []Group {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GroupCollection) GetDataOk() (*[]Group, bool) {
+func (o *ListingCollection) GetDataOk() (*[]Listing, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -84,7 +84,7 @@ func (o *GroupCollection) GetDataOk() (*[]Group, bool) {
 }
 
 // HasData returns a boolean if a field has been set.
-func (o *GroupCollection) HasData() bool {
+func (o *ListingCollection) HasData() bool {
 	if o != nil && o.Data != nil {
 		return true
 	}
@@ -92,13 +92,13 @@ func (o *GroupCollection) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given []Group and assigns it to the Data field.
-func (o *GroupCollection) SetData(v []Group) {
+// SetData gets a reference to the given []Listing and assigns it to the Data field.
+func (o *ListingCollection) SetData(v []Listing) {
 	o.Data = v
 }
 
 // GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *GroupCollection) GetMeta() PaginationMeta {
+func (o *ListingCollection) GetMeta() PaginationMeta {
 	if o == nil || o.Meta == nil {
 		var ret PaginationMeta
 		return ret
@@ -108,7 +108,7 @@ func (o *GroupCollection) GetMeta() PaginationMeta {
 
 // GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GroupCollection) GetMetaOk() (*PaginationMeta, bool) {
+func (o *ListingCollection) GetMetaOk() (*PaginationMeta, bool) {
 	if o == nil || o.Meta == nil {
 		return nil, false
 	}
@@ -116,7 +116,7 @@ func (o *GroupCollection) GetMetaOk() (*PaginationMeta, bool) {
 }
 
 // HasMeta returns a boolean if a field has been set.
-func (o *GroupCollection) HasMeta() bool {
+func (o *ListingCollection) HasMeta() bool {
 	if o != nil && o.Meta != nil {
 		return true
 	}
@@ -125,12 +125,12 @@ func (o *GroupCollection) HasMeta() bool {
 }
 
 // SetMeta gets a reference to the given PaginationMeta and assigns it to the Meta field.
-func (o *GroupCollection) SetMeta(v PaginationMeta) {
+func (o *ListingCollection) SetMeta(v PaginationMeta) {
 	o.Meta = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *GroupCollection) GetLinks() PaginationLinks {
+func (o *ListingCollection) GetLinks() PaginationLinks {
 	if o == nil || o.Links == nil {
 		var ret PaginationLinks
 		return ret
@@ -140,7 +140,7 @@ func (o *GroupCollection) GetLinks() PaginationLinks {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GroupCollection) GetLinksOk() (*PaginationLinks, bool) {
+func (o *ListingCollection) GetLinksOk() (*PaginationLinks, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -148,7 +148,7 @@ func (o *GroupCollection) GetLinksOk() (*PaginationLinks, bool) {
 }
 
 // HasLinks returns a boolean if a field has been set.
-func (o *GroupCollection) HasLinks() bool {
+func (o *ListingCollection) HasLinks() bool {
 	if o != nil && o.Links != nil {
 		return true
 	}
@@ -157,11 +157,11 @@ func (o *GroupCollection) HasLinks() bool {
 }
 
 // SetLinks gets a reference to the given PaginationLinks and assigns it to the Links field.
-func (o *GroupCollection) SetLinks(v PaginationLinks) {
+func (o *ListingCollection) SetLinks(v PaginationLinks) {
 	o.Links = &v
 }
 
-func (o GroupCollection) MarshalJSON() ([]byte, error) {
+func (o ListingCollection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["status"] = o.Status
@@ -178,38 +178,38 @@ func (o GroupCollection) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableGroupCollection struct {
-	value *GroupCollection
+type NullableListingCollection struct {
+	value *ListingCollection
 	isSet bool
 }
 
-func (v NullableGroupCollection) Get() *GroupCollection {
+func (v NullableListingCollection) Get() *ListingCollection {
 	return v.value
 }
 
-func (v *NullableGroupCollection) Set(val *GroupCollection) {
+func (v *NullableListingCollection) Set(val *ListingCollection) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGroupCollection) IsSet() bool {
+func (v NullableListingCollection) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGroupCollection) Unset() {
+func (v *NullableListingCollection) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGroupCollection(val *GroupCollection) *NullableGroupCollection {
-	return &NullableGroupCollection{value: val, isSet: true}
+func NewNullableListingCollection(val *ListingCollection) *NullableListingCollection {
+	return &NullableListingCollection{value: val, isSet: true}
 }
 
-func (v NullableGroupCollection) MarshalJSON() ([]byte, error) {
+func (v NullableListingCollection) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGroupCollection) UnmarshalJSON(src []byte) error {
+func (v *NullableListingCollection) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

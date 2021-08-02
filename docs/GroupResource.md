@@ -1,73 +1,73 @@
-# OrderResource
+# GroupResource
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | **string** | What was the state of the request? | 
-**Data** | Pointer to [**Order**](Order.md) |  | [optional] 
+**Data** | Pointer to [**Group**](Group.md) |  | [optional] 
 
 ## Methods
 
-### NewOrderResource
+### NewGroupResource
 
-`func NewOrderResource(status string, ) *OrderResource`
+`func NewGroupResource(status string, ) *GroupResource`
 
-NewOrderResource instantiates a new OrderResource object
+NewGroupResource instantiates a new GroupResource object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewOrderResourceWithDefaults
+### NewGroupResourceWithDefaults
 
-`func NewOrderResourceWithDefaults() *OrderResource`
+`func NewGroupResourceWithDefaults() *GroupResource`
 
-NewOrderResourceWithDefaults instantiates a new OrderResource object
+NewGroupResourceWithDefaults instantiates a new GroupResource object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetStatus
 
-`func (o *OrderResource) GetStatus() string`
+`func (o *GroupResource) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *OrderResource) GetStatusOk() (*string, bool)`
+`func (o *GroupResource) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *OrderResource) SetStatus(v string)`
+`func (o *GroupResource) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 
 
 ### GetData
 
-`func (o *OrderResource) GetData() Order`
+`func (o *GroupResource) GetData() Group`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *OrderResource) GetDataOk() (*Order, bool)`
+`func (o *GroupResource) GetDataOk() (*Group, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *OrderResource) SetData(v Order)`
+`func (o *GroupResource) SetData(v Group)`
 
 SetData sets Data field to given value.
 
 ### HasData
 
-`func (o *OrderResource) HasData() bool`
+`func (o *GroupResource) HasData() bool`
 
 HasData returns a boolean if a field has been set.
 

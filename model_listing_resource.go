@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -14,6 +14,8 @@ import (
 
 // ListingResource A listing.
 type ListingResource struct {
+	// What was the state of the request?
+	Status string `json:"status"`
 	Data *Listing `json:"data,omitempty"`
 }
 
@@ -21,8 +23,9 @@ type ListingResource struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListingResource() *ListingResource {
+func NewListingResource(status string) *ListingResource {
 	this := ListingResource{}
+	this.Status = status
 	return &this
 }
 
@@ -32,6 +35,30 @@ func NewListingResource() *ListingResource {
 func NewListingResourceWithDefaults() *ListingResource {
 	this := ListingResource{}
 	return &this
+}
+
+// GetStatus returns the Status field value
+func (o *ListingResource) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *ListingResource) GetStatusOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *ListingResource) SetStatus(v string) {
+	o.Status = v
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
@@ -68,6 +95,9 @@ func (o *ListingResource) SetData(v Listing) {
 
 func (o ListingResource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["status"] = o.Status
+	}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}

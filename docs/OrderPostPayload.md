@@ -4,9 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FulfillmentStatus** | Pointer to **NullableString** | The fulfillment status of the order. | [optional] 
-**PaymentStatus** | Pointer to **NullableString** | The payment status of the order. | [optional] 
-**ProductItems** | Pointer to [**[]ProductItem**](ProductItem.md) | product_items | [optional] 
+**FulfillmentStatus** | Pointer to **NullableString** | The fulfillment status of the order. Defaults to \&quot;UNFULFILLED\&quot;. | [optional] 
+**PaymentStatus** | Pointer to **NullableString** | The payment status of the order. Defaults to \&quot;UNPAID\&quot;.  | [optional] 
 
 ## Methods
 
@@ -97,31 +96,6 @@ HasPaymentStatus returns a boolean if a field has been set.
 `func (o *OrderPostPayload) UnsetPaymentStatus()`
 
 UnsetPaymentStatus ensures that no value is present for PaymentStatus, not even an explicit nil
-### GetProductItems
-
-`func (o *OrderPostPayload) GetProductItems() []ProductItem`
-
-GetProductItems returns the ProductItems field if non-nil, zero value otherwise.
-
-### GetProductItemsOk
-
-`func (o *OrderPostPayload) GetProductItemsOk() (*[]ProductItem, bool)`
-
-GetProductItemsOk returns a tuple with the ProductItems field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProductItems
-
-`func (o *OrderPostPayload) SetProductItems(v []ProductItem)`
-
-SetProductItems sets ProductItems field to given value.
-
-### HasProductItems
-
-`func (o *OrderPostPayload) HasProductItems() bool`
-
-HasProductItems returns a boolean if a field has been set.
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

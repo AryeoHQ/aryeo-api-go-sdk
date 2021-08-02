@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Status** | **string** | What was the state of the request? | 
 **Data** | Pointer to [**[]Order**](Order.md) |  | [optional] 
 **Meta** | Pointer to [**PaginationMeta**](PaginationMeta.md) |  | [optional] 
 **Links** | Pointer to [**PaginationLinks**](PaginationLinks.md) |  | [optional] 
@@ -12,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewOrderCollection
 
-`func NewOrderCollection() *OrderCollection`
+`func NewOrderCollection(status string, ) *OrderCollection`
 
 NewOrderCollection instantiates a new OrderCollection object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,26 @@ will change when the set of required properties is changed
 NewOrderCollectionWithDefaults instantiates a new OrderCollection object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetStatus
+
+`func (o *OrderCollection) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *OrderCollection) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *OrderCollection) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
 
 ### GetData
 
@@ -52,6 +73,16 @@ SetData sets Data field to given value.
 
 HasData returns a boolean if a field has been set.
 
+### SetDataNil
+
+`func (o *OrderCollection) SetDataNil(b bool)`
+
+ SetDataNil sets the value for Data to be an explicit nil
+
+### UnsetData
+`func (o *OrderCollection) UnsetData()`
+
+UnsetData ensures that no value is present for Data, not even an explicit nil
 ### GetMeta
 
 `func (o *OrderCollection) GetMeta() PaginationMeta`

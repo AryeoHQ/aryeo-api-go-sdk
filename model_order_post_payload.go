@@ -2,7 +2,7 @@
  * Aryeo
  *
  *
- * API version: 1.0.0
+ * API version: 2021-06-17
  * Contact: jarrod@aryeo.com
  */
 
@@ -14,12 +14,10 @@ import (
 
 // OrderPostPayload Payload for creating an order.
 type OrderPostPayload struct {
-	// The fulfillment status of the order.
+	// The fulfillment status of the order. Defaults to \"UNFULFILLED\".
 	FulfillmentStatus NullableString `json:"fulfillment_status,omitempty"`
-	// The payment status of the order.
+	// The payment status of the order. Defaults to \"UNPAID\". 
 	PaymentStatus NullableString `json:"payment_status,omitempty"`
-	// product_items
-	ProductItems *[]ProductItem `json:"product_items,omitempty"`
 }
 
 // NewOrderPostPayload instantiates a new OrderPostPayload object
@@ -123,38 +121,6 @@ func (o *OrderPostPayload) UnsetPaymentStatus() {
 	o.PaymentStatus.Unset()
 }
 
-// GetProductItems returns the ProductItems field value if set, zero value otherwise.
-func (o *OrderPostPayload) GetProductItems() []ProductItem {
-	if o == nil || o.ProductItems == nil {
-		var ret []ProductItem
-		return ret
-	}
-	return *o.ProductItems
-}
-
-// GetProductItemsOk returns a tuple with the ProductItems field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OrderPostPayload) GetProductItemsOk() (*[]ProductItem, bool) {
-	if o == nil || o.ProductItems == nil {
-		return nil, false
-	}
-	return o.ProductItems, true
-}
-
-// HasProductItems returns a boolean if a field has been set.
-func (o *OrderPostPayload) HasProductItems() bool {
-	if o != nil && o.ProductItems != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetProductItems gets a reference to the given []ProductItem and assigns it to the ProductItems field.
-func (o *OrderPostPayload) SetProductItems(v []ProductItem) {
-	o.ProductItems = &v
-}
-
 func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FulfillmentStatus.IsSet() {
@@ -162,9 +128,6 @@ func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentStatus.IsSet() {
 		toSerialize["payment_status"] = o.PaymentStatus.Get()
-	}
-	if o.ProductItems != nil {
-		toSerialize["product_items"] = o.ProductItems
 	}
 	return json.Marshal(toSerialize)
 }
