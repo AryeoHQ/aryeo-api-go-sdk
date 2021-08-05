@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | ID of the group. | 
+**Id** | **string** | ID of the group. UUID Version 4. | 
 **Type** | **string** | The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned. | 
 **Name** | **string** | The name of the group. | 
 **Email** | Pointer to **NullableString** | The email address of a group. | [optional] 

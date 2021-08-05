@@ -14,7 +14,7 @@ import (
 
 // Video A recording of moving visual images. Provided either as a download URL (MP4) or a link (e.g. YouTube, Vimeo).
 type Video struct {
-	// ID of the video.
+	// ID of the video. UUID Version 4.
 	Id string `json:"id"`
 	// The title of the video given by the uploading user.
 	Title NullableString `json:"title,omitempty"`

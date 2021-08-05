@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | UUID of the order form. | 
+**Id** | **string** | ID of the order form. UUID Version 4. | 
 **Title** | Pointer to **NullableString** | The title or name of the order form. | [optional] 
 **Url** | **string** | A URL of a publicly-accessible webpage for this order form. | 
 

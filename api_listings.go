@@ -312,7 +312,7 @@ func (r ApiGetListingsIdRequest) Execute() (ListingResource, *_nethttp.Response,
  * GetListingsId Get information about a listing.
  * Get information about a listing.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param listingId The ID of a listing.
+ * @param listingId The ID of a listing. UUID Version 4.
  * @return ApiGetListingsIdRequest
  */
 func (a *ListingsApiService) GetListingsId(ctx _context.Context, listingId string) ApiGetListingsIdRequest {
@@ -348,11 +348,11 @@ func (a *ListingsApiService) GetListingsIdExecute(r ApiGetListingsIdRequest) (Li
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if strlen(r.listingId) < 0 {
-		return localVarReturnValue, nil, reportError("listingId must have at least 0 elements")
+	if strlen(r.listingId) < 36 {
+		return localVarReturnValue, nil, reportError("listingId must have at least 36 elements")
 	}
-	if strlen(r.listingId) > 255 {
-		return localVarReturnValue, nil, reportError("listingId must have less than 255 elements")
+	if strlen(r.listingId) > 36 {
+		return localVarReturnValue, nil, reportError("listingId must have less than 36 elements")
 	}
 
 	if r.include != nil {

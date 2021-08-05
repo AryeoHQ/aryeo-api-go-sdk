@@ -14,7 +14,7 @@ import (
 
 // Group A collection of users that can interact with the Aryeo platform. Permissions and properties are determined based on the group's type which can be creator, agent, or brokerage.
 type Group struct {
-	// ID of the group.
+	// ID of the group. UUID Version 4.
 	Id string `json:"id"`
 	// The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned.
 	Type string `json:"type"`

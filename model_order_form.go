@@ -14,7 +14,7 @@ import (
 
 // OrderForm A mechanism for placing new orders on the Aryeo platform. 
 type OrderForm struct {
-	// UUID of the order form.
+	// ID of the order form. UUID Version 4.
 	Id string `json:"id"`
 	// The title or name of the order form.
 	Title NullableString `json:"title,omitempty"`

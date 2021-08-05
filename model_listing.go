@@ -14,7 +14,7 @@ import (
 
 // Listing A real estate listing.
 type Listing struct {
-	// ID of the listing.
+	// ID of the listing. UUID Version 4.
 	Id string `json:"id"`
 	Address Address `json:"address"`
 	// The identifier for a listing on its local MLS. 

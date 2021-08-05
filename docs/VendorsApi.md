@@ -96,7 +96,7 @@ import (
 )
 
 func main() {
-    vendorId := TODO // string | ID of the group that is associated as a vendor.
+    vendorId := TODO // string | The ID of the group that is associated as a vendor. UUID Version 4.
     include := "default_order_form" // string | Comma separated list of optional data to include in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -117,7 +117,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**vendorId** | [**string**](.md) | ID of the group that is associated as a vendor. | 
+**vendorId** | [**string**](.md) | The ID of the group that is associated as a vendor. UUID Version 4. | 
 
 ### Other Parameters
 

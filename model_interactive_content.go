@@ -14,7 +14,7 @@ import (
 
 // InteractiveContent A 3D virtual tour.
 type InteractiveContent struct {
-	// ID of the content.
+	// ID of the content. UUID Version 4.
 	Id string `json:"id"`
 	// Is the content branded, unbranded, or both?
 	DisplayType string `json:"display_type"`

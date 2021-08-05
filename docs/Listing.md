@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | ID of the listing. | 
+**Id** | **string** | ID of the listing. UUID Version 4. | 
 **Address** | [**Address**](Address.md) |  | 
 **MlsNumber** | Pointer to **NullableString** | The identifier for a listing on its local MLS.  | [optional] 
 **Type** | Pointer to **NullableString** | General type of the listing, primarily categorizing its use case. Examples include residential and commercial.  | [optional] 

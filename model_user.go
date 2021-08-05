@@ -14,7 +14,7 @@ import (
 
 // User A record of a person on the Aryeo platform.
 type User struct {
-	// ID of the user.
+	// ID of the user. UUID Version 4.
 	Id string `json:"id"`
 	// Email address of the user.
 	Email string `json:"email"`

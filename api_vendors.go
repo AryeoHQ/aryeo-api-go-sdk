@@ -184,7 +184,7 @@ func (r ApiGetVendorsIdRequest) Execute() (GroupResource, *_nethttp.Response, er
  * GetVendorsId Get vendors available to a group.
  * Get information about a vendor.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param vendorId ID of the group that is associated as a vendor.
+ * @param vendorId The ID of the group that is associated as a vendor. UUID Version 4.
  * @return ApiGetVendorsIdRequest
  */
 func (a *VendorsApiService) GetVendorsId(ctx _context.Context, vendorId string) ApiGetVendorsIdRequest {
@@ -220,11 +220,11 @@ func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (Group
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if strlen(r.vendorId) < 0 {
-		return localVarReturnValue, nil, reportError("vendorId must have at least 0 elements")
+	if strlen(r.vendorId) < 36 {
+		return localVarReturnValue, nil, reportError("vendorId must have at least 36 elements")
 	}
-	if strlen(r.vendorId) > 255 {
-		return localVarReturnValue, nil, reportError("vendorId must have less than 255 elements")
+	if strlen(r.vendorId) > 36 {
+		return localVarReturnValue, nil, reportError("vendorId must have less than 36 elements")
 	}
 
 	if r.include != nil {

@@ -14,7 +14,7 @@ import (
 
 // PropertyWebsite Website (in branded and unbranded versions) that displays information about a property.
 type PropertyWebsite struct {
-	// ID of the website.
+	// ID of the website. UUID Version 4.
 	Id string `json:"id"`
 	// URL for branded version of website.
 	BrandedUrl string `json:"branded_url"`

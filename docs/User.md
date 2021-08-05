@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | ID of the user. | 
+**Id** | **string** | ID of the user. UUID Version 4. | 
 **Email** | **string** | Email address of the user. | 
 **FirstName** | Pointer to **NullableString** | First name of the user. | [optional] 
 **LastName** | Pointer to **NullableString** | Last name of the user. | [optional] 

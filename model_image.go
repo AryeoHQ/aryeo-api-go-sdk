@@ -14,7 +14,7 @@ import (
 
 // Image A visual representation of something.
 type Image struct {
-	// ID of the image.
+	// ID of the image. UUID Version 4.
 	Id string `json:"id"`
 	// A URL for a thumbnail-sized version of the image.
 	ThumbnailUrl string `json:"thumbnail_url"`

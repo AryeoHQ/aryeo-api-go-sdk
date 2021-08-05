@@ -14,7 +14,7 @@ import (
 
 // Order A payment request for some content or service.
 type Order struct {
-	// ID of the order.
+	// ID of the order. UUID Version 4.
 	Id string `json:"id"`
 	// A vanity id used for internal tracking of orders for a given vendor. 
 	Number int32 `json:"number"`

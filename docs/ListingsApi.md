@@ -128,7 +128,7 @@ import (
 )
 
 func main() {
-    listingId := TODO // string | The ID of a listing.
+    listingId := TODO // string | The ID of a listing. UUID Version 4.
     include := "images,videos,orders" // string | Comma separated list of optional data to include in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -149,7 +149,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**listingId** | [**string**](.md) | The ID of a listing. | 
+**listingId** | [**string**](.md) | The ID of a listing. UUID Version 4. | 
 
 ### Other Parameters
 
