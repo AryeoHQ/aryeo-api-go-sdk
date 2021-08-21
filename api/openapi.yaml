@@ -625,6 +625,100 @@ paths:
       summary: Retrieve a listing.
       tags:
       - listings
+  /products:
+    get:
+      description: Get products of a group.
+      operationId: get-products
+      parameters:
+      - description: Comma separated list of fields used for sorting. Placing a minus
+          symbol in front of a field name sorts in descending order. Defaults to `title`.
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: -created_at
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: The number of items per page. Defaults to 25.
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: "25"
+          maxLength: 5
+          minLength: 1
+          type: string
+        style: form
+      - description: The requested page. Defaults to 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: "2"
+          maxLength: 5
+          minLength: 1
+          type: string
+        style: form
+      - description: Return products that have fields matching this term.
+        explode: true
+        in: query
+        name: filter[search]
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Return products in the given categories.
+        explode: true
+        in: query
+        name: filter[category_ids]
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: 'Return products matching the given type. Allowed values are:
+          MAIN, ADDON.'
+        explode: true
+        in: query
+        name: filter[type]
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCollection'
+          description: ProductCollection
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiFail'
+          description: ApiFail
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: ApiError
+      security:
+      - Token: []
+      summary: Get products available to a group.
+      tags:
+      - orders
   /orders:
     get:
       description: Lists all orders of a group.
@@ -2684,6 +2778,78 @@ components:
       - status
       title: ListingResource
       type: object
+    ProductCollection:
+      description: A collection of products.
+      example:
+        data:
+        - description: Capture photos of a house for sale.
+          id: 00000000-0000-4000-8000-000000000000
+          variants:
+          - price: 10000
+            id: 00000000-0000-4000-8000-000000000000
+            title: House photos
+          - price: 10000
+            id: 00000000-0000-4000-8000-000000000000
+            title: House photos
+          categories:
+          - id: 00000000-0000-4000-8000-000000000000
+            title: Photography
+          - id: 00000000-0000-4000-8000-000000000000
+            title: Photography
+          title: House photos
+          type: MAIN
+        - description: Capture photos of a house for sale.
+          id: 00000000-0000-4000-8000-000000000000
+          variants:
+          - price: 10000
+            id: 00000000-0000-4000-8000-000000000000
+            title: House photos
+          - price: 10000
+            id: 00000000-0000-4000-8000-000000000000
+            title: House photos
+          categories:
+          - id: 00000000-0000-4000-8000-000000000000
+            title: Photography
+          - id: 00000000-0000-4000-8000-000000000000
+            title: Photography
+          title: House photos
+          type: MAIN
+        meta:
+          per_page: 15
+          path: https://api.aryeo.com/v1/{path}
+          total: 50
+          last_page: 4
+          from: 1
+          to: 15
+          current_page: 1
+        links:
+          next: https://api.aryeo.com/v1/{path}?page=3
+          last: https://api.aryeo.com/v1/{path}?page=10
+          prev: https://api.aryeo.com/v1/{path}?page=2
+          first: https://api.aryeo.com/v1/{path}?page=1
+        status: success
+      properties:
+        status:
+          description: What was the state of the request?
+          example: success
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        data:
+          description: ""
+          items:
+            $ref: '#/components/schemas/Product'
+          nullable: true
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+      required:
+      - status
+      title: Production Collection
+      type: object
     OrderCollection:
       description: A collection of orders.
       example:
@@ -4367,6 +4533,72 @@ components:
       - id
       title: Listing
       type: object
+    Product:
+      description: A product available for purchase via an order.
+      example:
+        description: Capture photos of a house for sale.
+        id: 00000000-0000-4000-8000-000000000000
+        variants:
+        - price: 10000
+          id: 00000000-0000-4000-8000-000000000000
+          title: House photos
+        - price: 10000
+          id: 00000000-0000-4000-8000-000000000000
+          title: House photos
+        categories:
+        - id: 00000000-0000-4000-8000-000000000000
+          title: Photography
+        - id: 00000000-0000-4000-8000-000000000000
+          title: Photography
+        title: House photos
+        type: MAIN
+      properties:
+        id:
+          description: ID of the product. UUID Version 4.
+          example: 00000000-0000-4000-8000-000000000000
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          nullable: false
+          type: string
+        title:
+          description: The title of the product.
+          example: House photos
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        description:
+          description: The description of the product.
+          example: Capture photos of a house for sale.
+          maxLength: 65536
+          minLength: 0
+          nullable: false
+          type: string
+        type:
+          description: The type of product.
+          enum:
+          - MAIN
+          - ADDON
+          example: MAIN
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        variants:
+          items:
+            $ref: '#/components/schemas/ProductVariant'
+          type: array
+        categories:
+          items:
+            $ref: '#/components/schemas/ProductCategory'
+          type: array
+      required:
+      - id
+      - title
+      - type
+      title: Product
+      type: object
     Order:
       description: A payment request for some content or service.
       example:
@@ -5573,6 +5805,66 @@ components:
       - id
       - unbranded_url
       title: PropertyWebsite
+      type: object
+    ProductVariant:
+      description: A variant of a product.
+      example:
+        price: 10000
+        id: 00000000-0000-4000-8000-000000000000
+        title: House photos
+      properties:
+        id:
+          description: ID of the product variant. UUID Version 4.
+          example: 00000000-0000-4000-8000-000000000000
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          nullable: false
+          type: string
+        title:
+          description: The title of the product variant.
+          example: House photos
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        price:
+          description: A positive integer in the smallest currency unit (that is,
+            100 cents for $1.00) representing the price of the product variant.
+          example: 10000
+          nullable: false
+          type: integer
+      required:
+      - id
+      - price
+      - title
+      title: ProductVariant
+      type: object
+    ProductCategory:
+      description: A category for products.
+      example:
+        id: 00000000-0000-4000-8000-000000000000
+        title: Photography
+      properties:
+        id:
+          description: ID of the product category. UUID Version 4.
+          example: 00000000-0000-4000-8000-000000000000
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          nullable: false
+          type: string
+        title:
+          description: The title of the product category.
+          example: Photography
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+      required:
+      - id
+      - title
+      title: ProductCategory
       type: object
     OrderItem:
       description: A product associated with an order.
