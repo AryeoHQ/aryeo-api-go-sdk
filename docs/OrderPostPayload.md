@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FulfillmentStatus** | Pointer to **NullableString** | The fulfillment status of the order. Defaults to \&quot;UNFULFILLED\&quot;. | [optional] 
 **PaymentStatus** | Pointer to **NullableString** | The payment status of the order. Defaults to \&quot;UNPAID\&quot;.  | [optional] 
+**PlaceId** | Pointer to **string** | Google Places ID of the address to attach to the order. | [optional] 
 
 ## Methods
 
@@ -96,6 +97,31 @@ HasPaymentStatus returns a boolean if a field has been set.
 `func (o *OrderPostPayload) UnsetPaymentStatus()`
 
 UnsetPaymentStatus ensures that no value is present for PaymentStatus, not even an explicit nil
+### GetPlaceId
+
+`func (o *OrderPostPayload) GetPlaceId() string`
+
+GetPlaceId returns the PlaceId field if non-nil, zero value otherwise.
+
+### GetPlaceIdOk
+
+`func (o *OrderPostPayload) GetPlaceIdOk() (*string, bool)`
+
+GetPlaceIdOk returns a tuple with the PlaceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlaceId
+
+`func (o *OrderPostPayload) SetPlaceId(v string)`
+
+SetPlaceId sets PlaceId field to given value.
+
+### HasPlaceId
+
+`func (o *OrderPostPayload) HasPlaceId() bool`
+
+HasPlaceId returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,8 +4,8 @@ All URIs are relative to *https://api.aryeo.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetVendors**](VendorsApi.md#GetVendors) | **Get** /vendors | Get vendors available to a group.
-[**GetVendorsId**](VendorsApi.md#GetVendorsId) | **Get** /vendors/{vendor_id} | Get vendors available to a group.
+[**GetVendors**](VendorsApi.md#GetVendors) | **Get** /vendors | List all vendors.
+[**GetVendorsId**](VendorsApi.md#GetVendorsId) | **Get** /vendors/{vendor_id} | Retrieve a vendor.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > GroupCollection GetVendors(ctx).Include(include).Execute()
 
-Get vendors available to a group.
+List all vendors.
 
 
 
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 > GroupResource GetVendorsId(ctx, vendorId).Include(include).Execute()
 
-Get vendors available to a group.
+Retrieve a vendor.
 
 
 

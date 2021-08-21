@@ -18,6 +18,8 @@ type OrderPostPayload struct {
 	FulfillmentStatus NullableString `json:"fulfillment_status,omitempty"`
 	// The payment status of the order. Defaults to \"UNPAID\". 
 	PaymentStatus NullableString `json:"payment_status,omitempty"`
+	// Google Places ID of the address to attach to the order.
+	PlaceId *string `json:"place_id,omitempty"`
 }
 
 // NewOrderPostPayload instantiates a new OrderPostPayload object
@@ -121,6 +123,38 @@ func (o *OrderPostPayload) UnsetPaymentStatus() {
 	o.PaymentStatus.Unset()
 }
 
+// GetPlaceId returns the PlaceId field value if set, zero value otherwise.
+func (o *OrderPostPayload) GetPlaceId() string {
+	if o == nil || o.PlaceId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PlaceId
+}
+
+// GetPlaceIdOk returns a tuple with the PlaceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPostPayload) GetPlaceIdOk() (*string, bool) {
+	if o == nil || o.PlaceId == nil {
+		return nil, false
+	}
+	return o.PlaceId, true
+}
+
+// HasPlaceId returns a boolean if a field has been set.
+func (o *OrderPostPayload) HasPlaceId() bool {
+	if o != nil && o.PlaceId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPlaceId gets a reference to the given string and assigns it to the PlaceId field.
+func (o *OrderPostPayload) SetPlaceId(v string) {
+	o.PlaceId = &v
+}
+
 func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FulfillmentStatus.IsSet() {
@@ -128,6 +162,9 @@ func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentStatus.IsSet() {
 		toSerialize["payment_status"] = o.PaymentStatus.Get()
+	}
+	if o.PlaceId != nil {
+		toSerialize["place_id"] = o.PlaceId
 	}
 	return json.Marshal(toSerialize)
 }

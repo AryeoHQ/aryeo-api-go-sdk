@@ -4,7 +4,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetOrders**](OrdersApi.md#GetOrders) | **Get** /orders | Get orders available to a group.
+[**GetOrders**](OrdersApi.md#GetOrders) | **Get** /orders | List all orders.
 [**PostOrders**](OrdersApi.md#PostOrders) | **Post** /orders | Create an order.
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > OrderCollection GetOrders(ctx).Sort(sort).PerPage(perPage).Page(page).Execute()
 
-Get orders available to a group.
+List all orders.
 
 
 

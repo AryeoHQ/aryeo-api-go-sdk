@@ -32,14 +32,17 @@ type ApiGetOrdersRequest struct {
 	page *string
 }
 
+// Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;.
 func (r ApiGetOrdersRequest) Sort(sort string) ApiGetOrdersRequest {
 	r.sort = &sort
 	return r
 }
+// The number of items per page. Defaults to 25.
 func (r ApiGetOrdersRequest) PerPage(perPage string) ApiGetOrdersRequest {
 	r.perPage = &perPage
 	return r
 }
+// The requested page. Defaults to 1.
 func (r ApiGetOrdersRequest) Page(page string) ApiGetOrdersRequest {
 	r.page = &page
 	return r
@@ -50,11 +53,13 @@ func (r ApiGetOrdersRequest) Execute() (OrderCollection, *_nethttp.Response, err
 }
 
 /*
- * GetOrders Get orders available to a group.
- * Get orders of a group.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetOrdersRequest
- */
+GetOrders List all orders.
+
+Lists all orders of a group.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetOrdersRequest
+*/
 func (a *OrdersApiService) GetOrders(ctx _context.Context) ApiGetOrdersRequest {
 	return ApiGetOrdersRequest{
 		ApiService: a,
@@ -62,10 +67,8 @@ func (a *OrdersApiService) GetOrders(ctx _context.Context) ApiGetOrdersRequest {
 	}
 }
 
-/*
- * Execute executes the request
- * @return OrderCollection
- */
+// Execute executes the request
+//  @return OrderCollection
 func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollection, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -135,6 +138,16 @@ func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollect
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -185,6 +198,7 @@ type ApiPostOrdersRequest struct {
 	orderPostPayload *OrderPostPayload
 }
 
+// OrderPostPayload
 func (r ApiPostOrdersRequest) OrderPostPayload(orderPostPayload OrderPostPayload) ApiPostOrdersRequest {
 	r.orderPostPayload = &orderPostPayload
 	return r
@@ -195,11 +209,13 @@ func (r ApiPostOrdersRequest) Execute() (OrderResource, *_nethttp.Response, erro
 }
 
 /*
- * PostOrders Create an order.
- * Create an order.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiPostOrdersRequest
- */
+PostOrders Create an order.
+
+Create an order.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostOrdersRequest
+*/
 func (a *OrdersApiService) PostOrders(ctx _context.Context) ApiPostOrdersRequest {
 	return ApiPostOrdersRequest{
 		ApiService: a,
@@ -207,10 +223,8 @@ func (a *OrdersApiService) PostOrders(ctx _context.Context) ApiPostOrdersRequest
 	}
 }
 
-/*
- * Execute executes the request
- * @return OrderResource
- */
+// Execute executes the request
+//  @return OrderResource
 func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResource, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
@@ -272,6 +286,16 @@ func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResou
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ApiError

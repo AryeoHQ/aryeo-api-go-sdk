@@ -31,6 +31,7 @@ type ApiGetVendorsRequest struct {
 	include *string
 }
 
+// Comma separated list of optional data to include in the response.
 func (r ApiGetVendorsRequest) Include(include string) ApiGetVendorsRequest {
 	r.include = &include
 	return r
@@ -41,11 +42,13 @@ func (r ApiGetVendorsRequest) Execute() (GroupCollection, *_nethttp.Response, er
 }
 
 /*
- * GetVendors Get vendors available to a group.
- * Get vendors available to a group.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetVendorsRequest
- */
+GetVendors List all vendors.
+
+Lists all vendors available to a group.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetVendorsRequest
+*/
 func (a *VendorsApiService) GetVendors(ctx _context.Context) ApiGetVendorsRequest {
 	return ApiGetVendorsRequest{
 		ApiService: a,
@@ -53,10 +56,8 @@ func (a *VendorsApiService) GetVendors(ctx _context.Context) ApiGetVendorsReques
 	}
 }
 
-/*
- * Execute executes the request
- * @return GroupCollection
- */
+// Execute executes the request
+//  @return GroupCollection
 func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupCollection, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -120,6 +121,16 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ApiError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -171,6 +182,7 @@ type ApiGetVendorsIdRequest struct {
 	include *string
 }
 
+// Comma separated list of optional data to include in the response.
 func (r ApiGetVendorsIdRequest) Include(include string) ApiGetVendorsIdRequest {
 	r.include = &include
 	return r
@@ -181,12 +193,14 @@ func (r ApiGetVendorsIdRequest) Execute() (GroupResource, *_nethttp.Response, er
 }
 
 /*
- * GetVendorsId Get vendors available to a group.
- * Get information about a vendor.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param vendorId The ID of the group that is associated as a vendor. UUID Version 4.
- * @return ApiGetVendorsIdRequest
- */
+GetVendorsId Retrieve a vendor.
+
+Retrieves the details of a vendor with the given ID.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param vendorId The ID of the group that is associated as a vendor. UUID Version 4.
+ @return ApiGetVendorsIdRequest
+*/
 func (a *VendorsApiService) GetVendorsId(ctx _context.Context, vendorId string) ApiGetVendorsIdRequest {
 	return ApiGetVendorsIdRequest{
 		ApiService: a,
@@ -195,10 +209,8 @@ func (a *VendorsApiService) GetVendorsId(ctx _context.Context, vendorId string) 
 	}
 }
 
-/*
- * Execute executes the request
- * @return GroupResource
- */
+// Execute executes the request
+//  @return GroupResource
 func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (GroupResource, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
@@ -268,6 +280,16 @@ func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (Group
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ApiError

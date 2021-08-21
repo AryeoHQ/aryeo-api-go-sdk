@@ -4,8 +4,8 @@ All URIs are relative to *https://api.aryeo.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetListings**](ListingsApi.md#GetListings) | **Get** /listings | Get the listings available to a group.
-[**GetListingsId**](ListingsApi.md#GetListingsId) | **Get** /listings/{listing_id} | Get information about a listing.
+[**GetListings**](ListingsApi.md#GetListings) | **Get** /listings | List all listings.
+[**GetListingsId**](ListingsApi.md#GetListingsId) | **Get** /listings/{listing_id} | Retrieve a listing.
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > ListingCollection GetListings(ctx).Include(include).FilterSearch(filterSearch).FilterAddress(filterAddress).FilterListAgent(filterListAgent).FilterStatus(filterStatus).FilterActive(filterActive).FilterPriceGte(filterPriceGte).FilterPriceLte(filterPriceLte).FilterSquareFeetGte(filterSquareFeetGte).FilterSquareFeetLte(filterSquareFeetLte).FilterBedroomsGte(filterBedroomsGte).FilterBedroomsLte(filterBedroomsLte).FilterBathroomsGte(filterBathroomsGte).FilterBathroomsLte(filterBathroomsLte).Sort(sort).PerPage(perPage).Page(page).Execute()
 
-Get the listings available to a group.
+List all listings.
 
 
 
@@ -111,7 +111,7 @@ Name | Type | Description  | Notes
 
 > ListingResource GetListingsId(ctx, listingId).Include(include).Execute()
 
-Get information about a listing.
+Retrieve a listing.
 
 
 
