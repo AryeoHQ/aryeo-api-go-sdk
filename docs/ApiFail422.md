@@ -1,4 +1,4 @@
-# ApiFail
+# ApiFail422
 
 ## Properties
 
@@ -8,39 +8,39 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewApiFail
+### NewApiFail422
 
-`func NewApiFail(status string, ) *ApiFail`
+`func NewApiFail422(status string, ) *ApiFail422`
 
-NewApiFail instantiates a new ApiFail object
+NewApiFail422 instantiates a new ApiFail422 object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewApiFailWithDefaults
+### NewApiFail422WithDefaults
 
-`func NewApiFailWithDefaults() *ApiFail`
+`func NewApiFail422WithDefaults() *ApiFail422`
 
-NewApiFailWithDefaults instantiates a new ApiFail object
+NewApiFail422WithDefaults instantiates a new ApiFail422 object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetStatus
 
-`func (o *ApiFail) GetStatus() string`
+`func (o *ApiFail422) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *ApiFail) GetStatusOk() (*string, bool)`
+`func (o *ApiFail422) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *ApiFail) SetStatus(v string)`
+`func (o *ApiFail422) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 

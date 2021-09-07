@@ -32,6 +32,8 @@ type Appointment struct {
 	Order *Order `json:"order,omitempty"`
 	// Users attached to the appointment.
 	Users []User `json:"users,omitempty"`
+	// Items attached to the appointment.
+	Items *[]OrderItem `json:"items,omitempty"`
 }
 
 // NewAppointment instantiates a new Appointment object
@@ -393,6 +395,38 @@ func (o *Appointment) SetUsers(v []User) {
 	o.Users = v
 }
 
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *Appointment) GetItems() []OrderItem {
+	if o == nil || o.Items == nil {
+		var ret []OrderItem
+		return ret
+	}
+	return *o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Appointment) GetItemsOk() (*[]OrderItem, bool) {
+	if o == nil || o.Items == nil {
+		return nil, false
+	}
+	return o.Items, true
+}
+
+// HasItems returns a boolean if a field has been set.
+func (o *Appointment) HasItems() bool {
+	if o != nil && o.Items != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetItems gets a reference to the given []OrderItem and assigns it to the Items field.
+func (o *Appointment) SetItems(v []OrderItem) {
+	o.Items = &v
+}
+
 func (o Appointment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -421,6 +455,9 @@ func (o Appointment) MarshalJSON() ([]byte, error) {
 	}
 	if o.Users != nil {
 		toSerialize["users"] = o.Users
+	}
+	if o.Items != nil {
+		toSerialize["items"] = o.Items
 	}
 	return json.Marshal(toSerialize)
 }

@@ -104,9 +104,9 @@ func main() {
     sort := "-created_at" // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `title`. (optional)
     perPage := "25" // string | The number of items per page. Defaults to 25. (optional)
     page := "2" // string | The requested page. Defaults to 1. (optional)
-    filterSearch := "filterSearch_example" // string | Return products that have fields matching this term. (optional)
-    filterCategoryIds := "filterCategoryIds_example" // string | Return products in the given categories. (optional)
-    filterType := "filterType_example" // string | Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+    filterSearch := "Photography" // string | Return products that have fields matching this term. (optional)
+    filterCategoryIds := TODO // Array | Return products in the given categories. (optional)
+    filterType := "MAIN" // string | Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
  **perPage** | **string** | The number of items per page. Defaults to 25. | 
  **page** | **string** | The requested page. Defaults to 1. | 
  **filterSearch** | **string** | Return products that have fields matching this term. | 
- **filterCategoryIds** | **string** | Return products in the given categories. | 
+ **filterCategoryIds** | [**Array**](Array.md) | Return products in the given categories. | 
  **filterType** | **string** | Return products matching the given type. Allowed values are: MAIN, ADDON. | 
 
 ### Return type

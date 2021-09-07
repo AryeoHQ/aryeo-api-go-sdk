@@ -122,7 +122,7 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError
+			var v ApiError403
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -132,7 +132,7 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
+			var v ApiError404
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -142,7 +142,7 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiFail
+			var v ApiFail422
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -152,7 +152,7 @@ func (a *VendorsApiService) GetVendorsExecute(r ApiGetVendorsRequest) (GroupColl
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError500
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -282,7 +282,7 @@ func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (Group
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError
+			var v ApiError403
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -292,7 +292,7 @@ func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (Group
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
+			var v ApiError404
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -302,7 +302,7 @@ func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (Group
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiFail
+			var v ApiFail422
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -312,7 +312,7 @@ func (a *VendorsApiService) GetVendorsIdExecute(r ApiGetVendorsIdRequest) (Group
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError500
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

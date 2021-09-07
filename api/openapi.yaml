@@ -165,26 +165,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: List all appointments.
@@ -220,40 +220,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppointmentResource'
-            application/xml:
-              schema:
-                type: object
           description: AppointmentResource
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError409'
+          description: ApiError409
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: Cancel an appointment.
@@ -293,32 +290,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError409'
+          description: ApiError409
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: Reschedule an appointment.
@@ -535,26 +532,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: List all listings.
@@ -600,26 +597,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: Retrieve a listing.
@@ -670,6 +667,9 @@ paths:
         name: filter[search]
         required: false
         schema:
+          example: Photography
+          maxLength: 255
+          minLength: 0
           type: string
         style: form
       - description: Return products in the given categories.
@@ -678,7 +678,12 @@ paths:
         name: filter[category_ids]
         required: false
         schema:
-          type: string
+          example:
+          - 00000000-0000-4000-8000-000000000000
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          type: array
         style: form
       - description: 'Return products matching the given type. Allowed values are:
           MAIN, ADDON.'
@@ -687,6 +692,9 @@ paths:
         name: filter[type]
         required: false
         schema:
+          example: MAIN
+          maxLength: 255
+          minLength: 0
           type: string
         style: form
       responses:
@@ -700,20 +708,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: Get products available to a group.
@@ -769,26 +777,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: List all orders.
@@ -815,32 +823,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "409":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError409'
+          description: ApiError409
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: Create an order.
@@ -923,26 +931,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: List all unconfirmed appointments.
@@ -977,26 +985,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: List all vendors.
@@ -1043,26 +1051,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiFail'
-          description: ApiFail
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiError'
-          description: ApiError
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
       security:
       - Token: []
       summary: Retrieve a vendor.
@@ -1082,6 +1090,17 @@ components:
           id: 00000000-0000-0000-0000-000000000000
           title: Appointment title
           start_at: 2021-06-30T20:30:00Z
+          items:
+          - amount: 2099
+            quantity: 2
+            description: A fly-by drone video of the property.
+            id: 00000000-0000-4000-8000-000000000000
+            title: Aerial Video
+          - amount: 2099
+            quantity: 2
+            description: A fly-by drone video of the property.
+            id: 00000000-0000-4000-8000-000000000000
+            title: Aerial Video
           users:
           - avatar_url: https://via.placeholder.com/300.jpg
             phone: "123456789"
@@ -1197,6 +1216,17 @@ components:
           id: 00000000-0000-0000-0000-000000000000
           title: Appointment title
           start_at: 2021-06-30T20:30:00Z
+          items:
+          - amount: 2099
+            quantity: 2
+            description: A fly-by drone video of the property.
+            id: 00000000-0000-4000-8000-000000000000
+            title: Aerial Video
+          - amount: 2099
+            quantity: 2
+            description: A fly-by drone video of the property.
+            id: 00000000-0000-4000-8000-000000000000
+            title: Aerial Video
           users:
           - avatar_url: https://via.placeholder.com/300.jpg
             phone: "123456789"
@@ -1340,8 +1370,8 @@ components:
       - status
       title: AppointmentCollection
       type: object
-    ApiError:
-      description: A generic error returned by the API.
+    ApiError403:
+      description: A forbidden error returned by the API.
       properties:
         status:
           description: What was the state of the request?
@@ -1352,7 +1382,34 @@ components:
           type: string
         message:
           description: The error message.
-          example: Not found.
+          example: '{ApiError message.}'
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        code:
+          description: A numeric code corresponding to the error.
+          example: 403
+          nullable: true
+          type: integer
+      required:
+      - message
+      - status
+      title: ApiError403
+      type: object
+    ApiError404:
+      description: A not found error returned by the API.
+      properties:
+        status:
+          description: What was the state of the request?
+          example: error
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        message:
+          description: The error message.
+          example: '{ApiError message.}'
           maxLength: 255
           minLength: 0
           nullable: false
@@ -1365,10 +1422,10 @@ components:
       required:
       - message
       - status
-      title: ApiError
+      title: ApiError404
       type: object
-    ApiFail:
-      description: A generic failure returned by the API.
+    ApiFail422:
+      description: A processing or validation failure returned by the API.
       properties:
         status:
           description: What was the state of the request?
@@ -1379,7 +1436,34 @@ components:
           type: string
       required:
       - status
-      title: ApiFail
+      title: ApiFail422
+      type: object
+    ApiError500:
+      description: An internal server error returned by the API.
+      properties:
+        status:
+          description: What was the state of the request?
+          example: error
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        message:
+          description: The error message.
+          example: '{ApiError message.}'
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        code:
+          description: A numeric code corresponding to the error.
+          example: 500
+          nullable: true
+          type: integer
+      required:
+      - message
+      - status
+      title: ApiError500
       type: object
     AppointmentCancelPutPayload:
       description: Payload for canceling an appointment record.
@@ -1406,6 +1490,17 @@ components:
           id: 00000000-0000-0000-0000-000000000000
           title: Appointment title
           start_at: 2021-06-30T20:30:00Z
+          items:
+          - amount: 2099
+            quantity: 2
+            description: A fly-by drone video of the property.
+            id: 00000000-0000-4000-8000-000000000000
+            title: Aerial Video
+          - amount: 2099
+            quantity: 2
+            description: A fly-by drone video of the property.
+            id: 00000000-0000-4000-8000-000000000000
+            title: Aerial Video
           users:
           - avatar_url: https://via.placeholder.com/300.jpg
             phone: "123456789"
@@ -1527,6 +1622,33 @@ components:
       required:
       - status
       title: AppointmentResource
+      type: object
+    ApiError409:
+      description: A conflict error returned by the API.
+      properties:
+        status:
+          description: What was the state of the request?
+          example: error
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        message:
+          description: The error message.
+          example: '{ApiError message.}'
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        code:
+          description: A numeric code corresponding to the error.
+          example: 409
+          nullable: true
+          type: integer
+      required:
+      - message
+      - status
+      title: ApiError409
       type: object
     AppointmentReschedulePutPayload:
       description: Payload for rescheduling an appointment record.
@@ -3709,6 +3831,17 @@ components:
         id: 00000000-0000-0000-0000-000000000000
         title: Appointment title
         start_at: 2021-06-30T20:30:00Z
+        items:
+        - amount: 2099
+          quantity: 2
+          description: A fly-by drone video of the property.
+          id: 00000000-0000-4000-8000-000000000000
+          title: Aerial Video
+        - amount: 2099
+          quantity: 2
+          description: A fly-by drone video of the property.
+          id: 00000000-0000-4000-8000-000000000000
+          title: Aerial Video
         users:
         - avatar_url: https://via.placeholder.com/300.jpg
           phone: "123456789"
@@ -3883,6 +4016,11 @@ components:
           items:
             $ref: '#/components/schemas/User'
           nullable: true
+          type: array
+        items:
+          description: Items attached to the appointment.
+          items:
+            $ref: '#/components/schemas/OrderItem'
           type: array
       required:
       - id
@@ -5241,6 +5379,57 @@ components:
       - id
       title: User
       type: object
+    OrderItem:
+      description: A product associated with an order.
+      example:
+        amount: 2099
+        quantity: 2
+        description: A fly-by drone video of the property.
+        id: 00000000-0000-4000-8000-000000000000
+        title: Aerial Video
+      properties:
+        id:
+          description: ID of the item. UUID Version 4.
+          example: 00000000-0000-4000-8000-000000000000
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          nullable: false
+          type: string
+        title:
+          description: The title of the item.
+          example: Aerial Video
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        description:
+          description: The description of the item.
+          example: A fly-by drone video of the property.
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        amount:
+          description: A positive integer in the smallest currency unit (that is,
+            100 cents for $1.00) representing the cost of a single instance of this
+            item. This is multiplied by the quantity to calculate what was or will
+            be charged.
+          example: 2099
+          minimum: 0
+          nullable: false
+          type: integer
+        quantity:
+          description: A positive integer representing the number of instances of
+            this item that was or will be charged.
+          example: 2
+          minimum: 0
+          nullable: false
+          type: integer
+      required:
+      - id
+      title: OrderItem
+      type: object
     Address:
       description: A street address and additional metadata about a location.
       example:
@@ -5865,57 +6054,6 @@ components:
       - id
       - title
       title: ProductCategory
-      type: object
-    OrderItem:
-      description: A product associated with an order.
-      example:
-        amount: 2099
-        quantity: 2
-        description: A fly-by drone video of the property.
-        id: 00000000-0000-4000-8000-000000000000
-        title: Aerial Video
-      properties:
-        id:
-          description: ID of the item. UUID Version 4.
-          example: 00000000-0000-4000-8000-000000000000
-          format: uuid
-          maxLength: 36
-          minLength: 36
-          nullable: false
-          type: string
-        title:
-          description: The title of the item.
-          example: Aerial Video
-          maxLength: 255
-          minLength: 0
-          nullable: false
-          type: string
-        description:
-          description: The description of the item.
-          example: A fly-by drone video of the property.
-          maxLength: 255
-          minLength: 0
-          nullable: false
-          type: string
-        amount:
-          description: A positive integer in the smallest currency unit (that is,
-            100 cents for $1.00) representing the cost of a single instance of this
-            item. This is multiplied by the quantity to calculate what was or will
-            be charged.
-          example: 2099
-          minimum: 0
-          nullable: false
-          type: integer
-        quantity:
-          description: A positive integer representing the number of instances of
-            this item that was or will be charged.
-          example: 2
-          minimum: 0
-          nullable: false
-          type: integer
-      required:
-      - id
-      title: OrderItem
       type: object
     SocialProfiles:
       description: External profile URLs for an agent or brokerage group.

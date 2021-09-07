@@ -139,7 +139,7 @@ func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollect
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError
+			var v ApiError403
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -149,7 +149,7 @@ func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollect
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
+			var v ApiError404
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -159,7 +159,7 @@ func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollect
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiFail
+			var v ApiFail422
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -169,7 +169,7 @@ func (a *OrdersApiService) GetOrdersExecute(r ApiGetOrdersRequest) (OrderCollect
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError500
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -199,7 +199,7 @@ type ApiGetProductsRequest struct {
 	perPage *string
 	page *string
 	filterSearch *string
-	filterCategoryIds *string
+	filterCategoryIds *Array
 	filterType *string
 }
 
@@ -224,7 +224,7 @@ func (r ApiGetProductsRequest) FilterSearch(filterSearch string) ApiGetProductsR
 	return r
 }
 // Return products in the given categories.
-func (r ApiGetProductsRequest) FilterCategoryIds(filterCategoryIds string) ApiGetProductsRequest {
+func (r ApiGetProductsRequest) FilterCategoryIds(filterCategoryIds Array) ApiGetProductsRequest {
 	r.filterCategoryIds = &filterCategoryIds
 	return r
 }
@@ -334,7 +334,7 @@ func (a *OrdersApiService) GetProductsExecute(r ApiGetProductsRequest) (ProductC
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
+			var v ApiError404
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -344,7 +344,7 @@ func (a *OrdersApiService) GetProductsExecute(r ApiGetProductsRequest) (ProductC
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiFail
+			var v ApiFail422
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -354,7 +354,7 @@ func (a *OrdersApiService) GetProductsExecute(r ApiGetProductsRequest) (ProductC
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError500
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -473,7 +473,7 @@ func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResou
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
-			var v ApiError
+			var v ApiError403
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -483,7 +483,7 @@ func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResou
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v ApiError
+			var v ApiError404
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -493,7 +493,7 @@ func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResou
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
-			var v ApiError
+			var v ApiError409
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -503,7 +503,7 @@ func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResou
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
-			var v ApiFail
+			var v ApiFail422
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -513,7 +513,7 @@ func (a *OrdersApiService) PostOrdersExecute(r ApiPostOrdersRequest) (OrderResou
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiError
+			var v ApiError500
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

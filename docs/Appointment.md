@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Duration** | Pointer to **NullableInt32** | The length of the appointment in minutes. | [optional] 
 **Order** | Pointer to [**Order**](Order.md) |  | [optional] 
 **Users** | Pointer to [**[]User**](User.md) | Users attached to the appointment. | [optional] 
+**Items** | Pointer to [**[]OrderItem**](OrderItem.md) | Items attached to the appointment. | [optional] 
 
 ## Methods
 
@@ -323,6 +324,31 @@ HasUsers returns a boolean if a field has been set.
 `func (o *Appointment) UnsetUsers()`
 
 UnsetUsers ensures that no value is present for Users, not even an explicit nil
+### GetItems
+
+`func (o *Appointment) GetItems() []OrderItem`
+
+GetItems returns the Items field if non-nil, zero value otherwise.
+
+### GetItemsOk
+
+`func (o *Appointment) GetItemsOk() (*[]OrderItem, bool)`
+
+GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetItems
+
+`func (o *Appointment) SetItems(v []OrderItem)`
+
+SetItems sets Items field to given value.
+
+### HasItems
+
+`func (o *Appointment) HasItems() bool`
+
+HasItems returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
