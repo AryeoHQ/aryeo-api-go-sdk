@@ -5,6 +5,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetOrders**](OrdersApi.md#GetOrders) | **Get** /orders | List all orders.
+[**GetOrdersId**](OrdersApi.md#GetOrdersId) | **Get** /orders/{order_id} | Retrieve an order.
 [**GetProducts**](OrdersApi.md#GetProducts) | **Get** /products | Get products available to a group.
 [**PostOrders**](OrdersApi.md#PostOrders) | **Post** /orders | Create an order.
 
@@ -65,6 +66,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OrderCollection**](OrderCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetOrdersId
+
+> OrderResource GetOrdersId(ctx, orderId).Include(include).Execute()
+
+Retrieve an order.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    orderId := TODO // string | The ID of an order. UUID Version 4.
+    include := "items,appointments,unconfirmed_appointments" // string | Comma separated list of optional data to include in the response. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.OrdersApi.GetOrdersId(context.Background(), orderId).Include(include).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `OrdersApi.GetOrdersId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetOrdersId`: OrderResource
+    fmt.Fprintf(os.Stdout, "Response from `OrdersApi.GetOrdersId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**orderId** | [**string**](.md) | The ID of an order. UUID Version 4. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOrdersIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **include** | **string** | Comma separated list of optional data to include in the response. | 
+
+### Return type
+
+[**OrderResource**](OrderResource.md)
 
 ### Authorization
 

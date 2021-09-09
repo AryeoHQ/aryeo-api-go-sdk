@@ -854,6 +854,71 @@ paths:
       summary: Create an order.
       tags:
       - orders
+  /orders/{order_id}:
+    get:
+      description: Retrieves the details of an order with the given ID.
+      operationId: get-orders-id
+      parameters:
+      - description: The ID of an order. UUID Version 4.
+        explode: false
+        in: path
+        name: order_id
+        required: true
+        schema:
+          example: 00000000-0000-4000-8000-000000000000
+          format: uuid
+          maxLength: 36
+          minLength: 36
+          type: string
+        style: simple
+      - allowEmptyValue: true
+        description: Comma separated list of optional data to include in the response.
+        explode: true
+        in: query
+        name: include
+        required: false
+        schema:
+          example: items,appointments,unconfirmed_appointments
+          maxLength: 255
+          minLength: 0
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResource'
+          description: OrderResource
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
+      security:
+      - Token: []
+      summary: Retrieve an order.
+      tags:
+      - orders
   /unconfirmed-appointments:
     get:
       description: 'List all unconfirmed appointments. These are appointments that
