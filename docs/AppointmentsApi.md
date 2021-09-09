@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetAppointments**](AppointmentsApi.md#GetAppointments) | **Get** /appointments | List all appointments.
 [**GetUnconfirmedAppointments**](AppointmentsApi.md#GetUnconfirmedAppointments) | **Get** /unconfirmed-appointments | List all unconfirmed appointments.
+[**GetUnconfirmedAppointmentsId**](AppointmentsApi.md#GetUnconfirmedAppointmentsId) | **Get** /unconfirmed-appointments/{unconfirmed_appointment_id} | Retrieve an unconfirmed appointment.
 [**PutAppointmentsAppointmentIdCancel**](AppointmentsApi.md#PutAppointmentsAppointmentIdCancel) | **Put** /appointments/{appointment_id}/cancel | Cancel an appointment.
 [**PutAppointmentsAppointmentIdReschedule**](AppointmentsApi.md#PutAppointmentsAppointmentIdReschedule) | **Put** /appointments/{appointment_id}/reschedule | Reschedule an appointment.
 
@@ -151,6 +152,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UnconfirmedAppointmentCollection**](UnconfirmedAppointmentCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetUnconfirmedAppointmentsId
+
+> UnconfirmedAppointmentResource GetUnconfirmedAppointmentsId(ctx, unconfirmedAppointmentId).Include(include).Execute()
+
+Retrieve an unconfirmed appointment.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    unconfirmedAppointmentId := TODO // string | The ID of an appointment.
+    include := "order,users" // string | Comma separated list of optional data to include in the response. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AppointmentsApi.GetUnconfirmedAppointmentsId(context.Background(), unconfirmedAppointmentId).Include(include).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AppointmentsApi.GetUnconfirmedAppointmentsId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUnconfirmedAppointmentsId`: UnconfirmedAppointmentResource
+    fmt.Fprintf(os.Stdout, "Response from `AppointmentsApi.GetUnconfirmedAppointmentsId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**unconfirmedAppointmentId** | [**string**](.md) | The ID of an appointment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUnconfirmedAppointmentsIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **include** | **string** | Comma separated list of optional data to include in the response. | 
+
+### Return type
+
+[**UnconfirmedAppointmentResource**](UnconfirmedAppointmentResource.md)
 
 ### Authorization
 
