@@ -15,7 +15,10 @@ Name | Type | Description | Notes
 **StatusUrl** | **NullableString** | A URL of a publicly-accessible webpage to see the order&#39;s status. | 
 **Address** | Pointer to [**Address**](Address.md) |  | [optional] 
 **Customer** | Pointer to [**Group**](Group.md) |  | [optional] 
+**Listing** | Pointer to [**Listing**](Listing.md) |  | [optional] 
 **Items** | Pointer to [**[]OrderItem**](OrderItem.md) | items | [optional] 
+**Appointments** | Pointer to [**[]Appointment**](Appointment.md) |  | [optional] 
+**UnconfirmedAppointments** | Pointer to [**[]UnconfirmedAppointment**](UnconfirmedAppointment.md) |  | [optional] 
 
 ## Methods
 
@@ -301,6 +304,31 @@ SetCustomer sets Customer field to given value.
 
 HasCustomer returns a boolean if a field has been set.
 
+### GetListing
+
+`func (o *Order) GetListing() Listing`
+
+GetListing returns the Listing field if non-nil, zero value otherwise.
+
+### GetListingOk
+
+`func (o *Order) GetListingOk() (*Listing, bool)`
+
+GetListingOk returns a tuple with the Listing field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetListing
+
+`func (o *Order) SetListing(v Listing)`
+
+SetListing sets Listing field to given value.
+
+### HasListing
+
+`func (o *Order) HasListing() bool`
+
+HasListing returns a boolean if a field has been set.
+
 ### GetItems
 
 `func (o *Order) GetItems() []OrderItem`
@@ -325,6 +353,56 @@ SetItems sets Items field to given value.
 `func (o *Order) HasItems() bool`
 
 HasItems returns a boolean if a field has been set.
+
+### GetAppointments
+
+`func (o *Order) GetAppointments() []Appointment`
+
+GetAppointments returns the Appointments field if non-nil, zero value otherwise.
+
+### GetAppointmentsOk
+
+`func (o *Order) GetAppointmentsOk() (*[]Appointment, bool)`
+
+GetAppointmentsOk returns a tuple with the Appointments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAppointments
+
+`func (o *Order) SetAppointments(v []Appointment)`
+
+SetAppointments sets Appointments field to given value.
+
+### HasAppointments
+
+`func (o *Order) HasAppointments() bool`
+
+HasAppointments returns a boolean if a field has been set.
+
+### GetUnconfirmedAppointments
+
+`func (o *Order) GetUnconfirmedAppointments() []UnconfirmedAppointment`
+
+GetUnconfirmedAppointments returns the UnconfirmedAppointments field if non-nil, zero value otherwise.
+
+### GetUnconfirmedAppointmentsOk
+
+`func (o *Order) GetUnconfirmedAppointmentsOk() (*[]UnconfirmedAppointment, bool)`
+
+GetUnconfirmedAppointmentsOk returns a tuple with the UnconfirmedAppointments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnconfirmedAppointments
+
+`func (o *Order) SetUnconfirmedAppointments(v []UnconfirmedAppointment)`
+
+SetUnconfirmedAppointments sets UnconfirmedAppointments field to given value.
+
+### HasUnconfirmedAppointments
+
+`func (o *Order) HasUnconfirmedAppointments() bool`
+
+HasUnconfirmedAppointments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

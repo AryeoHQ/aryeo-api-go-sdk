@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetOrders**](OrdersApi.md#GetOrders) | **Get** /orders | List all orders.
 [**GetOrdersId**](OrdersApi.md#GetOrdersId) | **Get** /orders/{order_id} | Retrieve an order.
-[**GetProducts**](OrdersApi.md#GetProducts) | **Get** /products | Get products available to a group.
+[**GetProducts**](OrdersApi.md#GetProducts) | **Get** /products | List all products.
 [**PostOrders**](OrdersApi.md#PostOrders) | **Post** /orders | Create an order.
 
 
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 > ProductCollection GetProducts(ctx).Sort(sort).PerPage(perPage).Page(page).FilterSearch(filterSearch).FilterCategoryIds(filterCategoryIds).FilterType(filterType).Execute()
 
-Get products available to a group.
+List all products.
 
 
 
@@ -178,7 +178,7 @@ func main() {
     perPage := "25" // string | The number of items per page. Defaults to 25. (optional)
     page := "2" // string | The requested page. Defaults to 1. (optional)
     filterSearch := "Photography" // string | Return products that have fields matching this term. (optional)
-    filterCategoryIds := TODO // Array | Return products in the given categories. (optional)
+    filterCategoryIds := []string{"00000000-0000-4000-8000-000000000000"} // []string | Return products in the given categories. (optional)
     filterType := "MAIN" // string | Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
  **perPage** | **string** | The number of items per page. Defaults to 25. | 
  **page** | **string** | The requested page. Defaults to 1. | 
  **filterSearch** | **string** | Return products that have fields matching this term. | 
- **filterCategoryIds** | [**Array**](Array.md) | Return products in the given categories. | 
+ **filterCategoryIds** | **[]string** | Return products in the given categories. | 
  **filterType** | **string** | Return products matching the given type. Allowed values are: MAIN, ADDON. | 
 
 ### Return type

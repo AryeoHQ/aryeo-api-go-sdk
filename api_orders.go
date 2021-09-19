@@ -15,6 +15,7 @@ import (
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+	"reflect"
 )
 
 // Linger please
@@ -360,7 +361,7 @@ type ApiGetProductsRequest struct {
 	perPage *string
 	page *string
 	filterSearch *string
-	filterCategoryIds *Array
+	filterCategoryIds *[]string
 	filterType *string
 }
 
@@ -385,7 +386,7 @@ func (r ApiGetProductsRequest) FilterSearch(filterSearch string) ApiGetProductsR
 	return r
 }
 // Return products in the given categories.
-func (r ApiGetProductsRequest) FilterCategoryIds(filterCategoryIds Array) ApiGetProductsRequest {
+func (r ApiGetProductsRequest) FilterCategoryIds(filterCategoryIds []string) ApiGetProductsRequest {
 	r.filterCategoryIds = &filterCategoryIds
 	return r
 }
@@ -400,9 +401,9 @@ func (r ApiGetProductsRequest) Execute() (ProductCollection, *_nethttp.Response,
 }
 
 /*
-GetProducts Get products available to a group.
+GetProducts List all products.
 
-Get products of a group.
+List all products of a group.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetProductsRequest
@@ -450,7 +451,15 @@ func (a *OrdersApiService) GetProductsExecute(r ApiGetProductsRequest) (ProductC
 		localVarQueryParams.Add("filter[search]", parameterToString(*r.filterSearch, ""))
 	}
 	if r.filterCategoryIds != nil {
-		localVarQueryParams.Add("filter[category_ids]", parameterToString(*r.filterCategoryIds, ""))
+		t := *r.filterCategoryIds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("filter[category_ids]", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("filter[category_ids]", parameterToString(t, "multi"))
+		}
 	}
 	if r.filterType != nil {
 		localVarQueryParams.Add("filter[type]", parameterToString(*r.filterType, ""))

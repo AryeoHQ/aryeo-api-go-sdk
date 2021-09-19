@@ -106,7 +106,7 @@ Class | Method | HTTP request | Description
 *ListingsApi* | [**GetListingsId**](docs/ListingsApi.md#getlistingsid) | **Get** /listings/{listing_id} | Retrieve a listing.
 *OrdersApi* | [**GetOrders**](docs/OrdersApi.md#getorders) | **Get** /orders | List all orders.
 *OrdersApi* | [**GetOrdersId**](docs/OrdersApi.md#getordersid) | **Get** /orders/{order_id} | Retrieve an order.
-*OrdersApi* | [**GetProducts**](docs/OrdersApi.md#getproducts) | **Get** /products | Get products available to a group.
+*OrdersApi* | [**GetProducts**](docs/OrdersApi.md#getproducts) | **Get** /products | List all products.
 *OrdersApi* | [**PostOrders**](docs/OrdersApi.md#postorders) | **Post** /orders | Create an order.
 *VendorsApi* | [**GetVendors**](docs/VendorsApi.md#getvendors) | **Get** /vendors | List all vendors.
 *VendorsApi* | [**GetVendorsId**](docs/VendorsApi.md#getvendorsid) | **Get** /vendors/{vendor_id} | Retrieve a vendor.

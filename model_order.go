@@ -34,8 +34,11 @@ type Order struct {
 	StatusUrl NullableString `json:"status_url"`
 	Address *Address `json:"address,omitempty"`
 	Customer *Group `json:"customer,omitempty"`
+	Listing *Listing `json:"listing,omitempty"`
 	// items
 	Items *[]OrderItem `json:"items,omitempty"`
+	Appointments *[]Appointment `json:"appointments,omitempty"`
+	UnconfirmedAppointments *[]UnconfirmedAppointment `json:"unconfirmed_appointments,omitempty"`
 }
 
 // NewOrder instantiates a new Order object
@@ -377,6 +380,38 @@ func (o *Order) SetCustomer(v Group) {
 	o.Customer = &v
 }
 
+// GetListing returns the Listing field value if set, zero value otherwise.
+func (o *Order) GetListing() Listing {
+	if o == nil || o.Listing == nil {
+		var ret Listing
+		return ret
+	}
+	return *o.Listing
+}
+
+// GetListingOk returns a tuple with the Listing field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Order) GetListingOk() (*Listing, bool) {
+	if o == nil || o.Listing == nil {
+		return nil, false
+	}
+	return o.Listing, true
+}
+
+// HasListing returns a boolean if a field has been set.
+func (o *Order) HasListing() bool {
+	if o != nil && o.Listing != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetListing gets a reference to the given Listing and assigns it to the Listing field.
+func (o *Order) SetListing(v Listing) {
+	o.Listing = &v
+}
+
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *Order) GetItems() []OrderItem {
 	if o == nil || o.Items == nil {
@@ -407,6 +442,70 @@ func (o *Order) HasItems() bool {
 // SetItems gets a reference to the given []OrderItem and assigns it to the Items field.
 func (o *Order) SetItems(v []OrderItem) {
 	o.Items = &v
+}
+
+// GetAppointments returns the Appointments field value if set, zero value otherwise.
+func (o *Order) GetAppointments() []Appointment {
+	if o == nil || o.Appointments == nil {
+		var ret []Appointment
+		return ret
+	}
+	return *o.Appointments
+}
+
+// GetAppointmentsOk returns a tuple with the Appointments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Order) GetAppointmentsOk() (*[]Appointment, bool) {
+	if o == nil || o.Appointments == nil {
+		return nil, false
+	}
+	return o.Appointments, true
+}
+
+// HasAppointments returns a boolean if a field has been set.
+func (o *Order) HasAppointments() bool {
+	if o != nil && o.Appointments != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAppointments gets a reference to the given []Appointment and assigns it to the Appointments field.
+func (o *Order) SetAppointments(v []Appointment) {
+	o.Appointments = &v
+}
+
+// GetUnconfirmedAppointments returns the UnconfirmedAppointments field value if set, zero value otherwise.
+func (o *Order) GetUnconfirmedAppointments() []UnconfirmedAppointment {
+	if o == nil || o.UnconfirmedAppointments == nil {
+		var ret []UnconfirmedAppointment
+		return ret
+	}
+	return *o.UnconfirmedAppointments
+}
+
+// GetUnconfirmedAppointmentsOk returns a tuple with the UnconfirmedAppointments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Order) GetUnconfirmedAppointmentsOk() (*[]UnconfirmedAppointment, bool) {
+	if o == nil || o.UnconfirmedAppointments == nil {
+		return nil, false
+	}
+	return o.UnconfirmedAppointments, true
+}
+
+// HasUnconfirmedAppointments returns a boolean if a field has been set.
+func (o *Order) HasUnconfirmedAppointments() bool {
+	if o != nil && o.UnconfirmedAppointments != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUnconfirmedAppointments gets a reference to the given []UnconfirmedAppointment and assigns it to the UnconfirmedAppointments field.
+func (o *Order) SetUnconfirmedAppointments(v []UnconfirmedAppointment) {
+	o.UnconfirmedAppointments = &v
 }
 
 func (o Order) MarshalJSON() ([]byte, error) {
@@ -444,8 +543,17 @@ func (o Order) MarshalJSON() ([]byte, error) {
 	if o.Customer != nil {
 		toSerialize["customer"] = o.Customer
 	}
+	if o.Listing != nil {
+		toSerialize["listing"] = o.Listing
+	}
 	if o.Items != nil {
 		toSerialize["items"] = o.Items
+	}
+	if o.Appointments != nil {
+		toSerialize["appointments"] = o.Appointments
+	}
+	if o.UnconfirmedAppointments != nil {
+		toSerialize["unconfirmed_appointments"] = o.UnconfirmedAppointments
 	}
 	return json.Marshal(toSerialize)
 }

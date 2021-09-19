@@ -38,7 +38,7 @@ func main() {
     filterTense := "UPCOMING" // string | Return appointments that are upcoming or in the past. (optional)
     filterStartAtGte := time.Now() // time.Time | Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. (optional)
     filterStartAtLte := time.Now() // time.Time | Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. (optional)
-    filterUserIds := TODO // Array | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+    filterUserIds := []string{"00000000-0000-4000-8000-000000000000"} // []string | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
     sort := "-created_at" // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-start_at`. (optional)
     perPage := "25" // string | The number of items per page. Defaults to 25. (optional)
     page := "2" // string | The requested page. Defaults to 1. (optional)
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
  **filterTense** | **string** | Return appointments that are upcoming or in the past. | 
  **filterStartAtGte** | **time.Time** | Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. | 
  **filterStartAtLte** | **time.Time** | Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. | 
- **filterUserIds** | [**Array**](Array.md) | The IDs of users whose appointments will be retrieved. UUID Version 4. | 
+ **filterUserIds** | **[]string** | The IDs of users whose appointments will be retrieved. UUID Version 4. | 
  **sort** | **string** | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. | 
  **perPage** | **string** | The number of items per page. Defaults to 25. | 
  **page** | **string** | The requested page. Defaults to 1. | 
@@ -115,7 +115,7 @@ import (
 
 func main() {
     include := "order,users" // string | Comma separated list of optional data to include in the response. (optional)
-    filterUserIds := TODO // Array | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+    filterUserIds := []string{"00000000-0000-4000-8000-000000000000"} // []string | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
     sort := "-created_at" // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-start_at`. (optional)
     perPage := "25" // string | The number of items per page. Defaults to 25. (optional)
     page := "2" // string | The requested page. Defaults to 1. (optional)
@@ -144,7 +144,7 @@ Other parameters are passed through a pointer to a apiGetUnconfirmedAppointments
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **include** | **string** | Comma separated list of optional data to include in the response. | 
- **filterUserIds** | [**Array**](Array.md) | The IDs of users whose appointments will be retrieved. UUID Version 4. | 
+ **filterUserIds** | **[]string** | The IDs of users whose appointments will be retrieved. UUID Version 4. | 
  **sort** | **string** | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. | 
  **perPage** | **string** | The number of items per page. Defaults to 25. | 
  **page** | **string** | The requested page. Defaults to 1. | 

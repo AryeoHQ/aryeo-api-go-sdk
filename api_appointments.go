@@ -16,6 +16,7 @@ import (
 	_neturl "net/url"
 	"strings"
 	"time"
+	"reflect"
 )
 
 // Linger please
@@ -33,7 +34,7 @@ type ApiGetAppointmentsRequest struct {
 	filterTense *string
 	filterStartAtGte *time.Time
 	filterStartAtLte *time.Time
-	filterUserIds *Array
+	filterUserIds *[]string
 	sort *string
 	perPage *string
 	page *string
@@ -60,7 +61,7 @@ func (r ApiGetAppointmentsRequest) FilterStartAtLte(filterStartAtLte time.Time) 
 	return r
 }
 // The IDs of users whose appointments will be retrieved. UUID Version 4.
-func (r ApiGetAppointmentsRequest) FilterUserIds(filterUserIds Array) ApiGetAppointmentsRequest {
+func (r ApiGetAppointmentsRequest) FilterUserIds(filterUserIds []string) ApiGetAppointmentsRequest {
 	r.filterUserIds = &filterUserIds
 	return r
 }
@@ -135,7 +136,15 @@ func (a *AppointmentsApiService) GetAppointmentsExecute(r ApiGetAppointmentsRequ
 		localVarQueryParams.Add("filter[start_at_lte]", parameterToString(*r.filterStartAtLte, ""))
 	}
 	if r.filterUserIds != nil {
-		localVarQueryParams.Add("filter[user_ids]", parameterToString(*r.filterUserIds, ""))
+		t := *r.filterUserIds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("filter[user_ids]", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("filter[user_ids]", parameterToString(t, "multi"))
+		}
 	}
 	if r.sort != nil {
 		localVarQueryParams.Add("sort", parameterToString(*r.sort, ""))
@@ -243,7 +252,7 @@ type ApiGetUnconfirmedAppointmentsRequest struct {
 	ctx _context.Context
 	ApiService *AppointmentsApiService
 	include *string
-	filterUserIds *Array
+	filterUserIds *[]string
 	sort *string
 	perPage *string
 	page *string
@@ -255,7 +264,7 @@ func (r ApiGetUnconfirmedAppointmentsRequest) Include(include string) ApiGetUnco
 	return r
 }
 // The IDs of users whose appointments will be retrieved. UUID Version 4.
-func (r ApiGetUnconfirmedAppointmentsRequest) FilterUserIds(filterUserIds Array) ApiGetUnconfirmedAppointmentsRequest {
+func (r ApiGetUnconfirmedAppointmentsRequest) FilterUserIds(filterUserIds []string) ApiGetUnconfirmedAppointmentsRequest {
 	r.filterUserIds = &filterUserIds
 	return r
 }
@@ -321,7 +330,15 @@ func (a *AppointmentsApiService) GetUnconfirmedAppointmentsExecute(r ApiGetUncon
 		localVarQueryParams.Add("include", parameterToString(*r.include, ""))
 	}
 	if r.filterUserIds != nil {
-		localVarQueryParams.Add("filter[user_ids]", parameterToString(*r.filterUserIds, ""))
+		t := *r.filterUserIds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("filter[user_ids]", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("filter[user_ids]", parameterToString(t, "multi"))
+		}
 	}
 	if r.sort != nil {
 		localVarQueryParams.Add("sort", parameterToString(*r.sort, ""))

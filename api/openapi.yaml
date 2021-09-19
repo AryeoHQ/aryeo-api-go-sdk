@@ -113,11 +113,13 @@ paths:
         name: filter[user_ids]
         required: false
         schema:
-          example:
-          - 00000000-0000-4000-8000-000000000000
-          format: uuid
-          maxLength: 36
-          minLength: 36
+          items:
+            description: ID of a user. UUID Version 4.
+            example: 00000000-0000-4000-8000-000000000000
+            format: uuid
+            maxLength: 36
+            minLength: 36
+            type: string
           type: array
         style: form
       - description: Comma separated list of fields used for sorting. Placing a minus
@@ -624,7 +626,7 @@ paths:
       - listings
   /products:
     get:
-      description: Get products of a group.
+      description: List all products of a group.
       operationId: get-products
       parameters:
       - description: Comma separated list of fields used for sorting. Placing a minus
@@ -678,11 +680,13 @@ paths:
         name: filter[category_ids]
         required: false
         schema:
-          example:
-          - 00000000-0000-4000-8000-000000000000
-          format: uuid
-          maxLength: 36
-          minLength: 36
+          items:
+            description: ID of a category. UUID Version 4.
+            example: 00000000-0000-4000-8000-000000000000
+            format: uuid
+            maxLength: 36
+            minLength: 36
+            type: string
           type: array
         style: form
       - description: 'Return products matching the given type. Allowed values are:
@@ -724,7 +728,7 @@ paths:
           description: ApiError500
       security:
       - Token: []
-      summary: Get products available to a group.
+      summary: List all products.
       tags:
       - orders
   /orders:
@@ -944,11 +948,13 @@ paths:
         name: filter[user_ids]
         required: false
         schema:
-          example:
-          - 00000000-0000-4000-8000-000000000000
-          format: uuid
-          maxLength: 36
-          minLength: 36
+          items:
+            description: ID of a user. UUID Version 4.
+            example: 00000000-0000-4000-8000-000000000000
+            format: uuid
+            maxLength: 36
+            minLength: 36
+            type: string
           type: array
         style: form
       - description: Comma separated list of fields used for sorting. Placing a minus
@@ -1250,8 +1256,10 @@ components:
             email: john.doe@gmail.com
           status: SCHEDULED
           order:
-            number: 100
             payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+            appointments:
+            - null
+            - null
             fulfillment_status: fulfilled
             address:
               country: US
@@ -1271,11 +1279,272 @@ components:
               postal_code: "02111"
               longitude: -71.05763741484657
               county_or_parish: Suffolk County
-            total_amount: 2099
             payment_status: paid
+            title: 'Order #100'
+            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+            number: 100
+            unconfirmed_appointments:
+            - duration: 60
+              preference_type: TIME
+              preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+              preferred_start_at_time_of_day: AFTERNOON
+              description: |-
+                Customer: John Doe
+                Order Details: Order #123
+              id: 00000000-0000-0000-0000-000000000000
+              title: Appointment title
+              preferred_start_at: 2021-06-30T20:30:00Z
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+            - duration: 60
+              preference_type: TIME
+              preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+              preferred_start_at_time_of_day: AFTERNOON
+              description: |-
+                Customer: John Doe
+                Order Details: Order #123
+              id: 00000000-0000-0000-0000-000000000000
+              title: Appointment title
+              preferred_start_at: 2021-06-30T20:30:00Z
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+            total_amount: 2099
             currency: usd
             id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
+            listing:
+              images:
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 2
+                caption: This is the front of the house.
+                display_in_gallery: true
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 2
+                caption: This is the front of the house.
+                display_in_gallery: true
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              address:
+                country: US
+                city: Boston
+                latitude: 42.35157458574123
+                unparsed_address_part_one: 107 South St, Unit 2F
+                country_region: Napa Valley
+                unparsed_address: 107 South St, Boston MA, 02111
+                state_or_province_region: Cape Cod
+                street_name: South St
+                unparsed_address_part_two: Boston, MA 02111
+                city_region: Leather District
+                state_or_province: MA
+                unit_number: Unit 2F
+                street_number: "107"
+                id: 00000000-0000-4000-8000-000000000000
+                postal_code: "02111"
+                longitude: -71.05763741484657
+                county_or_parish: Suffolk County
+              mls_number: "1850209"
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              videos:
+              - duration: 360
+                display_type: BRANDED
+                share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+                download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+                source_type: OPTIMIZED
+                id: 00000000-0000-4000-8000-000000000000
+                playback_url: https://player.vimeo.com/video/76979871
+                title: The New Vimeo Player (You Know, For Videos)
+                thumbnail_url: https://via.placeholder.com/300.jpg
+              - duration: 360
+                display_type: BRANDED
+                share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+                download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+                source_type: OPTIMIZED
+                id: 00000000-0000-4000-8000-000000000000
+                playback_url: https://player.vimeo.com/video/76979871
+                title: The New Vimeo Player (You Know, For Videos)
+                thumbnail_url: https://via.placeholder.com/300.jpg
+              downloads_enabled: true
+              property_website:
+                branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+                unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+                id: 00000000-0000-4000-8000-000000000000
+              type: RESIDENTIAL
+              co_list_agent:
+                default_order_form:
+                  id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                owner:
+                  avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                logo_url: https://via.placeholder.com/300.jpg
+                type: AGENT
+                users:
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                license_number: "12345678"
+                office_name: John Doe Brokerage
+                social_profiles:
+                  instagram_profile_url: https://www.instagram.com/johndoe
+                  zillow_profile_url: https://www.zillow.com/profile/johndoe
+                  facebook_profile_url: https://www.facebook.com/johndoe
+                  twitter_profile_url: https://twitter.com/johndoe
+                  linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+                website_url: https://www.aryeo.com
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "6175550173"
+                name: John Doe Reality
+                order_forms:
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                id: 00000000-0000-4000-8000-000000000000
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              building:
+                bedrooms: 4
+                square_feet: 2511
+                year_built: 1960
+                bathrooms: 3.5
+              list_agent:
+                default_order_form:
+                  id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                owner:
+                  avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                logo_url: https://via.placeholder.com/300.jpg
+                type: AGENT
+                users:
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                license_number: "12345678"
+                office_name: John Doe Brokerage
+                social_profiles:
+                  instagram_profile_url: https://www.instagram.com/johndoe
+                  zillow_profile_url: https://www.zillow.com/profile/johndoe
+                  facebook_profile_url: https://www.facebook.com/johndoe
+                  twitter_profile_url: https://twitter.com/johndoe
+                  linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+                website_url: https://www.aryeo.com
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "6175550173"
+                name: John Doe Reality
+                order_forms:
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                id: 00000000-0000-4000-8000-000000000000
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              lot:
+                size_acres: 0.47
+                open_parking_spaces: 3
+              interactive_content:
+              - display_type: BRANDED
+                content_type: MATTERPORT
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/300.jpg
+                url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+              - display_type: BRANDED
+                content_type: MATTERPORT
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/300.jpg
+                url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+              sub_type: SINGLE_FAMILY_RESIDENCE
+              standard_status: COMING_SOON
+              price:
+                list_price: 250000
+              orders:
+              - null
+              - null
+              id: 00000000-0000-4000-8000-000000000000
+              floor_plans:
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 1
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                title: Downstairs floorplan
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 1
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                title: Downstairs floorplan
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              status: COMING_SOON
             items:
             - amount: 2099
               quantity: 2
@@ -1287,7 +1556,6 @@ components:
               description: A fly-by drone video of the property.
               id: 00000000-0000-4000-8000-000000000000
               title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
             customer:
               default_order_form:
                 id: 00000000-0000-4000-8000-000000000000
@@ -1376,8 +1644,10 @@ components:
             email: john.doe@gmail.com
           status: SCHEDULED
           order:
-            number: 100
             payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+            appointments:
+            - null
+            - null
             fulfillment_status: fulfilled
             address:
               country: US
@@ -1397,11 +1667,272 @@ components:
               postal_code: "02111"
               longitude: -71.05763741484657
               county_or_parish: Suffolk County
-            total_amount: 2099
             payment_status: paid
+            title: 'Order #100'
+            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+            number: 100
+            unconfirmed_appointments:
+            - duration: 60
+              preference_type: TIME
+              preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+              preferred_start_at_time_of_day: AFTERNOON
+              description: |-
+                Customer: John Doe
+                Order Details: Order #123
+              id: 00000000-0000-0000-0000-000000000000
+              title: Appointment title
+              preferred_start_at: 2021-06-30T20:30:00Z
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+            - duration: 60
+              preference_type: TIME
+              preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+              preferred_start_at_time_of_day: AFTERNOON
+              description: |-
+                Customer: John Doe
+                Order Details: Order #123
+              id: 00000000-0000-0000-0000-000000000000
+              title: Appointment title
+              preferred_start_at: 2021-06-30T20:30:00Z
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+            total_amount: 2099
             currency: usd
             id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
+            listing:
+              images:
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 2
+                caption: This is the front of the house.
+                display_in_gallery: true
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 2
+                caption: This is the front of the house.
+                display_in_gallery: true
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              address:
+                country: US
+                city: Boston
+                latitude: 42.35157458574123
+                unparsed_address_part_one: 107 South St, Unit 2F
+                country_region: Napa Valley
+                unparsed_address: 107 South St, Boston MA, 02111
+                state_or_province_region: Cape Cod
+                street_name: South St
+                unparsed_address_part_two: Boston, MA 02111
+                city_region: Leather District
+                state_or_province: MA
+                unit_number: Unit 2F
+                street_number: "107"
+                id: 00000000-0000-4000-8000-000000000000
+                postal_code: "02111"
+                longitude: -71.05763741484657
+                county_or_parish: Suffolk County
+              mls_number: "1850209"
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              videos:
+              - duration: 360
+                display_type: BRANDED
+                share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+                download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+                source_type: OPTIMIZED
+                id: 00000000-0000-4000-8000-000000000000
+                playback_url: https://player.vimeo.com/video/76979871
+                title: The New Vimeo Player (You Know, For Videos)
+                thumbnail_url: https://via.placeholder.com/300.jpg
+              - duration: 360
+                display_type: BRANDED
+                share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+                download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+                source_type: OPTIMIZED
+                id: 00000000-0000-4000-8000-000000000000
+                playback_url: https://player.vimeo.com/video/76979871
+                title: The New Vimeo Player (You Know, For Videos)
+                thumbnail_url: https://via.placeholder.com/300.jpg
+              downloads_enabled: true
+              property_website:
+                branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+                unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+                id: 00000000-0000-4000-8000-000000000000
+              type: RESIDENTIAL
+              co_list_agent:
+                default_order_form:
+                  id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                owner:
+                  avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                logo_url: https://via.placeholder.com/300.jpg
+                type: AGENT
+                users:
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                license_number: "12345678"
+                office_name: John Doe Brokerage
+                social_profiles:
+                  instagram_profile_url: https://www.instagram.com/johndoe
+                  zillow_profile_url: https://www.zillow.com/profile/johndoe
+                  facebook_profile_url: https://www.facebook.com/johndoe
+                  twitter_profile_url: https://twitter.com/johndoe
+                  linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+                website_url: https://www.aryeo.com
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "6175550173"
+                name: John Doe Reality
+                order_forms:
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                id: 00000000-0000-4000-8000-000000000000
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              building:
+                bedrooms: 4
+                square_feet: 2511
+                year_built: 1960
+                bathrooms: 3.5
+              list_agent:
+                default_order_form:
+                  id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                owner:
+                  avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                logo_url: https://via.placeholder.com/300.jpg
+                type: AGENT
+                users:
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                license_number: "12345678"
+                office_name: John Doe Brokerage
+                social_profiles:
+                  instagram_profile_url: https://www.instagram.com/johndoe
+                  zillow_profile_url: https://www.zillow.com/profile/johndoe
+                  facebook_profile_url: https://www.facebook.com/johndoe
+                  twitter_profile_url: https://twitter.com/johndoe
+                  linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+                website_url: https://www.aryeo.com
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "6175550173"
+                name: John Doe Reality
+                order_forms:
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                id: 00000000-0000-4000-8000-000000000000
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              lot:
+                size_acres: 0.47
+                open_parking_spaces: 3
+              interactive_content:
+              - display_type: BRANDED
+                content_type: MATTERPORT
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/300.jpg
+                url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+              - display_type: BRANDED
+                content_type: MATTERPORT
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/300.jpg
+                url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+              sub_type: SINGLE_FAMILY_RESIDENCE
+              standard_status: COMING_SOON
+              price:
+                list_price: 250000
+              orders:
+              - null
+              - null
+              id: 00000000-0000-4000-8000-000000000000
+              floor_plans:
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 1
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                title: Downstairs floorplan
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 1
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                title: Downstairs floorplan
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              status: COMING_SOON
             items:
             - amount: 2099
               quantity: 2
@@ -1413,7 +1944,6 @@ components:
               description: A fly-by drone video of the property.
               id: 00000000-0000-4000-8000-000000000000
               title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
             customer:
               default_order_form:
                 id: 00000000-0000-4000-8000-000000000000
@@ -1650,8 +2180,10 @@ components:
             email: john.doe@gmail.com
           status: SCHEDULED
           order:
-            number: 100
             payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+            appointments:
+            - null
+            - null
             fulfillment_status: fulfilled
             address:
               country: US
@@ -1671,11 +2203,272 @@ components:
               postal_code: "02111"
               longitude: -71.05763741484657
               county_or_parish: Suffolk County
-            total_amount: 2099
             payment_status: paid
+            title: 'Order #100'
+            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+            number: 100
+            unconfirmed_appointments:
+            - duration: 60
+              preference_type: TIME
+              preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+              preferred_start_at_time_of_day: AFTERNOON
+              description: |-
+                Customer: John Doe
+                Order Details: Order #123
+              id: 00000000-0000-0000-0000-000000000000
+              title: Appointment title
+              preferred_start_at: 2021-06-30T20:30:00Z
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+            - duration: 60
+              preference_type: TIME
+              preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+              preferred_start_at_time_of_day: AFTERNOON
+              description: |-
+                Customer: John Doe
+                Order Details: Order #123
+              id: 00000000-0000-0000-0000-000000000000
+              title: Appointment title
+              preferred_start_at: 2021-06-30T20:30:00Z
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+            total_amount: 2099
             currency: usd
             id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
+            listing:
+              images:
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 2
+                caption: This is the front of the house.
+                display_in_gallery: true
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 2
+                caption: This is the front of the house.
+                display_in_gallery: true
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              address:
+                country: US
+                city: Boston
+                latitude: 42.35157458574123
+                unparsed_address_part_one: 107 South St, Unit 2F
+                country_region: Napa Valley
+                unparsed_address: 107 South St, Boston MA, 02111
+                state_or_province_region: Cape Cod
+                street_name: South St
+                unparsed_address_part_two: Boston, MA 02111
+                city_region: Leather District
+                state_or_province: MA
+                unit_number: Unit 2F
+                street_number: "107"
+                id: 00000000-0000-4000-8000-000000000000
+                postal_code: "02111"
+                longitude: -71.05763741484657
+                county_or_parish: Suffolk County
+              mls_number: "1850209"
+              description: There are technically no designated parking spots; however,
+                the driveway, on the back of the house, can easily park 3 standard-sized
+                vehicles.
+              videos:
+              - duration: 360
+                display_type: BRANDED
+                share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+                download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+                source_type: OPTIMIZED
+                id: 00000000-0000-4000-8000-000000000000
+                playback_url: https://player.vimeo.com/video/76979871
+                title: The New Vimeo Player (You Know, For Videos)
+                thumbnail_url: https://via.placeholder.com/300.jpg
+              - duration: 360
+                display_type: BRANDED
+                share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+                download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+                source_type: OPTIMIZED
+                id: 00000000-0000-4000-8000-000000000000
+                playback_url: https://player.vimeo.com/video/76979871
+                title: The New Vimeo Player (You Know, For Videos)
+                thumbnail_url: https://via.placeholder.com/300.jpg
+              downloads_enabled: true
+              property_website:
+                branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+                unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+                id: 00000000-0000-4000-8000-000000000000
+              type: RESIDENTIAL
+              co_list_agent:
+                default_order_form:
+                  id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                owner:
+                  avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                logo_url: https://via.placeholder.com/300.jpg
+                type: AGENT
+                users:
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                license_number: "12345678"
+                office_name: John Doe Brokerage
+                social_profiles:
+                  instagram_profile_url: https://www.instagram.com/johndoe
+                  zillow_profile_url: https://www.zillow.com/profile/johndoe
+                  facebook_profile_url: https://www.facebook.com/johndoe
+                  twitter_profile_url: https://twitter.com/johndoe
+                  linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+                website_url: https://www.aryeo.com
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "6175550173"
+                name: John Doe Reality
+                order_forms:
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                id: 00000000-0000-4000-8000-000000000000
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              building:
+                bedrooms: 4
+                square_feet: 2511
+                year_built: 1960
+                bathrooms: 3.5
+              list_agent:
+                default_order_form:
+                  id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                owner:
+                  avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                logo_url: https://via.placeholder.com/300.jpg
+                type: AGENT
+                users:
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                - avatar_url: https://via.placeholder.com/300.jpg
+                  phone: "123456789"
+                  last_name: Doe
+                  id: 00000000-0000-4000-8000-000000000000
+                  relationship: owner
+                  first_name: John
+                  email: john.doe@gmail.com
+                license_number: "12345678"
+                office_name: John Doe Brokerage
+                social_profiles:
+                  instagram_profile_url: https://www.instagram.com/johndoe
+                  zillow_profile_url: https://www.zillow.com/profile/johndoe
+                  facebook_profile_url: https://www.facebook.com/johndoe
+                  twitter_profile_url: https://twitter.com/johndoe
+                  linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+                website_url: https://www.aryeo.com
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "6175550173"
+                name: John Doe Reality
+                order_forms:
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                - id: 00000000-0000-4000-8000-000000000000
+                  title: BQ's Photography Order Form
+                  url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+                id: 00000000-0000-4000-8000-000000000000
+                email: john.doe@gmail.com
+                is_brokerage_or_brokerage_agent: true
+              lot:
+                size_acres: 0.47
+                open_parking_spaces: 3
+              interactive_content:
+              - display_type: BRANDED
+                content_type: MATTERPORT
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/300.jpg
+                url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+              - display_type: BRANDED
+                content_type: MATTERPORT
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/300.jpg
+                url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+              sub_type: SINGLE_FAMILY_RESIDENCE
+              standard_status: COMING_SOON
+              price:
+                list_price: 250000
+              orders:
+              - null
+              - null
+              id: 00000000-0000-4000-8000-000000000000
+              floor_plans:
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 1
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                title: Downstairs floorplan
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              - original_url: https://via.placeholder.com/2500x2000.jpg
+                index: 1
+                id: 00000000-0000-4000-8000-000000000000
+                thumbnail_url: https://via.placeholder.com/250x200.jpg
+                title: Downstairs floorplan
+                large_url: https://via.placeholder.com/1750x1400.jpg
+              status: COMING_SOON
             items:
             - amount: 2099
               quantity: 2
@@ -1687,7 +2480,6 @@ components:
               description: A fly-by drone video of the property.
               id: 00000000-0000-4000-8000-000000000000
               title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
             customer:
               default_order_form:
                 id: 00000000-0000-4000-8000-000000000000
@@ -2012,186 +2804,8 @@ components:
           price:
             list_price: 250000
           orders:
-          - number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
-          - number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
+          - null
+          - null
           id: 00000000-0000-4000-8000-000000000000
           floor_plans:
           - original_url: https://via.placeholder.com/2500x2000.jpg
@@ -2397,186 +3011,8 @@ components:
           price:
             list_price: 250000
           orders:
-          - number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
-          - number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
+          - null
+          - null
           id: 00000000-0000-4000-8000-000000000000
           floor_plans:
           - original_url: https://via.placeholder.com/2500x2000.jpg
@@ -2822,186 +3258,8 @@ components:
           price:
             list_price: 250000
           orders:
-          - number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
-          - number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
+          - null
+          - null
           id: 00000000-0000-4000-8000-000000000000
           floor_plans:
           - original_url: https://via.placeholder.com/2500x2000.jpg
@@ -3102,14 +3360,16 @@ components:
           $ref: '#/components/schemas/PaginationLinks'
       required:
       - status
-      title: Production Collection
+      title: ProductCollection
       type: object
     OrderCollection:
       description: A collection of orders.
       example:
         data:
-        - number: 100
-          payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+        - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+          appointments:
+          - null
+          - null
           fulfillment_status: fulfilled
           address:
             country: US
@@ -3129,11 +3389,272 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
-          total_amount: 2099
           payment_status: paid
+          title: 'Order #100'
+          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+          number: 100
+          unconfirmed_appointments:
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          total_amount: 2099
           currency: usd
           id: 00000000-0000-4000-8000-000000000000
-          title: 'Order #100'
+          listing:
+            images:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            address:
+              country: US
+              city: Boston
+              latitude: 42.35157458574123
+              unparsed_address_part_one: 107 South St, Unit 2F
+              country_region: Napa Valley
+              unparsed_address: 107 South St, Boston MA, 02111
+              state_or_province_region: Cape Cod
+              street_name: South St
+              unparsed_address_part_two: Boston, MA 02111
+              city_region: Leather District
+              state_or_province: MA
+              unit_number: Unit 2F
+              street_number: "107"
+              id: 00000000-0000-4000-8000-000000000000
+              postal_code: "02111"
+              longitude: -71.05763741484657
+              county_or_parish: Suffolk County
+            mls_number: "1850209"
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            videos:
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            downloads_enabled: true
+            property_website:
+              branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+              unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+              id: 00000000-0000-4000-8000-000000000000
+            type: RESIDENTIAL
+            co_list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            building:
+              bedrooms: 4
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+            list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            lot:
+              size_acres: 0.47
+              open_parking_spaces: 3
+            interactive_content:
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            sub_type: SINGLE_FAMILY_RESIDENCE
+            standard_status: COMING_SOON
+            price:
+              list_price: 250000
+            orders:
+            - null
+            - null
+            id: 00000000-0000-4000-8000-000000000000
+            floor_plans:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            status: COMING_SOON
           items:
           - amount: 2099
             quantity: 2
@@ -3145,7 +3666,6 @@ components:
             description: A fly-by drone video of the property.
             id: 00000000-0000-4000-8000-000000000000
             title: Aerial Video
-          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           customer:
             default_order_form:
               id: 00000000-0000-4000-8000-000000000000
@@ -3198,8 +3718,10 @@ components:
             id: 00000000-0000-4000-8000-000000000000
             email: john.doe@gmail.com
             is_brokerage_or_brokerage_agent: true
-        - number: 100
-          payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+        - payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+          appointments:
+          - null
+          - null
           fulfillment_status: fulfilled
           address:
             country: US
@@ -3219,11 +3741,272 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
-          total_amount: 2099
           payment_status: paid
+          title: 'Order #100'
+          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+          number: 100
+          unconfirmed_appointments:
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          total_amount: 2099
           currency: usd
           id: 00000000-0000-4000-8000-000000000000
-          title: 'Order #100'
+          listing:
+            images:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            address:
+              country: US
+              city: Boston
+              latitude: 42.35157458574123
+              unparsed_address_part_one: 107 South St, Unit 2F
+              country_region: Napa Valley
+              unparsed_address: 107 South St, Boston MA, 02111
+              state_or_province_region: Cape Cod
+              street_name: South St
+              unparsed_address_part_two: Boston, MA 02111
+              city_region: Leather District
+              state_or_province: MA
+              unit_number: Unit 2F
+              street_number: "107"
+              id: 00000000-0000-4000-8000-000000000000
+              postal_code: "02111"
+              longitude: -71.05763741484657
+              county_or_parish: Suffolk County
+            mls_number: "1850209"
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            videos:
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            downloads_enabled: true
+            property_website:
+              branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+              unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+              id: 00000000-0000-4000-8000-000000000000
+            type: RESIDENTIAL
+            co_list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            building:
+              bedrooms: 4
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+            list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            lot:
+              size_acres: 0.47
+              open_parking_spaces: 3
+            interactive_content:
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            sub_type: SINGLE_FAMILY_RESIDENCE
+            standard_status: COMING_SOON
+            price:
+              list_price: 250000
+            orders:
+            - null
+            - null
+            id: 00000000-0000-4000-8000-000000000000
+            floor_plans:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            status: COMING_SOON
           items:
           - amount: 2099
             quantity: 2
@@ -3235,7 +4018,6 @@ components:
             description: A fly-by drone video of the property.
             id: 00000000-0000-4000-8000-000000000000
             title: Aerial Video
-          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           customer:
             default_order_form:
               id: 00000000-0000-4000-8000-000000000000
@@ -3363,8 +4145,10 @@ components:
       description: An order.
       example:
         data:
-          number: 100
           payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+          appointments:
+          - null
+          - null
           fulfillment_status: fulfilled
           address:
             country: US
@@ -3384,11 +4168,272 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
-          total_amount: 2099
           payment_status: paid
+          title: 'Order #100'
+          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+          number: 100
+          unconfirmed_appointments:
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          total_amount: 2099
           currency: usd
           id: 00000000-0000-4000-8000-000000000000
-          title: 'Order #100'
+          listing:
+            images:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            address:
+              country: US
+              city: Boston
+              latitude: 42.35157458574123
+              unparsed_address_part_one: 107 South St, Unit 2F
+              country_region: Napa Valley
+              unparsed_address: 107 South St, Boston MA, 02111
+              state_or_province_region: Cape Cod
+              street_name: South St
+              unparsed_address_part_two: Boston, MA 02111
+              city_region: Leather District
+              state_or_province: MA
+              unit_number: Unit 2F
+              street_number: "107"
+              id: 00000000-0000-4000-8000-000000000000
+              postal_code: "02111"
+              longitude: -71.05763741484657
+              county_or_parish: Suffolk County
+            mls_number: "1850209"
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            videos:
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            downloads_enabled: true
+            property_website:
+              branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+              unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+              id: 00000000-0000-4000-8000-000000000000
+            type: RESIDENTIAL
+            co_list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            building:
+              bedrooms: 4
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+            list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            lot:
+              size_acres: 0.47
+              open_parking_spaces: 3
+            interactive_content:
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            sub_type: SINGLE_FAMILY_RESIDENCE
+            standard_status: COMING_SOON
+            price:
+              list_price: 250000
+            orders:
+            - null
+            - null
+            id: 00000000-0000-4000-8000-000000000000
+            floor_plans:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            status: COMING_SOON
           items:
           - amount: 2099
             quantity: 2
@@ -3400,7 +4445,6 @@ components:
             description: A fly-by drone video of the property.
             id: 00000000-0000-4000-8000-000000000000
             title: Aerial Video
-          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           customer:
             default_order_form:
               id: 00000000-0000-4000-8000-000000000000
@@ -3497,97 +4541,6 @@ components:
             relationship: owner
             first_name: John
             email: john.doe@gmail.com
-          order:
-            number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
         - duration: 60
           preference_type: TIME
           preferred_start_at_day: 2021-06-30T00:00:00.000+0000
@@ -3613,97 +4566,6 @@ components:
             relationship: owner
             first_name: John
             email: john.doe@gmail.com
-          order:
-            number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
         meta:
           per_page: 15
           path: https://api.aryeo.com/v1/{path}
@@ -3769,97 +4631,6 @@ components:
             relationship: owner
             first_name: John
             email: john.doe@gmail.com
-          order:
-            number: 100
-            payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-            fulfillment_status: fulfilled
-            address:
-              country: US
-              city: Boston
-              latitude: 42.35157458574123
-              unparsed_address_part_one: 107 South St, Unit 2F
-              country_region: Napa Valley
-              unparsed_address: 107 South St, Boston MA, 02111
-              state_or_province_region: Cape Cod
-              street_name: South St
-              unparsed_address_part_two: Boston, MA 02111
-              city_region: Leather District
-              state_or_province: MA
-              unit_number: Unit 2F
-              street_number: "107"
-              id: 00000000-0000-4000-8000-000000000000
-              postal_code: "02111"
-              longitude: -71.05763741484657
-              county_or_parish: Suffolk County
-            total_amount: 2099
-            payment_status: paid
-            currency: usd
-            id: 00000000-0000-4000-8000-000000000000
-            title: 'Order #100'
-            items:
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            - amount: 2099
-              quantity: 2
-              description: A fly-by drone video of the property.
-              id: 00000000-0000-4000-8000-000000000000
-              title: Aerial Video
-            status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-            customer:
-              default_order_form:
-                id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              owner:
-                avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              logo_url: https://via.placeholder.com/300.jpg
-              type: AGENT
-              users:
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              - avatar_url: https://via.placeholder.com/300.jpg
-                phone: "123456789"
-                last_name: Doe
-                id: 00000000-0000-4000-8000-000000000000
-                relationship: owner
-                first_name: John
-                email: john.doe@gmail.com
-              license_number: "12345678"
-              office_name: John Doe Brokerage
-              social_profiles:
-                instagram_profile_url: https://www.instagram.com/johndoe
-                zillow_profile_url: https://www.zillow.com/profile/johndoe
-                facebook_profile_url: https://www.facebook.com/johndoe
-                twitter_profile_url: https://twitter.com/johndoe
-                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-              website_url: https://www.aryeo.com
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "6175550173"
-              name: John Doe Reality
-              order_forms:
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              - id: 00000000-0000-4000-8000-000000000000
-                title: BQ's Photography Order Form
-                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-              id: 00000000-0000-4000-8000-000000000000
-              email: john.doe@gmail.com
-              is_brokerage_or_brokerage_agent: true
         status: success
       properties:
         status:
@@ -4126,8 +4897,10 @@ components:
           email: john.doe@gmail.com
         status: SCHEDULED
         order:
-          number: 100
           payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+          appointments:
+          - null
+          - null
           fulfillment_status: fulfilled
           address:
             country: US
@@ -4147,11 +4920,272 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
-          total_amount: 2099
           payment_status: paid
+          title: 'Order #100'
+          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+          number: 100
+          unconfirmed_appointments:
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          - duration: 60
+            preference_type: TIME
+            preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+            preferred_start_at_time_of_day: AFTERNOON
+            description: |-
+              Customer: John Doe
+              Order Details: Order #123
+            id: 00000000-0000-0000-0000-000000000000
+            title: Appointment title
+            preferred_start_at: 2021-06-30T20:30:00Z
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+          total_amount: 2099
           currency: usd
           id: 00000000-0000-4000-8000-000000000000
-          title: 'Order #100'
+          listing:
+            images:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 2
+              caption: This is the front of the house.
+              display_in_gallery: true
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            address:
+              country: US
+              city: Boston
+              latitude: 42.35157458574123
+              unparsed_address_part_one: 107 South St, Unit 2F
+              country_region: Napa Valley
+              unparsed_address: 107 South St, Boston MA, 02111
+              state_or_province_region: Cape Cod
+              street_name: South St
+              unparsed_address_part_two: Boston, MA 02111
+              city_region: Leather District
+              state_or_province: MA
+              unit_number: Unit 2F
+              street_number: "107"
+              id: 00000000-0000-4000-8000-000000000000
+              postal_code: "02111"
+              longitude: -71.05763741484657
+              county_or_parish: Suffolk County
+            mls_number: "1850209"
+            description: There are technically no designated parking spots; however,
+              the driveway, on the back of the house, can easily park 3 standard-sized
+              vehicles.
+            videos:
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            - duration: 360
+              display_type: BRANDED
+              share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+              download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+              source_type: OPTIMIZED
+              id: 00000000-0000-4000-8000-000000000000
+              playback_url: https://player.vimeo.com/video/76979871
+              title: The New Vimeo Player (You Know, For Videos)
+              thumbnail_url: https://via.placeholder.com/300.jpg
+            downloads_enabled: true
+            property_website:
+              branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+              unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+              id: 00000000-0000-4000-8000-000000000000
+            type: RESIDENTIAL
+            co_list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            building:
+              bedrooms: 4
+              square_feet: 2511
+              year_built: 1960
+              bathrooms: 3.5
+            list_agent:
+              default_order_form:
+                id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              owner:
+                avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              logo_url: https://via.placeholder.com/300.jpg
+              type: AGENT
+              users:
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              - avatar_url: https://via.placeholder.com/300.jpg
+                phone: "123456789"
+                last_name: Doe
+                id: 00000000-0000-4000-8000-000000000000
+                relationship: owner
+                first_name: John
+                email: john.doe@gmail.com
+              license_number: "12345678"
+              office_name: John Doe Brokerage
+              social_profiles:
+                instagram_profile_url: https://www.instagram.com/johndoe
+                zillow_profile_url: https://www.zillow.com/profile/johndoe
+                facebook_profile_url: https://www.facebook.com/johndoe
+                twitter_profile_url: https://twitter.com/johndoe
+                linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+              website_url: https://www.aryeo.com
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "6175550173"
+              name: John Doe Reality
+              order_forms:
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              - id: 00000000-0000-4000-8000-000000000000
+                title: BQ's Photography Order Form
+                url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+              id: 00000000-0000-4000-8000-000000000000
+              email: john.doe@gmail.com
+              is_brokerage_or_brokerage_agent: true
+            lot:
+              size_acres: 0.47
+              open_parking_spaces: 3
+            interactive_content:
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            - display_type: BRANDED
+              content_type: MATTERPORT
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/300.jpg
+              url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+            sub_type: SINGLE_FAMILY_RESIDENCE
+            standard_status: COMING_SOON
+            price:
+              list_price: 250000
+            orders:
+            - null
+            - null
+            id: 00000000-0000-4000-8000-000000000000
+            floor_plans:
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            - original_url: https://via.placeholder.com/2500x2000.jpg
+              index: 1
+              id: 00000000-0000-4000-8000-000000000000
+              thumbnail_url: https://via.placeholder.com/250x200.jpg
+              title: Downstairs floorplan
+              large_url: https://via.placeholder.com/1750x1400.jpg
+            status: COMING_SOON
           items:
           - amount: 2099
             quantity: 2
@@ -4163,7 +5197,6 @@ components:
             description: A fly-by drone video of the property.
             id: 00000000-0000-4000-8000-000000000000
             title: Aerial Video
-          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           customer:
             default_order_form:
               id: 00000000-0000-4000-8000-000000000000
@@ -4592,186 +5625,8 @@ components:
         price:
           list_price: 250000
         orders:
-        - number: 100
-          payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-          fulfillment_status: fulfilled
-          address:
-            country: US
-            city: Boston
-            latitude: 42.35157458574123
-            unparsed_address_part_one: 107 South St, Unit 2F
-            country_region: Napa Valley
-            unparsed_address: 107 South St, Boston MA, 02111
-            state_or_province_region: Cape Cod
-            street_name: South St
-            unparsed_address_part_two: Boston, MA 02111
-            city_region: Leather District
-            state_or_province: MA
-            unit_number: Unit 2F
-            street_number: "107"
-            id: 00000000-0000-4000-8000-000000000000
-            postal_code: "02111"
-            longitude: -71.05763741484657
-            county_or_parish: Suffolk County
-          total_amount: 2099
-          payment_status: paid
-          currency: usd
-          id: 00000000-0000-4000-8000-000000000000
-          title: 'Order #100'
-          items:
-          - amount: 2099
-            quantity: 2
-            description: A fly-by drone video of the property.
-            id: 00000000-0000-4000-8000-000000000000
-            title: Aerial Video
-          - amount: 2099
-            quantity: 2
-            description: A fly-by drone video of the property.
-            id: 00000000-0000-4000-8000-000000000000
-            title: Aerial Video
-          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-          customer:
-            default_order_form:
-              id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            owner:
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            logo_url: https://via.placeholder.com/300.jpg
-            type: AGENT
-            users:
-            - avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            - avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            license_number: "12345678"
-            office_name: John Doe Brokerage
-            social_profiles:
-              instagram_profile_url: https://www.instagram.com/johndoe
-              zillow_profile_url: https://www.zillow.com/profile/johndoe
-              facebook_profile_url: https://www.facebook.com/johndoe
-              twitter_profile_url: https://twitter.com/johndoe
-              linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-            website_url: https://www.aryeo.com
-            avatar_url: https://via.placeholder.com/300.jpg
-            phone: "6175550173"
-            name: John Doe Reality
-            order_forms:
-            - id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            - id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            id: 00000000-0000-4000-8000-000000000000
-            email: john.doe@gmail.com
-            is_brokerage_or_brokerage_agent: true
-        - number: 100
-          payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-          fulfillment_status: fulfilled
-          address:
-            country: US
-            city: Boston
-            latitude: 42.35157458574123
-            unparsed_address_part_one: 107 South St, Unit 2F
-            country_region: Napa Valley
-            unparsed_address: 107 South St, Boston MA, 02111
-            state_or_province_region: Cape Cod
-            street_name: South St
-            unparsed_address_part_two: Boston, MA 02111
-            city_region: Leather District
-            state_or_province: MA
-            unit_number: Unit 2F
-            street_number: "107"
-            id: 00000000-0000-4000-8000-000000000000
-            postal_code: "02111"
-            longitude: -71.05763741484657
-            county_or_parish: Suffolk County
-          total_amount: 2099
-          payment_status: paid
-          currency: usd
-          id: 00000000-0000-4000-8000-000000000000
-          title: 'Order #100'
-          items:
-          - amount: 2099
-            quantity: 2
-            description: A fly-by drone video of the property.
-            id: 00000000-0000-4000-8000-000000000000
-            title: Aerial Video
-          - amount: 2099
-            quantity: 2
-            description: A fly-by drone video of the property.
-            id: 00000000-0000-4000-8000-000000000000
-            title: Aerial Video
-          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-          customer:
-            default_order_form:
-              id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            owner:
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            logo_url: https://via.placeholder.com/300.jpg
-            type: AGENT
-            users:
-            - avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            - avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            license_number: "12345678"
-            office_name: John Doe Brokerage
-            social_profiles:
-              instagram_profile_url: https://www.instagram.com/johndoe
-              zillow_profile_url: https://www.zillow.com/profile/johndoe
-              facebook_profile_url: https://www.facebook.com/johndoe
-              twitter_profile_url: https://twitter.com/johndoe
-              linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-            website_url: https://www.aryeo.com
-            avatar_url: https://via.placeholder.com/300.jpg
-            phone: "6175550173"
-            name: John Doe Reality
-            order_forms:
-            - id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            - id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            id: 00000000-0000-4000-8000-000000000000
-            email: john.doe@gmail.com
-            is_brokerage_or_brokerage_agent: true
+        - null
+        - null
         id: 00000000-0000-4000-8000-000000000000
         floor_plans:
         - original_url: https://via.placeholder.com/2500x2000.jpg
@@ -5007,8 +5862,10 @@ components:
     Order:
       description: A payment request for some content or service.
       example:
-        number: 100
         payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
+        appointments:
+        - null
+        - null
         fulfillment_status: fulfilled
         address:
           country: US
@@ -5028,11 +5885,272 @@ components:
           postal_code: "02111"
           longitude: -71.05763741484657
           county_or_parish: Suffolk County
-        total_amount: 2099
         payment_status: paid
+        title: 'Order #100'
+        status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
+        number: 100
+        unconfirmed_appointments:
+        - duration: 60
+          preference_type: TIME
+          preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+          preferred_start_at_time_of_day: AFTERNOON
+          description: |-
+            Customer: John Doe
+            Order Details: Order #123
+          id: 00000000-0000-0000-0000-000000000000
+          title: Appointment title
+          preferred_start_at: 2021-06-30T20:30:00Z
+          users:
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+        - duration: 60
+          preference_type: TIME
+          preferred_start_at_day: 2021-06-30T00:00:00.000+0000
+          preferred_start_at_time_of_day: AFTERNOON
+          description: |-
+            Customer: John Doe
+            Order Details: Order #123
+          id: 00000000-0000-0000-0000-000000000000
+          title: Appointment title
+          preferred_start_at: 2021-06-30T20:30:00Z
+          users:
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+        total_amount: 2099
         currency: usd
         id: 00000000-0000-4000-8000-000000000000
-        title: 'Order #100'
+        listing:
+          images:
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 2
+            caption: This is the front of the house.
+            display_in_gallery: true
+            id: 00000000-0000-4000-8000-000000000000
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 2
+            caption: This is the front of the house.
+            display_in_gallery: true
+            id: 00000000-0000-4000-8000-000000000000
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          address:
+            country: US
+            city: Boston
+            latitude: 42.35157458574123
+            unparsed_address_part_one: 107 South St, Unit 2F
+            country_region: Napa Valley
+            unparsed_address: 107 South St, Boston MA, 02111
+            state_or_province_region: Cape Cod
+            street_name: South St
+            unparsed_address_part_two: Boston, MA 02111
+            city_region: Leather District
+            state_or_province: MA
+            unit_number: Unit 2F
+            street_number: "107"
+            id: 00000000-0000-4000-8000-000000000000
+            postal_code: "02111"
+            longitude: -71.05763741484657
+            county_or_parish: Suffolk County
+          mls_number: "1850209"
+          description: There are technically no designated parking spots; however,
+            the driveway, on the back of the house, can easily park 3 standard-sized
+            vehicles.
+          videos:
+          - duration: 360
+            display_type: BRANDED
+            share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+            download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+            source_type: OPTIMIZED
+            id: 00000000-0000-4000-8000-000000000000
+            playback_url: https://player.vimeo.com/video/76979871
+            title: The New Vimeo Player (You Know, For Videos)
+            thumbnail_url: https://via.placeholder.com/300.jpg
+          - duration: 360
+            display_type: BRANDED
+            share_url: https://www.aryeo.com/v2/00000000-0000-4000-8000-000000000000/videos/1
+            download_url: https://videos.aryeo.com/listings/00000000-0000-4000-8000-000000000000/00000000-0000-4000-8000-000000000000.mp4
+            source_type: OPTIMIZED
+            id: 00000000-0000-4000-8000-000000000000
+            playback_url: https://player.vimeo.com/video/76979871
+            title: The New Vimeo Player (You Know, For Videos)
+            thumbnail_url: https://via.placeholder.com/300.jpg
+          downloads_enabled: true
+          property_website:
+            branded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/branded
+            unbranded_url: https://www.aryeo.com/v2/1200-noble-way-flower-mound-1760/unbranded
+            id: 00000000-0000-4000-8000-000000000000
+          type: RESIDENTIAL
+          co_list_agent:
+            default_order_form:
+              id: 00000000-0000-4000-8000-000000000000
+              title: BQ's Photography Order Form
+              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+            owner:
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            logo_url: https://via.placeholder.com/300.jpg
+            type: AGENT
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            license_number: "12345678"
+            office_name: John Doe Brokerage
+            social_profiles:
+              instagram_profile_url: https://www.instagram.com/johndoe
+              zillow_profile_url: https://www.zillow.com/profile/johndoe
+              facebook_profile_url: https://www.facebook.com/johndoe
+              twitter_profile_url: https://twitter.com/johndoe
+              linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+            website_url: https://www.aryeo.com
+            avatar_url: https://via.placeholder.com/300.jpg
+            phone: "6175550173"
+            name: John Doe Reality
+            order_forms:
+            - id: 00000000-0000-4000-8000-000000000000
+              title: BQ's Photography Order Form
+              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+            - id: 00000000-0000-4000-8000-000000000000
+              title: BQ's Photography Order Form
+              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+            id: 00000000-0000-4000-8000-000000000000
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          building:
+            bedrooms: 4
+            square_feet: 2511
+            year_built: 1960
+            bathrooms: 3.5
+          list_agent:
+            default_order_form:
+              id: 00000000-0000-4000-8000-000000000000
+              title: BQ's Photography Order Form
+              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+            owner:
+              avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            logo_url: https://via.placeholder.com/300.jpg
+            type: AGENT
+            users:
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            - avatar_url: https://via.placeholder.com/300.jpg
+              phone: "123456789"
+              last_name: Doe
+              id: 00000000-0000-4000-8000-000000000000
+              relationship: owner
+              first_name: John
+              email: john.doe@gmail.com
+            license_number: "12345678"
+            office_name: John Doe Brokerage
+            social_profiles:
+              instagram_profile_url: https://www.instagram.com/johndoe
+              zillow_profile_url: https://www.zillow.com/profile/johndoe
+              facebook_profile_url: https://www.facebook.com/johndoe
+              twitter_profile_url: https://twitter.com/johndoe
+              linkedin_profile_url: https://www.linkedin.com/in/johndoe/
+            website_url: https://www.aryeo.com
+            avatar_url: https://via.placeholder.com/300.jpg
+            phone: "6175550173"
+            name: John Doe Reality
+            order_forms:
+            - id: 00000000-0000-4000-8000-000000000000
+              title: BQ's Photography Order Form
+              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+            - id: 00000000-0000-4000-8000-000000000000
+              title: BQ's Photography Order Form
+              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
+            id: 00000000-0000-4000-8000-000000000000
+            email: john.doe@gmail.com
+            is_brokerage_or_brokerage_agent: true
+          lot:
+            size_acres: 0.47
+            open_parking_spaces: 3
+          interactive_content:
+          - display_type: BRANDED
+            content_type: MATTERPORT
+            id: 00000000-0000-4000-8000-000000000000
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+          - display_type: BRANDED
+            content_type: MATTERPORT
+            id: 00000000-0000-4000-8000-000000000000
+            thumbnail_url: https://via.placeholder.com/300.jpg
+            url: https://my.matterport.com/show/?m=HFaxPzqNFfm
+          sub_type: SINGLE_FAMILY_RESIDENCE
+          standard_status: COMING_SOON
+          price:
+            list_price: 250000
+          orders:
+          - null
+          - null
+          id: 00000000-0000-4000-8000-000000000000
+          floor_plans:
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 1
+            id: 00000000-0000-4000-8000-000000000000
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            title: Downstairs floorplan
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          - original_url: https://via.placeholder.com/2500x2000.jpg
+            index: 1
+            id: 00000000-0000-4000-8000-000000000000
+            thumbnail_url: https://via.placeholder.com/250x200.jpg
+            title: Downstairs floorplan
+            large_url: https://via.placeholder.com/1750x1400.jpg
+          status: COMING_SOON
         items:
         - amount: 2099
           quantity: 2
@@ -5044,7 +6162,6 @@ components:
           description: A fly-by drone video of the property.
           id: 00000000-0000-4000-8000-000000000000
           title: Aerial Video
-        status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
         customer:
           default_order_form:
             id: 00000000-0000-4000-8000-000000000000
@@ -5183,10 +6300,20 @@ components:
           $ref: '#/components/schemas/Address'
         customer:
           $ref: '#/components/schemas/Group'
+        listing:
+          $ref: '#/components/schemas/Listing'
         items:
           description: items
           items:
             $ref: '#/components/schemas/OrderItem'
+          type: array
+        appointments:
+          items:
+            $ref: '#/components/schemas/Appointment'
+          type: array
+        unconfirmed_appointments:
+          items:
+            $ref: '#/components/schemas/UnconfirmedAppointment'
           type: array
       required:
       - fulfillment_status
@@ -5225,97 +6352,6 @@ components:
           relationship: owner
           first_name: John
           email: john.doe@gmail.com
-        order:
-          number: 100
-          payment_url: https://www.aryeo.com/v2/stripe/checkout/order/00000000-0000-4000-8000-000000000000?pageType=order
-          fulfillment_status: fulfilled
-          address:
-            country: US
-            city: Boston
-            latitude: 42.35157458574123
-            unparsed_address_part_one: 107 South St, Unit 2F
-            country_region: Napa Valley
-            unparsed_address: 107 South St, Boston MA, 02111
-            state_or_province_region: Cape Cod
-            street_name: South St
-            unparsed_address_part_two: Boston, MA 02111
-            city_region: Leather District
-            state_or_province: MA
-            unit_number: Unit 2F
-            street_number: "107"
-            id: 00000000-0000-4000-8000-000000000000
-            postal_code: "02111"
-            longitude: -71.05763741484657
-            county_or_parish: Suffolk County
-          total_amount: 2099
-          payment_status: paid
-          currency: usd
-          id: 00000000-0000-4000-8000-000000000000
-          title: 'Order #100'
-          items:
-          - amount: 2099
-            quantity: 2
-            description: A fly-by drone video of the property.
-            id: 00000000-0000-4000-8000-000000000000
-            title: Aerial Video
-          - amount: 2099
-            quantity: 2
-            description: A fly-by drone video of the property.
-            id: 00000000-0000-4000-8000-000000000000
-            title: Aerial Video
-          status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
-          customer:
-            default_order_form:
-              id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            owner:
-              avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            logo_url: https://via.placeholder.com/300.jpg
-            type: AGENT
-            users:
-            - avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            - avatar_url: https://via.placeholder.com/300.jpg
-              phone: "123456789"
-              last_name: Doe
-              id: 00000000-0000-4000-8000-000000000000
-              relationship: owner
-              first_name: John
-              email: john.doe@gmail.com
-            license_number: "12345678"
-            office_name: John Doe Brokerage
-            social_profiles:
-              instagram_profile_url: https://www.instagram.com/johndoe
-              zillow_profile_url: https://www.zillow.com/profile/johndoe
-              facebook_profile_url: https://www.facebook.com/johndoe
-              twitter_profile_url: https://twitter.com/johndoe
-              linkedin_profile_url: https://www.linkedin.com/in/johndoe/
-            website_url: https://www.aryeo.com
-            avatar_url: https://via.placeholder.com/300.jpg
-            phone: "6175550173"
-            name: John Doe Reality
-            order_forms:
-            - id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            - id: 00000000-0000-4000-8000-000000000000
-              title: BQ's Photography Order Form
-              url: https://www.aryeo.com/order-forms/00000000-0000-4000-8000-000000000000
-            id: 00000000-0000-4000-8000-000000000000
-            email: john.doe@gmail.com
-            is_brokerage_or_brokerage_agent: true
       properties:
         id:
           description: The ID of the appointment.
