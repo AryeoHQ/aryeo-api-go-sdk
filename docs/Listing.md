@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Object** | **string** | String representing the object’s type. Objects of the same type share the same schema. | 
 **Id** | **string** | ID of the listing. UUID Version 4. | 
 **Address** | [**Address**](Address.md) |  | 
 **MlsNumber** | Pointer to **NullableString** | The identifier for a listing on its local MLS.  | [optional] 
@@ -29,7 +30,7 @@ Name | Type | Description | Notes
 
 ### NewListing
 
-`func NewListing(id string, address Address, downloadsEnabled bool, ) *Listing`
+`func NewListing(object string, id string, address Address, downloadsEnabled bool, ) *Listing`
 
 NewListing instantiates a new Listing object
 This constructor will assign default values to properties that have it defined,
@@ -43,6 +44,26 @@ will change when the set of required properties is changed
 NewListingWithDefaults instantiates a new Listing object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetObject
+
+`func (o *Listing) GetObject() string`
+
+GetObject returns the Object field if non-nil, zero value otherwise.
+
+### GetObjectOk
+
+`func (o *Listing) GetObjectOk() (*string, bool)`
+
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObject
+
+`func (o *Listing) SetObject(v string)`
+
+SetObject sets Object field to given value.
+
 
 ### GetId
 

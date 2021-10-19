@@ -14,6 +14,8 @@ import (
 
 // Group A collection of users that can interact with the Aryeo platform. Permissions and properties are determined based on the group's type which can be creator, agent, or brokerage.
 type Group struct {
+	// String representing the object’s type. Objects of the same type share the same schema.
+	Object *string `json:"object,omitempty"`
 	// ID of the group. UUID Version 4.
 	Id string `json:"id"`
 	// The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned.
@@ -64,6 +66,38 @@ func NewGroup(id string, type_ string, name string, isBrokerageOrBrokerageAgent 
 func NewGroupWithDefaults() *Group {
 	this := Group{}
 	return &this
+}
+
+// GetObject returns the Object field value if set, zero value otherwise.
+func (o *Group) GetObject() string {
+	if o == nil || o.Object == nil {
+		var ret string
+		return ret
+	}
+	return *o.Object
+}
+
+// GetObjectOk returns a tuple with the Object field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Group) GetObjectOk() (*string, bool) {
+	if o == nil || o.Object == nil {
+		return nil, false
+	}
+	return o.Object, true
+}
+
+// HasObject returns a boolean if a field has been set.
+func (o *Group) HasObject() bool {
+	if o != nil && o.Object != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObject gets a reference to the given string and assigns it to the Object field.
+func (o *Group) SetObject(v string) {
+	o.Object = &v
 }
 
 // GetId returns the Id field value
@@ -620,6 +654,9 @@ func (o *Group) SetIsBrokerageOrBrokerageAgent(v bool) {
 
 func (o Group) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Object != nil {
+		toSerialize["object"] = o.Object
+	}
 	if true {
 		toSerialize["id"] = o.Id
 	}

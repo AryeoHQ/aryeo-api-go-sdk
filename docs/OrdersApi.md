@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ## GetProducts
 
-> ProductCollection GetProducts(ctx).Sort(sort).PerPage(perPage).Page(page).FilterSearch(filterSearch).FilterCategoryIds(filterCategoryIds).FilterType(filterType).Execute()
+> ProductCollection GetProducts(ctx).Sort(sort).PerPage(perPage).Page(page).FilterSearch(filterSearch).FilterIncludeInactive(filterIncludeInactive).FilterCategoryIds(filterCategoryIds).FilterType(filterType).Execute()
 
 List all products.
 
@@ -178,12 +178,13 @@ func main() {
     perPage := "25" // string | The number of items per page. Defaults to 25. (optional)
     page := "2" // string | The requested page. Defaults to 1. (optional)
     filterSearch := "Photography" // string | Return products that have fields matching this term. (optional)
+    filterIncludeInactive := true // bool | Include inactive products (in addition to active products) when returning products. (optional)
     filterCategoryIds := []string{"00000000-0000-4000-8000-000000000000"} // []string | Return products in the given categories. (optional)
     filterType := "MAIN" // string | Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.OrdersApi.GetProducts(context.Background()).Sort(sort).PerPage(perPage).Page(page).FilterSearch(filterSearch).FilterCategoryIds(filterCategoryIds).FilterType(filterType).Execute()
+    resp, r, err := api_client.OrdersApi.GetProducts(context.Background()).Sort(sort).PerPage(perPage).Page(page).FilterSearch(filterSearch).FilterIncludeInactive(filterIncludeInactive).FilterCategoryIds(filterCategoryIds).FilterType(filterType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `OrdersApi.GetProducts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -208,6 +209,7 @@ Name | Type | Description  | Notes
  **perPage** | **string** | The number of items per page. Defaults to 25. | 
  **page** | **string** | The requested page. Defaults to 1. | 
  **filterSearch** | **string** | Return products that have fields matching this term. | 
+ **filterIncludeInactive** | **bool** | Include inactive products (in addition to active products) when returning products. | 
  **filterCategoryIds** | **[]string** | Return products in the given categories. | 
  **filterType** | **string** | Return products matching the given type. Allowed values are: MAIN, ADDON. | 
 

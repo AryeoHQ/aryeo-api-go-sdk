@@ -20,6 +20,8 @@ type Product struct {
 	Title string `json:"title"`
 	// The description of the product.
 	Description *string `json:"description,omitempty"`
+	// The active status of a product.
+	Active *bool `json:"active,omitempty"`
 	// The type of product.
 	Type string `json:"type"`
 	Variants *[]ProductVariant `json:"variants,omitempty"`
@@ -126,6 +128,38 @@ func (o *Product) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *Product) GetActive() bool {
+	if o == nil || o.Active == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Product) GetActiveOk() (*bool, bool) {
+	if o == nil || o.Active == nil {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *Product) HasActive() bool {
+	if o != nil && o.Active != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *Product) SetActive(v bool) {
+	o.Active = &v
+}
+
 // GetType returns the Type field value
 func (o *Product) GetType() string {
 	if o == nil {
@@ -224,6 +258,9 @@ func (o Product) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.Active != nil {
+		toSerialize["active"] = o.Active
 	}
 	if true {
 		toSerialize["type"] = o.Type

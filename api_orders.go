@@ -361,6 +361,7 @@ type ApiGetProductsRequest struct {
 	perPage *string
 	page *string
 	filterSearch *string
+	filterIncludeInactive *bool
 	filterCategoryIds *[]string
 	filterType *string
 }
@@ -383,6 +384,11 @@ func (r ApiGetProductsRequest) Page(page string) ApiGetProductsRequest {
 // Return products that have fields matching this term.
 func (r ApiGetProductsRequest) FilterSearch(filterSearch string) ApiGetProductsRequest {
 	r.filterSearch = &filterSearch
+	return r
+}
+// Include inactive products (in addition to active products) when returning products.
+func (r ApiGetProductsRequest) FilterIncludeInactive(filterIncludeInactive bool) ApiGetProductsRequest {
+	r.filterIncludeInactive = &filterIncludeInactive
 	return r
 }
 // Return products in the given categories.
@@ -449,6 +455,9 @@ func (a *OrdersApiService) GetProductsExecute(r ApiGetProductsRequest) (ProductC
 	}
 	if r.filterSearch != nil {
 		localVarQueryParams.Add("filter[search]", parameterToString(*r.filterSearch, ""))
+	}
+	if r.filterIncludeInactive != nil {
+		localVarQueryParams.Add("filter[include_inactive]", parameterToString(*r.filterIncludeInactive, ""))
 	}
 	if r.filterCategoryIds != nil {
 		t := *r.filterCategoryIds

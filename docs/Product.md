@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | ID of the product. UUID Version 4. | 
 **Title** | **string** | The title of the product. | 
 **Description** | Pointer to **string** | The description of the product. | [optional] 
+**Active** | Pointer to **bool** | The active status of a product. | [optional] 
 **Type** | **string** | The type of product. | 
 **Variants** | Pointer to [**[]ProductVariant**](ProductVariant.md) |  | [optional] 
 **Categories** | Pointer to [**[]ProductCategory**](ProductCategory.md) |  | [optional] 
@@ -94,6 +95,31 @@ SetDescription sets Description field to given value.
 `func (o *Product) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *Product) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *Product) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *Product) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *Product) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetType
 

@@ -5,8 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FulfillmentStatus** | Pointer to **NullableString** | The fulfillment status of the order. Defaults to \&quot;UNFULFILLED\&quot;. | [optional] 
+**InternalNotes** | Pointer to **NullableString** | Internal notes that will be attached to the order. Viewable only by the team. | [optional] 
 **PaymentStatus** | Pointer to **NullableString** | The payment status of the order. Defaults to \&quot;UNPAID\&quot;.  | [optional] 
-**PlaceId** | Pointer to **string** | Google Places ID of the address to attach to the order. | [optional] 
+**AddressId** | Pointer to **string** | ID of the address to associate with the order. UUID Version 4. | [optional] 
+**CustomerId** | Pointer to **string** | ID of the customer to associate with the order. UUID Version 4. | [optional] 
 
 ## Methods
 
@@ -62,6 +64,41 @@ HasFulfillmentStatus returns a boolean if a field has been set.
 `func (o *OrderPostPayload) UnsetFulfillmentStatus()`
 
 UnsetFulfillmentStatus ensures that no value is present for FulfillmentStatus, not even an explicit nil
+### GetInternalNotes
+
+`func (o *OrderPostPayload) GetInternalNotes() string`
+
+GetInternalNotes returns the InternalNotes field if non-nil, zero value otherwise.
+
+### GetInternalNotesOk
+
+`func (o *OrderPostPayload) GetInternalNotesOk() (*string, bool)`
+
+GetInternalNotesOk returns a tuple with the InternalNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInternalNotes
+
+`func (o *OrderPostPayload) SetInternalNotes(v string)`
+
+SetInternalNotes sets InternalNotes field to given value.
+
+### HasInternalNotes
+
+`func (o *OrderPostPayload) HasInternalNotes() bool`
+
+HasInternalNotes returns a boolean if a field has been set.
+
+### SetInternalNotesNil
+
+`func (o *OrderPostPayload) SetInternalNotesNil(b bool)`
+
+ SetInternalNotesNil sets the value for InternalNotes to be an explicit nil
+
+### UnsetInternalNotes
+`func (o *OrderPostPayload) UnsetInternalNotes()`
+
+UnsetInternalNotes ensures that no value is present for InternalNotes, not even an explicit nil
 ### GetPaymentStatus
 
 `func (o *OrderPostPayload) GetPaymentStatus() string`
@@ -97,30 +134,55 @@ HasPaymentStatus returns a boolean if a field has been set.
 `func (o *OrderPostPayload) UnsetPaymentStatus()`
 
 UnsetPaymentStatus ensures that no value is present for PaymentStatus, not even an explicit nil
-### GetPlaceId
+### GetAddressId
 
-`func (o *OrderPostPayload) GetPlaceId() string`
+`func (o *OrderPostPayload) GetAddressId() string`
 
-GetPlaceId returns the PlaceId field if non-nil, zero value otherwise.
+GetAddressId returns the AddressId field if non-nil, zero value otherwise.
 
-### GetPlaceIdOk
+### GetAddressIdOk
 
-`func (o *OrderPostPayload) GetPlaceIdOk() (*string, bool)`
+`func (o *OrderPostPayload) GetAddressIdOk() (*string, bool)`
 
-GetPlaceIdOk returns a tuple with the PlaceId field if it's non-nil, zero value otherwise
+GetAddressIdOk returns a tuple with the AddressId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPlaceId
+### SetAddressId
 
-`func (o *OrderPostPayload) SetPlaceId(v string)`
+`func (o *OrderPostPayload) SetAddressId(v string)`
 
-SetPlaceId sets PlaceId field to given value.
+SetAddressId sets AddressId field to given value.
 
-### HasPlaceId
+### HasAddressId
 
-`func (o *OrderPostPayload) HasPlaceId() bool`
+`func (o *OrderPostPayload) HasAddressId() bool`
 
-HasPlaceId returns a boolean if a field has been set.
+HasAddressId returns a boolean if a field has been set.
+
+### GetCustomerId
+
+`func (o *OrderPostPayload) GetCustomerId() string`
+
+GetCustomerId returns the CustomerId field if non-nil, zero value otherwise.
+
+### GetCustomerIdOk
+
+`func (o *OrderPostPayload) GetCustomerIdOk() (*string, bool)`
+
+GetCustomerIdOk returns a tuple with the CustomerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomerId
+
+`func (o *OrderPostPayload) SetCustomerId(v string)`
+
+SetCustomerId sets CustomerId field to given value.
+
+### HasCustomerId
+
+`func (o *OrderPostPayload) HasCustomerId() bool`
+
+HasCustomerId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

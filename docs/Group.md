@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Object** | Pointer to **string** | String representing the object’s type. Objects of the same type share the same schema. | [optional] 
 **Id** | **string** | ID of the group. UUID Version 4. | 
 **Type** | **string** | The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned. | 
 **Name** | **string** | The name of the group. | 
@@ -39,6 +40,31 @@ will change when the set of required properties is changed
 NewGroupWithDefaults instantiates a new Group object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetObject
+
+`func (o *Group) GetObject() string`
+
+GetObject returns the Object field if non-nil, zero value otherwise.
+
+### GetObjectOk
+
+`func (o *Group) GetObjectOk() (*string, bool)`
+
+GetObjectOk returns a tuple with the Object field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObject
+
+`func (o *Group) SetObject(v string)`
+
+SetObject sets Object field to given value.
+
+### HasObject
+
+`func (o *Group) HasObject() bool`
+
+HasObject returns a boolean if a field has been set.
 
 ### GetId
 

@@ -14,6 +14,8 @@ import (
 
 // Listing A real estate listing.
 type Listing struct {
+	// String representing the object’s type. Objects of the same type share the same schema.
+	Object string `json:"object"`
 	// ID of the listing. UUID Version 4.
 	Id string `json:"id"`
 	Address Address `json:"address"`
@@ -53,8 +55,9 @@ type Listing struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListing(id string, address Address, downloadsEnabled bool) *Listing {
+func NewListing(object string, id string, address Address, downloadsEnabled bool) *Listing {
 	this := Listing{}
+	this.Object = object
 	this.Id = id
 	this.Address = address
 	this.DownloadsEnabled = downloadsEnabled
@@ -67,6 +70,30 @@ func NewListing(id string, address Address, downloadsEnabled bool) *Listing {
 func NewListingWithDefaults() *Listing {
 	this := Listing{}
 	return &this
+}
+
+// GetObject returns the Object field value
+func (o *Listing) GetObject() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Object
+}
+
+// GetObjectOk returns a tuple with the Object field value
+// and a boolean to check if the value has been set.
+func (o *Listing) GetObjectOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Object, true
+}
+
+// SetObject sets field value
+func (o *Listing) SetObject(v string) {
+	o.Object = v
 }
 
 // GetId returns the Id field value
@@ -747,6 +774,9 @@ func (o *Listing) SetDownloadsEnabled(v bool) {
 
 func (o Listing) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["object"] = o.Object
+	}
 	if true {
 		toSerialize["id"] = o.Id
 	}

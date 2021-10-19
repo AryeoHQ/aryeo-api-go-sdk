@@ -16,10 +16,14 @@ import (
 type OrderPostPayload struct {
 	// The fulfillment status of the order. Defaults to \"UNFULFILLED\".
 	FulfillmentStatus NullableString `json:"fulfillment_status,omitempty"`
+	// Internal notes that will be attached to the order. Viewable only by the team.
+	InternalNotes NullableString `json:"internal_notes,omitempty"`
 	// The payment status of the order. Defaults to \"UNPAID\". 
 	PaymentStatus NullableString `json:"payment_status,omitempty"`
-	// Google Places ID of the address to attach to the order.
-	PlaceId *string `json:"place_id,omitempty"`
+	// ID of the address to associate with the order. UUID Version 4.
+	AddressId *string `json:"address_id,omitempty"`
+	// ID of the customer to associate with the order. UUID Version 4.
+	CustomerId *string `json:"customer_id,omitempty"`
 }
 
 // NewOrderPostPayload instantiates a new OrderPostPayload object
@@ -81,6 +85,48 @@ func (o *OrderPostPayload) UnsetFulfillmentStatus() {
 	o.FulfillmentStatus.Unset()
 }
 
+// GetInternalNotes returns the InternalNotes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OrderPostPayload) GetInternalNotes() string {
+	if o == nil || o.InternalNotes.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.InternalNotes.Get()
+}
+
+// GetInternalNotesOk returns a tuple with the InternalNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OrderPostPayload) GetInternalNotesOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.InternalNotes.Get(), o.InternalNotes.IsSet()
+}
+
+// HasInternalNotes returns a boolean if a field has been set.
+func (o *OrderPostPayload) HasInternalNotes() bool {
+	if o != nil && o.InternalNotes.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetInternalNotes gets a reference to the given NullableString and assigns it to the InternalNotes field.
+func (o *OrderPostPayload) SetInternalNotes(v string) {
+	o.InternalNotes.Set(&v)
+}
+// SetInternalNotesNil sets the value for InternalNotes to be an explicit nil
+func (o *OrderPostPayload) SetInternalNotesNil() {
+	o.InternalNotes.Set(nil)
+}
+
+// UnsetInternalNotes ensures that no value is present for InternalNotes, not even an explicit nil
+func (o *OrderPostPayload) UnsetInternalNotes() {
+	o.InternalNotes.Unset()
+}
+
 // GetPaymentStatus returns the PaymentStatus field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *OrderPostPayload) GetPaymentStatus() string {
 	if o == nil || o.PaymentStatus.Get() == nil {
@@ -123,36 +169,68 @@ func (o *OrderPostPayload) UnsetPaymentStatus() {
 	o.PaymentStatus.Unset()
 }
 
-// GetPlaceId returns the PlaceId field value if set, zero value otherwise.
-func (o *OrderPostPayload) GetPlaceId() string {
-	if o == nil || o.PlaceId == nil {
+// GetAddressId returns the AddressId field value if set, zero value otherwise.
+func (o *OrderPostPayload) GetAddressId() string {
+	if o == nil || o.AddressId == nil {
 		var ret string
 		return ret
 	}
-	return *o.PlaceId
+	return *o.AddressId
 }
 
-// GetPlaceIdOk returns a tuple with the PlaceId field value if set, nil otherwise
+// GetAddressIdOk returns a tuple with the AddressId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrderPostPayload) GetPlaceIdOk() (*string, bool) {
-	if o == nil || o.PlaceId == nil {
+func (o *OrderPostPayload) GetAddressIdOk() (*string, bool) {
+	if o == nil || o.AddressId == nil {
 		return nil, false
 	}
-	return o.PlaceId, true
+	return o.AddressId, true
 }
 
-// HasPlaceId returns a boolean if a field has been set.
-func (o *OrderPostPayload) HasPlaceId() bool {
-	if o != nil && o.PlaceId != nil {
+// HasAddressId returns a boolean if a field has been set.
+func (o *OrderPostPayload) HasAddressId() bool {
+	if o != nil && o.AddressId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPlaceId gets a reference to the given string and assigns it to the PlaceId field.
-func (o *OrderPostPayload) SetPlaceId(v string) {
-	o.PlaceId = &v
+// SetAddressId gets a reference to the given string and assigns it to the AddressId field.
+func (o *OrderPostPayload) SetAddressId(v string) {
+	o.AddressId = &v
+}
+
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
+func (o *OrderPostPayload) GetCustomerId() string {
+	if o == nil || o.CustomerId == nil {
+		var ret string
+		return ret
+	}
+	return *o.CustomerId
+}
+
+// GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPostPayload) GetCustomerIdOk() (*string, bool) {
+	if o == nil || o.CustomerId == nil {
+		return nil, false
+	}
+	return o.CustomerId, true
+}
+
+// HasCustomerId returns a boolean if a field has been set.
+func (o *OrderPostPayload) HasCustomerId() bool {
+	if o != nil && o.CustomerId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
+func (o *OrderPostPayload) SetCustomerId(v string) {
+	o.CustomerId = &v
 }
 
 func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
@@ -160,11 +238,17 @@ func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	if o.FulfillmentStatus.IsSet() {
 		toSerialize["fulfillment_status"] = o.FulfillmentStatus.Get()
 	}
+	if o.InternalNotes.IsSet() {
+		toSerialize["internal_notes"] = o.InternalNotes.Get()
+	}
 	if o.PaymentStatus.IsSet() {
 		toSerialize["payment_status"] = o.PaymentStatus.Get()
 	}
-	if o.PlaceId != nil {
-		toSerialize["place_id"] = o.PlaceId
+	if o.AddressId != nil {
+		toSerialize["address_id"] = o.AddressId
+	}
+	if o.CustomerId != nil {
+		toSerialize["customer_id"] = o.CustomerId
 	}
 	return json.Marshal(toSerialize)
 }
