@@ -4155,6 +4155,7 @@ components:
         payment_status: paid
         address_id: 00000000-0000-4000-8000-000000000000
         customer_id: 00000000-0000-4000-8000-000000000000
+        notify: true
       properties:
         fulfillment_status:
           description: The fulfillment status of the order. Defaults to "UNFULFILLED".
@@ -4200,6 +4201,13 @@ components:
           maxLength: 36
           minLength: 36
           type: string
+        notify:
+          description: Indicates if the customer and creator notifications should
+            be sent when creating the order. Requires an address and customer to be
+            set in order for the notifications to be sent.
+          example: true
+          nullable: true
+          type: boolean
       title: OrderPostPayload
       type: object
     OrderResource:

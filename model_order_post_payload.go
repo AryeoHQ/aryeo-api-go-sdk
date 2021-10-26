@@ -24,6 +24,8 @@ type OrderPostPayload struct {
 	AddressId *string `json:"address_id,omitempty"`
 	// ID of the customer to associate with the order. UUID Version 4.
 	CustomerId *string `json:"customer_id,omitempty"`
+	// Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent.
+	Notify NullableBool `json:"notify,omitempty"`
 }
 
 // NewOrderPostPayload instantiates a new OrderPostPayload object
@@ -233,6 +235,48 @@ func (o *OrderPostPayload) SetCustomerId(v string) {
 	o.CustomerId = &v
 }
 
+// GetNotify returns the Notify field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OrderPostPayload) GetNotify() bool {
+	if o == nil || o.Notify.Get() == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Notify.Get()
+}
+
+// GetNotifyOk returns a tuple with the Notify field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OrderPostPayload) GetNotifyOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Notify.Get(), o.Notify.IsSet()
+}
+
+// HasNotify returns a boolean if a field has been set.
+func (o *OrderPostPayload) HasNotify() bool {
+	if o != nil && o.Notify.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNotify gets a reference to the given NullableBool and assigns it to the Notify field.
+func (o *OrderPostPayload) SetNotify(v bool) {
+	o.Notify.Set(&v)
+}
+// SetNotifyNil sets the value for Notify to be an explicit nil
+func (o *OrderPostPayload) SetNotifyNil() {
+	o.Notify.Set(nil)
+}
+
+// UnsetNotify ensures that no value is present for Notify, not even an explicit nil
+func (o *OrderPostPayload) UnsetNotify() {
+	o.Notify.Unset()
+}
+
 func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FulfillmentStatus.IsSet() {
@@ -249,6 +293,9 @@ func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	}
 	if o.CustomerId != nil {
 		toSerialize["customer_id"] = o.CustomerId
+	}
+	if o.Notify.IsSet() {
+		toSerialize["notify"] = o.Notify.Get()
 	}
 	return json.Marshal(toSerialize)
 }

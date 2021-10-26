@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **PaymentStatus** | Pointer to **NullableString** | The payment status of the order. Defaults to \&quot;UNPAID\&quot;.  | [optional] 
 **AddressId** | Pointer to **string** | ID of the address to associate with the order. UUID Version 4. | [optional] 
 **CustomerId** | Pointer to **string** | ID of the customer to associate with the order. UUID Version 4. | [optional] 
+**Notify** | Pointer to **NullableBool** | Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent. | [optional] 
 
 ## Methods
 
@@ -184,6 +185,41 @@ SetCustomerId sets CustomerId field to given value.
 
 HasCustomerId returns a boolean if a field has been set.
 
+### GetNotify
+
+`func (o *OrderPostPayload) GetNotify() bool`
+
+GetNotify returns the Notify field if non-nil, zero value otherwise.
+
+### GetNotifyOk
+
+`func (o *OrderPostPayload) GetNotifyOk() (*bool, bool)`
+
+GetNotifyOk returns a tuple with the Notify field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotify
+
+`func (o *OrderPostPayload) SetNotify(v bool)`
+
+SetNotify sets Notify field to given value.
+
+### HasNotify
+
+`func (o *OrderPostPayload) HasNotify() bool`
+
+HasNotify returns a boolean if a field has been set.
+
+### SetNotifyNil
+
+`func (o *OrderPostPayload) SetNotifyNil(b bool)`
+
+ SetNotifyNil sets the value for Notify to be an explicit nil
+
+### UnsetNotify
+`func (o *OrderPostPayload) UnsetNotify()`
+
+UnsetNotify ensures that no value is present for Notify, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
