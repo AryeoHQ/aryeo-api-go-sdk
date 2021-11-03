@@ -20,6 +20,8 @@ type ProductVariant struct {
 	Title string `json:"title"`
 	// A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the price of the product variant.
 	Price int32 `json:"price"`
+	// The duration of the product item, in minutes.
+	Duration *int32 `json:"duration,omitempty"`
 }
 
 // NewProductVariant instantiates a new ProductVariant object
@@ -114,6 +116,38 @@ func (o *ProductVariant) SetPrice(v int32) {
 	o.Price = v
 }
 
+// GetDuration returns the Duration field value if set, zero value otherwise.
+func (o *ProductVariant) GetDuration() int32 {
+	if o == nil || o.Duration == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Duration
+}
+
+// GetDurationOk returns a tuple with the Duration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductVariant) GetDurationOk() (*int32, bool) {
+	if o == nil || o.Duration == nil {
+		return nil, false
+	}
+	return o.Duration, true
+}
+
+// HasDuration returns a boolean if a field has been set.
+func (o *ProductVariant) HasDuration() bool {
+	if o != nil && o.Duration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDuration gets a reference to the given int32 and assigns it to the Duration field.
+func (o *ProductVariant) SetDuration(v int32) {
+	o.Duration = &v
+}
+
 func (o ProductVariant) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -124,6 +158,9 @@ func (o ProductVariant) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["price"] = o.Price
+	}
+	if o.Duration != nil {
+		toSerialize["duration"] = o.Duration
 	}
 	return json.Marshal(toSerialize)
 }

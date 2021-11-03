@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | ID of the product variant. UUID Version 4. | 
 **Title** | **string** | The title of the product variant. | 
 **Price** | **int32** | A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the price of the product variant. | 
+**Duration** | Pointer to **int32** | The duration of the product item, in minutes. | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetPrice sets Price field to given value.
 
+
+### GetDuration
+
+`func (o *ProductVariant) GetDuration() int32`
+
+GetDuration returns the Duration field if non-nil, zero value otherwise.
+
+### GetDurationOk
+
+`func (o *ProductVariant) GetDurationOk() (*int32, bool)`
+
+GetDurationOk returns a tuple with the Duration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDuration
+
+`func (o *ProductVariant) SetDuration(v int32)`
+
+SetDuration sets Duration field to given value.
+
+### HasDuration
+
+`func (o *ProductVariant) HasDuration() bool`
+
+HasDuration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

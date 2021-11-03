@@ -3329,10 +3329,12 @@ components:
           active: true
           id: 00000000-0000-4000-8000-000000000000
           variants:
-          - price: 10000
+          - duration: 60
+            price: 10000
             id: 00000000-0000-4000-8000-000000000000
             title: House photos
-          - price: 10000
+          - duration: 60
+            price: 10000
             id: 00000000-0000-4000-8000-000000000000
             title: House photos
           categories:
@@ -3346,10 +3348,12 @@ components:
           active: true
           id: 00000000-0000-4000-8000-000000000000
           variants:
-          - price: 10000
+          - duration: 60
+            price: 10000
             id: 00000000-0000-4000-8000-000000000000
             title: House photos
-          - price: 10000
+          - duration: 60
+            price: 10000
             id: 00000000-0000-4000-8000-000000000000
             title: House photos
           categories:
@@ -5892,10 +5896,12 @@ components:
         active: true
         id: 00000000-0000-4000-8000-000000000000
         variants:
-        - price: 10000
+        - duration: 60
+          price: 10000
           id: 00000000-0000-4000-8000-000000000000
           title: House photos
-        - price: 10000
+        - duration: 60
+          price: 10000
           id: 00000000-0000-4000-8000-000000000000
           title: House photos
         categories:
@@ -7412,6 +7418,7 @@ components:
     ProductVariant:
       description: A variant of a product.
       example:
+        duration: 60
         price: 10000
         id: 00000000-0000-4000-8000-000000000000
         title: House photos
@@ -7435,6 +7442,12 @@ components:
           description: A positive integer in the smallest currency unit (that is,
             100 cents for $1.00) representing the price of the product variant.
           example: 10000
+          nullable: false
+          type: integer
+        duration:
+          description: The duration of the product item, in minutes.
+          example: 60
+          minimum: 0
           nullable: false
           type: integer
       required:
