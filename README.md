@@ -98,6 +98,8 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AppointmentsApi* | [**GetAppointments**](docs/AppointmentsApi.md#getappointments) | **Get** /appointments | List all appointments.
+*AppointmentsApi* | [**GetAvailableDates**](docs/AppointmentsApi.md#getavailabledates) | **Get** /scheduling/available-dates | Fetch available days for a user or group
+*AppointmentsApi* | [**GetAvailableTimeslots**](docs/AppointmentsApi.md#getavailabletimeslots) | **Get** /scheduling/available-timeslots | Fetch available timeslots for a user or group
 *AppointmentsApi* | [**GetUnconfirmedAppointments**](docs/AppointmentsApi.md#getunconfirmedappointments) | **Get** /unconfirmed-appointments | List all unconfirmed appointments.
 *AppointmentsApi* | [**GetUnconfirmedAppointmentsId**](docs/AppointmentsApi.md#getunconfirmedappointmentsid) | **Get** /unconfirmed-appointments/{unconfirmed_appointment_id} | Retrieve an unconfirmed appointment.
 *AppointmentsApi* | [**PutAppointmentsAppointmentIdCancel**](docs/AppointmentsApi.md#putappointmentsappointmentidcancel) | **Put** /appointments/{appointment_id}/cancel | Cancel an appointment.
@@ -125,6 +127,8 @@ Class | Method | HTTP request | Description
  - [AppointmentCollection](docs/AppointmentCollection.md)
  - [AppointmentReschedulePutPayload](docs/AppointmentReschedulePutPayload.md)
  - [AppointmentResource](docs/AppointmentResource.md)
+ - [CalendarDay](docs/CalendarDay.md)
+ - [CalendarDayCollection](docs/CalendarDayCollection.md)
  - [FloorPlan](docs/FloorPlan.md)
  - [Group](docs/Group.md)
  - [GroupCollection](docs/GroupCollection.md)
@@ -151,6 +155,8 @@ Class | Method | HTTP request | Description
  - [ProductVariant](docs/ProductVariant.md)
  - [PropertyWebsite](docs/PropertyWebsite.md)
  - [SocialProfiles](docs/SocialProfiles.md)
+ - [Timeslot](docs/Timeslot.md)
+ - [TimeslotCollection](docs/TimeslotCollection.md)
  - [UnconfirmedAppointment](docs/UnconfirmedAppointment.md)
  - [UnconfirmedAppointmentCollection](docs/UnconfirmedAppointmentCollection.md)
  - [UnconfirmedAppointmentResource](docs/UnconfirmedAppointmentResource.md)

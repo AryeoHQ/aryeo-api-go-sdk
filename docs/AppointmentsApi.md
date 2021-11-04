@@ -5,6 +5,8 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetAppointments**](AppointmentsApi.md#GetAppointments) | **Get** /appointments | List all appointments.
+[**GetAvailableDates**](AppointmentsApi.md#GetAvailableDates) | **Get** /scheduling/available-dates | Fetch available days for a user or group
+[**GetAvailableTimeslots**](AppointmentsApi.md#GetAvailableTimeslots) | **Get** /scheduling/available-timeslots | Fetch available timeslots for a user or group
 [**GetUnconfirmedAppointments**](AppointmentsApi.md#GetUnconfirmedAppointments) | **Get** /unconfirmed-appointments | List all unconfirmed appointments.
 [**GetUnconfirmedAppointmentsId**](AppointmentsApi.md#GetUnconfirmedAppointmentsId) | **Get** /unconfirmed-appointments/{unconfirmed_appointment_id} | Retrieve an unconfirmed appointment.
 [**PutAppointmentsAppointmentIdCancel**](AppointmentsApi.md#PutAppointmentsAppointmentIdCancel) | **Put** /appointments/{appointment_id}/cancel | Cancel an appointment.
@@ -78,6 +80,174 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AppointmentCollection**](AppointmentCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAvailableDates
+
+> CalendarDayCollection GetAvailableDates(ctx).FilterUserIds(filterUserIds).FilterAppointmentId(filterAppointmentId).FilterStartAt(filterStartAt).FilterEndAt(filterEndAt).FilterTimeframe(filterTimeframe).Duration(duration).Interval(interval).Timezone(timezone).Page(page).PerPage(perPage).Execute()
+
+Fetch available days for a user or group
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    filterUserIds := []string{"00000000-0000-4000-8000-000000000000"} // []string | The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+    filterAppointmentId := "00000000-0000-4000-8000-000000000000" // string | Appointment ID used to fetch availability for an existing order (optional)
+    filterStartAt := time.Now() // time.Time | Returns availability after start_at (optional)
+    filterEndAt := time.Now() // time.Time | Returns availability before end_at (optional)
+    filterTimeframe := []string{"MONTH"} // []string | Returns availability for a specific timeframe. Used instead of start_at & end_at (optional)
+    duration := int32(60) // int32 | Duration of the event to schedule. Required if appointment_id isn't specified (optional)
+    interval := int32(15) // int32 | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn't specified (optional)
+    timezone := "2" // string | Timezone of the client. Localizes the available days (optional)
+    page := int32(1) // int32 | The requested page of results (optional)
+    perPage := int32(5) // int32 | The number of results per page. Only applies when using a date range (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AppointmentsApi.GetAvailableDates(context.Background()).FilterUserIds(filterUserIds).FilterAppointmentId(filterAppointmentId).FilterStartAt(filterStartAt).FilterEndAt(filterEndAt).FilterTimeframe(filterTimeframe).Duration(duration).Interval(interval).Timezone(timezone).Page(page).PerPage(perPage).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AppointmentsApi.GetAvailableDates``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAvailableDates`: CalendarDayCollection
+    fmt.Fprintf(os.Stdout, "Response from `AppointmentsApi.GetAvailableDates`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAvailableDatesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterUserIds** | **[]string** | The IDs of users whose availability will be retrieved. UUID Version 4. | 
+ **filterAppointmentId** | **string** | Appointment ID used to fetch availability for an existing order | 
+ **filterStartAt** | **time.Time** | Returns availability after start_at | 
+ **filterEndAt** | **time.Time** | Returns availability before end_at | 
+ **filterTimeframe** | **[]string** | Returns availability for a specific timeframe. Used instead of start_at &amp; end_at | 
+ **duration** | **int32** | Duration of the event to schedule. Required if appointment_id isn&#39;t specified | 
+ **interval** | **int32** | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified | 
+ **timezone** | **string** | Timezone of the client. Localizes the available days | 
+ **page** | **int32** | The requested page of results | 
+ **perPage** | **int32** | The number of results per page. Only applies when using a date range | 
+
+### Return type
+
+[**CalendarDayCollection**](CalendarDayCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAvailableTimeslots
+
+> TimeslotCollection GetAvailableTimeslots(ctx).FilterUserIds(filterUserIds).FilterAppointmentId(filterAppointmentId).FilterStartAt(filterStartAt).FilterEndAt(filterEndAt).FilterTimeframe(filterTimeframe).Duration(duration).Interval(interval).Page(page).PerPage(perPage).Execute()
+
+Fetch available timeslots for a user or group
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    filterUserIds := []string{"00000000-0000-4000-8000-000000000000"} // []string | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+    filterAppointmentId := "00000000-0000-4000-8000-000000000000" // string | Appointment ID used to fetch availability for an existing order (optional)
+    filterStartAt := time.Now() // time.Time | Returns availability after start_at (optional)
+    filterEndAt := time.Now() // time.Time | Returns availability before end_at (optional)
+    filterTimeframe := []string{"MONTH"} // []string | Returns availability for a specific timeframe. Used instead of start_at & end_at (optional)
+    duration := int32(60) // int32 | Duration of the event to schedule. Required if appointment_id isn't specified (optional)
+    interval := int32(25) // int32 | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn't specified (optional)
+    page := int32(1) // int32 | The requested page of results (optional)
+    perPage := int32(5) // int32 | The number of results per page. Only applies when using a date range (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AppointmentsApi.GetAvailableTimeslots(context.Background()).FilterUserIds(filterUserIds).FilterAppointmentId(filterAppointmentId).FilterStartAt(filterStartAt).FilterEndAt(filterEndAt).FilterTimeframe(filterTimeframe).Duration(duration).Interval(interval).Page(page).PerPage(perPage).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AppointmentsApi.GetAvailableTimeslots``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAvailableTimeslots`: TimeslotCollection
+    fmt.Fprintf(os.Stdout, "Response from `AppointmentsApi.GetAvailableTimeslots`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAvailableTimeslotsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterUserIds** | **[]string** | The IDs of users whose appointments will be retrieved. UUID Version 4. | 
+ **filterAppointmentId** | **string** | Appointment ID used to fetch availability for an existing order | 
+ **filterStartAt** | **time.Time** | Returns availability after start_at | 
+ **filterEndAt** | **time.Time** | Returns availability before end_at | 
+ **filterTimeframe** | **[]string** | Returns availability for a specific timeframe. Used instead of start_at &amp; end_at | 
+ **duration** | **int32** | Duration of the event to schedule. Required if appointment_id isn&#39;t specified | 
+ **interval** | **int32** | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified | 
+ **page** | **int32** | The requested page of results | 
+ **perPage** | **int32** | The number of results per page. Only applies when using a date range | 
+
+### Return type
+
+[**TimeslotCollection**](TimeslotCollection.md)
 
 ### Authorization
 

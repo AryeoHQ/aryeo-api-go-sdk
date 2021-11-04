@@ -248,6 +248,491 @@ func (a *AppointmentsApiService) GetAppointmentsExecute(r ApiGetAppointmentsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetAvailableDatesRequest struct {
+	ctx _context.Context
+	ApiService *AppointmentsApiService
+	filterUserIds *[]string
+	filterAppointmentId *string
+	filterStartAt *time.Time
+	filterEndAt *time.Time
+	filterTimeframe *[]string
+	duration *int32
+	interval *int32
+	timezone *string
+	page *int32
+	perPage *int32
+}
+
+// The IDs of users whose availability will be retrieved. UUID Version 4.
+func (r ApiGetAvailableDatesRequest) FilterUserIds(filterUserIds []string) ApiGetAvailableDatesRequest {
+	r.filterUserIds = &filterUserIds
+	return r
+}
+// Appointment ID used to fetch availability for an existing order
+func (r ApiGetAvailableDatesRequest) FilterAppointmentId(filterAppointmentId string) ApiGetAvailableDatesRequest {
+	r.filterAppointmentId = &filterAppointmentId
+	return r
+}
+// Returns availability after start_at
+func (r ApiGetAvailableDatesRequest) FilterStartAt(filterStartAt time.Time) ApiGetAvailableDatesRequest {
+	r.filterStartAt = &filterStartAt
+	return r
+}
+// Returns availability before end_at
+func (r ApiGetAvailableDatesRequest) FilterEndAt(filterEndAt time.Time) ApiGetAvailableDatesRequest {
+	r.filterEndAt = &filterEndAt
+	return r
+}
+// Returns availability for a specific timeframe. Used instead of start_at &amp; end_at
+func (r ApiGetAvailableDatesRequest) FilterTimeframe(filterTimeframe []string) ApiGetAvailableDatesRequest {
+	r.filterTimeframe = &filterTimeframe
+	return r
+}
+// Duration of the event to schedule. Required if appointment_id isn&#39;t specified
+func (r ApiGetAvailableDatesRequest) Duration(duration int32) ApiGetAvailableDatesRequest {
+	r.duration = &duration
+	return r
+}
+// Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified
+func (r ApiGetAvailableDatesRequest) Interval(interval int32) ApiGetAvailableDatesRequest {
+	r.interval = &interval
+	return r
+}
+// Timezone of the client. Localizes the available days
+func (r ApiGetAvailableDatesRequest) Timezone(timezone string) ApiGetAvailableDatesRequest {
+	r.timezone = &timezone
+	return r
+}
+// The requested page of results
+func (r ApiGetAvailableDatesRequest) Page(page int32) ApiGetAvailableDatesRequest {
+	r.page = &page
+	return r
+}
+// The number of results per page. Only applies when using a date range
+func (r ApiGetAvailableDatesRequest) PerPage(perPage int32) ApiGetAvailableDatesRequest {
+	r.perPage = &perPage
+	return r
+}
+
+func (r ApiGetAvailableDatesRequest) Execute() (CalendarDayCollection, *_nethttp.Response, error) {
+	return r.ApiService.GetAvailableDatesExecute(r)
+}
+
+/*
+GetAvailableDates Fetch available days for a user or group
+
+Fetch available calendar days for scheduling or rescheduling an appointment. Availability can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through weeks, months, etc.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetAvailableDatesRequest
+*/
+func (a *AppointmentsApiService) GetAvailableDates(ctx _context.Context) ApiGetAvailableDatesRequest {
+	return ApiGetAvailableDatesRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CalendarDayCollection
+func (a *AppointmentsApiService) GetAvailableDatesExecute(r ApiGetAvailableDatesRequest) (CalendarDayCollection, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  CalendarDayCollection
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppointmentsApiService.GetAvailableDates")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/scheduling/available-dates"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if r.filterUserIds != nil {
+		t := *r.filterUserIds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("filter[user_ids]", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("filter[user_ids]", parameterToString(t, "multi"))
+		}
+	}
+	if r.filterAppointmentId != nil {
+		localVarQueryParams.Add("filter[appointment_id]", parameterToString(*r.filterAppointmentId, ""))
+	}
+	if r.filterStartAt != nil {
+		localVarQueryParams.Add("filter[start_at]", parameterToString(*r.filterStartAt, ""))
+	}
+	if r.filterEndAt != nil {
+		localVarQueryParams.Add("filter[end_at]", parameterToString(*r.filterEndAt, ""))
+	}
+	if r.filterTimeframe != nil {
+		t := *r.filterTimeframe
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("filter[timeframe]", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("filter[timeframe]", parameterToString(t, "multi"))
+		}
+	}
+	if r.duration != nil {
+		localVarQueryParams.Add("duration", parameterToString(*r.duration, ""))
+	}
+	if r.interval != nil {
+		localVarQueryParams.Add("interval", parameterToString(*r.interval, ""))
+	}
+	if r.timezone != nil {
+		localVarQueryParams.Add("timezone", parameterToString(*r.timezone, ""))
+	}
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.perPage != nil {
+		localVarQueryParams.Add("per_page", parameterToString(*r.perPage, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiError403
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiError404
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiFail422
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiError500
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetAvailableTimeslotsRequest struct {
+	ctx _context.Context
+	ApiService *AppointmentsApiService
+	filterUserIds *[]string
+	filterAppointmentId *string
+	filterStartAt *time.Time
+	filterEndAt *time.Time
+	filterTimeframe *[]string
+	duration *int32
+	interval *int32
+	page *int32
+	perPage *int32
+}
+
+// The IDs of users whose appointments will be retrieved. UUID Version 4.
+func (r ApiGetAvailableTimeslotsRequest) FilterUserIds(filterUserIds []string) ApiGetAvailableTimeslotsRequest {
+	r.filterUserIds = &filterUserIds
+	return r
+}
+// Appointment ID used to fetch availability for an existing order
+func (r ApiGetAvailableTimeslotsRequest) FilterAppointmentId(filterAppointmentId string) ApiGetAvailableTimeslotsRequest {
+	r.filterAppointmentId = &filterAppointmentId
+	return r
+}
+// Returns availability after start_at
+func (r ApiGetAvailableTimeslotsRequest) FilterStartAt(filterStartAt time.Time) ApiGetAvailableTimeslotsRequest {
+	r.filterStartAt = &filterStartAt
+	return r
+}
+// Returns availability before end_at
+func (r ApiGetAvailableTimeslotsRequest) FilterEndAt(filterEndAt time.Time) ApiGetAvailableTimeslotsRequest {
+	r.filterEndAt = &filterEndAt
+	return r
+}
+// Returns availability for a specific timeframe. Used instead of start_at &amp; end_at
+func (r ApiGetAvailableTimeslotsRequest) FilterTimeframe(filterTimeframe []string) ApiGetAvailableTimeslotsRequest {
+	r.filterTimeframe = &filterTimeframe
+	return r
+}
+// Duration of the event to schedule. Required if appointment_id isn&#39;t specified
+func (r ApiGetAvailableTimeslotsRequest) Duration(duration int32) ApiGetAvailableTimeslotsRequest {
+	r.duration = &duration
+	return r
+}
+// Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified
+func (r ApiGetAvailableTimeslotsRequest) Interval(interval int32) ApiGetAvailableTimeslotsRequest {
+	r.interval = &interval
+	return r
+}
+// The requested page of results
+func (r ApiGetAvailableTimeslotsRequest) Page(page int32) ApiGetAvailableTimeslotsRequest {
+	r.page = &page
+	return r
+}
+// The number of results per page. Only applies when using a date range
+func (r ApiGetAvailableTimeslotsRequest) PerPage(perPage int32) ApiGetAvailableTimeslotsRequest {
+	r.perPage = &perPage
+	return r
+}
+
+func (r ApiGetAvailableTimeslotsRequest) Execute() (TimeslotCollection, *_nethttp.Response, error) {
+	return r.ApiService.GetAvailableTimeslotsExecute(r)
+}
+
+/*
+GetAvailableTimeslots Fetch available timeslots for a user or group
+
+Fetch available timeslots for scheduling or rescheduling an appointment. Timeslots can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through days or weeks.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetAvailableTimeslotsRequest
+*/
+func (a *AppointmentsApiService) GetAvailableTimeslots(ctx _context.Context) ApiGetAvailableTimeslotsRequest {
+	return ApiGetAvailableTimeslotsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return TimeslotCollection
+func (a *AppointmentsApiService) GetAvailableTimeslotsExecute(r ApiGetAvailableTimeslotsRequest) (TimeslotCollection, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  TimeslotCollection
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AppointmentsApiService.GetAvailableTimeslots")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/scheduling/available-timeslots"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if r.filterUserIds != nil {
+		t := *r.filterUserIds
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("filter[user_ids]", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("filter[user_ids]", parameterToString(t, "multi"))
+		}
+	}
+	if r.filterAppointmentId != nil {
+		localVarQueryParams.Add("filter[appointment_id]", parameterToString(*r.filterAppointmentId, ""))
+	}
+	if r.filterStartAt != nil {
+		localVarQueryParams.Add("filter[start_at]", parameterToString(*r.filterStartAt, ""))
+	}
+	if r.filterEndAt != nil {
+		localVarQueryParams.Add("filter[end_at]", parameterToString(*r.filterEndAt, ""))
+	}
+	if r.filterTimeframe != nil {
+		t := *r.filterTimeframe
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("filter[timeframe]", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("filter[timeframe]", parameterToString(t, "multi"))
+		}
+	}
+	if r.duration != nil {
+		localVarQueryParams.Add("duration", parameterToString(*r.duration, ""))
+	}
+	if r.interval != nil {
+		localVarQueryParams.Add("interval", parameterToString(*r.interval, ""))
+	}
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.perPage != nil {
+		localVarQueryParams.Add("per_page", parameterToString(*r.perPage, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ApiError403
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiError404
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ApiFail422
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiError500
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetUnconfirmedAppointmentsRequest struct {
 	ctx _context.Context
 	ApiService *AppointmentsApiService

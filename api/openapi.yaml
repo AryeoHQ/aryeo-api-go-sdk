@@ -933,6 +933,352 @@ paths:
       summary: Retrieve an order.
       tags:
       - orders
+  /scheduling/available-dates:
+    get:
+      description: Fetch available calendar days for scheduling or rescheduling an
+        appointment. Availability can be retrieved using a specific start & end date
+        range, or using a timeframe. When using a timeframe, the page parameter can
+        be used to flip through weeks, months, etc.
+      operationId: get-available-dates
+      parameters:
+      - description: The IDs of users whose availability will be retrieved. UUID Version
+          4.
+        explode: true
+        in: query
+        name: filter[user_ids]
+        required: false
+        schema:
+          items:
+            description: ID of a user. UUID Version 4.
+            example: 00000000-0000-4000-8000-000000000000
+            format: uuid
+            maxLength: 36
+            minLength: 36
+            type: string
+          type: array
+        style: form
+      - description: Appointment ID used to fetch availability for an existing order
+        explode: true
+        in: query
+        name: filter[appointment_id]
+        required: false
+        schema:
+          example: 00000000-0000-4000-8000-000000000000
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: Returns availability after start_at
+        explode: true
+        in: query
+        name: filter[start_at]
+        required: false
+        schema:
+          example: 2021-01-01T13:00:00Z
+          format: date-time
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: Returns availability before end_at
+        explode: true
+        in: query
+        name: filter[end_at]
+        required: false
+        schema:
+          example: 2021-01-02T13:00:00Z
+          format: date-time
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: Returns availability for a specific timeframe. Used instead of
+          start_at & end_at
+        explode: true
+        in: query
+        name: filter[timeframe]
+        required: false
+        schema:
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - YEAR
+          example: MONTH
+          items:
+            description: Timeframe type
+            example: MONTH
+            maxLength: 5
+            minLength: 1
+            type: string
+          maxLength: 5
+          minLength: 1
+          type: array
+        style: form
+      - description: Duration of the event to schedule. Required if appointment_id
+          isn't specified
+        explode: true
+        in: query
+        name: duration
+        required: false
+        schema:
+          example: 60
+          maxLength: 100
+          maximum: 360
+          minLength: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: Interval of bookable timeslots starting at x minutes on the hour
+          . Required if appointment_id isn't specified
+        explode: true
+        in: query
+        name: interval
+        required: false
+        schema:
+          example: 15
+          maxLength: 5
+          maximum: 360
+          minLength: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: Timezone of the client. Localizes the available days
+        explode: true
+        in: query
+        name: timezone
+        required: false
+        schema:
+          example: "2"
+          maxLength: 5
+          minLength: 1
+          type: string
+        style: form
+      - description: The requested page of results
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The number of results per page. Only applies when using a date
+          range
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: 5
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarDayCollection'
+          description: CalendarDayCollection
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
+      security:
+      - Token: []
+      summary: Fetch available days for a user or group
+      tags:
+      - appointments
+      x-internal: false
+  /scheduling/available-timeslots:
+    get:
+      description: Fetch available timeslots for scheduling or rescheduling an appointment.
+        Timeslots can be retrieved using a specific start & end date range, or using
+        a timeframe. When using a timeframe, the page parameter can be used to flip
+        through days or weeks.
+      operationId: get-available-timeslots
+      parameters:
+      - description: The IDs of users whose appointments will be retrieved. UUID Version
+          4.
+        explode: true
+        in: query
+        name: filter[user_ids]
+        required: false
+        schema:
+          items:
+            description: ID of a user. UUID Version 4.
+            example: 00000000-0000-4000-8000-000000000000
+            format: uuid
+            maxLength: 36
+            minLength: 36
+            type: string
+          type: array
+        style: form
+      - description: Appointment ID used to fetch availability for an existing order
+        explode: true
+        in: query
+        name: filter[appointment_id]
+        required: false
+        schema:
+          example: 00000000-0000-4000-8000-000000000000
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: Returns availability after start_at
+        explode: true
+        in: query
+        name: filter[start_at]
+        required: false
+        schema:
+          example: 2021-01-01T13:00:00Z
+          format: date-time
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: Returns availability before end_at
+        explode: true
+        in: query
+        name: filter[end_at]
+        required: false
+        schema:
+          example: 2021-01-02T13:00:00Z
+          format: date-time
+          maxLength: 100
+          minLength: 1
+          type: string
+        style: form
+      - description: Returns availability for a specific timeframe. Used instead of
+          start_at & end_at
+        explode: true
+        in: query
+        name: filter[timeframe]
+        required: false
+        schema:
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          - YEAR
+          example: MONTH
+          items:
+            description: Timeframe type
+            example: MONTH
+            maxLength: 5
+            minLength: 1
+            type: string
+          maxLength: 5
+          minLength: 1
+          type: array
+        style: form
+      - description: Duration of the event to schedule. Required if appointment_id
+          isn't specified
+        explode: true
+        in: query
+        name: duration
+        required: false
+        schema:
+          example: 60
+          maxLength: 100
+          maximum: 360
+          minLength: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: Interval of bookable timeslots starting at x minutes on the hour
+          . Required if appointment_id isn't specified
+        explode: true
+        in: query
+        name: interval
+        required: false
+        schema:
+          example: 25
+          maxLength: 5
+          maximum: 360
+          minLength: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The requested page of results
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          example: 1
+          minimum: 1
+          type: integer
+        style: form
+      - description: The number of results per page. Only applies when using a date
+          range
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          example: 5
+          minimum: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeslotCollection'
+          description: TimeslotCollection
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError403'
+          description: ApiError403
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError404'
+          description: ApiError404
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiFail422'
+          description: ApiFail422
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError500'
+          description: ApiError500
+      security:
+      - Token: []
+      summary: Fetch available timeslots for a user or group
+      tags:
+      - appointments
+      x-internal: false
   /unconfirmed-appointments:
     get:
       description: 'List all unconfirmed appointments. These are appointments that
@@ -4589,6 +4935,124 @@ components:
       - status
       title: OrderResource
       type: object
+    CalendarDayCollection:
+      description: A collection of calendar days that have available timeslots
+      example:
+        data:
+        - date: 2021-01-01
+          is_available: true
+        - date: 2021-01-01
+          is_available: true
+        meta:
+          per_page: 15
+          path: https://api.aryeo.com/v1/{path}
+          total: 50
+          last_page: 4
+          from: 1
+          to: 15
+          current_page: 1
+        links:
+          next: https://api.aryeo.com/v1/{path}?page=3
+          last: https://api.aryeo.com/v1/{path}?page=10
+          prev: https://api.aryeo.com/v1/{path}?page=2
+          first: https://api.aryeo.com/v1/{path}?page=1
+        status: success
+      properties:
+        status:
+          description: What was the state of the request?
+          example: success
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        data:
+          description: ""
+          items:
+            $ref: '#/components/schemas/CalendarDay'
+          nullable: true
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+      required:
+      - status
+      title: CalendarDayCollection
+      type: object
+    TimeslotCollection:
+      description: A collection of bookable timeslots.
+      example:
+        data:
+        - end_at: 2021-01-01T00:30:00Z
+          start_at: 2021-01-01T00:00:00Z
+          users:
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+        - end_at: 2021-01-01T00:30:00Z
+          start_at: 2021-01-01T00:00:00Z
+          users:
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+          - avatar_url: https://via.placeholder.com/300.jpg
+            phone: "123456789"
+            last_name: Doe
+            id: 00000000-0000-4000-8000-000000000000
+            relationship: owner
+            first_name: John
+            email: john.doe@gmail.com
+        meta:
+          per_page: 15
+          path: https://api.aryeo.com/v1/{path}
+          total: 50
+          last_page: 4
+          from: 1
+          to: 15
+          current_page: 1
+        links:
+          next: https://api.aryeo.com/v1/{path}?page=3
+          last: https://api.aryeo.com/v1/{path}?page=10
+          prev: https://api.aryeo.com/v1/{path}?page=2
+          first: https://api.aryeo.com/v1/{path}?page=1
+        status: success
+      properties:
+        status:
+          description: What was the state of the request?
+          example: success
+          maxLength: 255
+          minLength: 0
+          nullable: false
+          type: string
+        data:
+          description: ""
+          items:
+            $ref: '#/components/schemas/Timeslot'
+          nullable: true
+          type: array
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+      required:
+      - status
+      title: TimeslotCollection
+      type: object
     UnconfirmedAppointmentCollection:
       description: A collection of appointments.
       example:
@@ -6432,6 +6896,71 @@ components:
       - title
       title: Order
       type: object
+    CalendarDay:
+      description: A bookable time range with available users.
+      example:
+        date: 2021-01-01
+        is_available: true
+      properties:
+        date:
+          description: Calendar day that has available timeslots.
+          example: 2021-01-01
+          maxLength: 10
+          minLength: 10
+          type: string
+        is_available:
+          description: Does the day have availability?
+          example: true
+          type: boolean
+      required:
+      - date
+      - is_available
+      title: Timeslot
+      type: object
+      x-internal: true
+    Timeslot:
+      description: A bookable time range, including users that are available.
+      example:
+        end_at: 2021-01-01T00:30:00Z
+        start_at: 2021-01-01T00:00:00Z
+        users:
+        - avatar_url: https://via.placeholder.com/300.jpg
+          phone: "123456789"
+          last_name: Doe
+          id: 00000000-0000-4000-8000-000000000000
+          relationship: owner
+          first_name: John
+          email: john.doe@gmail.com
+        - avatar_url: https://via.placeholder.com/300.jpg
+          phone: "123456789"
+          last_name: Doe
+          id: 00000000-0000-4000-8000-000000000000
+          relationship: owner
+          first_name: John
+          email: john.doe@gmail.com
+      properties:
+        start_at:
+          description: Start time of the available slot
+          example: 2021-01-01T00:00:00Z
+          maxLength: 20
+          minLength: 20
+          type: string
+        end_at:
+          description: End time of the available slot
+          example: 2021-01-01T00:30:00Z
+          maxLength: 20
+          minLength: 20
+          type: string
+        users:
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+      required:
+      - end_at
+      - start_at
+      title: Timeslot
+      type: object
+      x-internal: true
     UnconfirmedAppointment:
       description: An unconfirmed appointment.
       example:
