@@ -4502,7 +4502,6 @@ components:
       example:
         fulfillment_status: fulfilled
         internal_notes: Private note about the order!
-        payment_status: paid
         address_id: 00000000-0000-4000-8000-000000000000
         customer_id: 00000000-0000-4000-8000-000000000000
         notify: true
@@ -4522,16 +4521,6 @@ components:
             only by the team.
           example: Private note about the order!
           maxLength: 2550
-          minLength: 0
-          nullable: true
-          type: string
-        payment_status:
-          description: 'The payment status of the order. Defaults to "UNPAID". '
-          enum:
-          - PAID
-          - UNPAID
-          example: paid
-          maxLength: 255
           minLength: 0
           nullable: true
           type: string

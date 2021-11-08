@@ -18,8 +18,6 @@ type OrderPostPayload struct {
 	FulfillmentStatus NullableString `json:"fulfillment_status,omitempty"`
 	// Internal notes that will be attached to the order. Viewable only by the team.
 	InternalNotes NullableString `json:"internal_notes,omitempty"`
-	// The payment status of the order. Defaults to \"UNPAID\". 
-	PaymentStatus NullableString `json:"payment_status,omitempty"`
 	// ID of the address to associate with the order. UUID Version 4.
 	AddressId *string `json:"address_id,omitempty"`
 	// ID of the customer to associate with the order. UUID Version 4.
@@ -127,48 +125,6 @@ func (o *OrderPostPayload) SetInternalNotesNil() {
 // UnsetInternalNotes ensures that no value is present for InternalNotes, not even an explicit nil
 func (o *OrderPostPayload) UnsetInternalNotes() {
 	o.InternalNotes.Unset()
-}
-
-// GetPaymentStatus returns the PaymentStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *OrderPostPayload) GetPaymentStatus() string {
-	if o == nil || o.PaymentStatus.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.PaymentStatus.Get()
-}
-
-// GetPaymentStatusOk returns a tuple with the PaymentStatus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *OrderPostPayload) GetPaymentStatusOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.PaymentStatus.Get(), o.PaymentStatus.IsSet()
-}
-
-// HasPaymentStatus returns a boolean if a field has been set.
-func (o *OrderPostPayload) HasPaymentStatus() bool {
-	if o != nil && o.PaymentStatus.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentStatus gets a reference to the given NullableString and assigns it to the PaymentStatus field.
-func (o *OrderPostPayload) SetPaymentStatus(v string) {
-	o.PaymentStatus.Set(&v)
-}
-// SetPaymentStatusNil sets the value for PaymentStatus to be an explicit nil
-func (o *OrderPostPayload) SetPaymentStatusNil() {
-	o.PaymentStatus.Set(nil)
-}
-
-// UnsetPaymentStatus ensures that no value is present for PaymentStatus, not even an explicit nil
-func (o *OrderPostPayload) UnsetPaymentStatus() {
-	o.PaymentStatus.Unset()
 }
 
 // GetAddressId returns the AddressId field value if set, zero value otherwise.
@@ -284,9 +240,6 @@ func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	}
 	if o.InternalNotes.IsSet() {
 		toSerialize["internal_notes"] = o.InternalNotes.Get()
-	}
-	if o.PaymentStatus.IsSet() {
-		toSerialize["payment_status"] = o.PaymentStatus.Get()
 	}
 	if o.AddressId != nil {
 		toSerialize["address_id"] = o.AddressId
