@@ -72,7 +72,7 @@ func (r ApiGetListingsRequest) FilterStatus(filterStatus string) ApiGetListingsR
 	r.filterStatus = &filterStatus
 	return r
 }
-// Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;). 
+// Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;).
 func (r ApiGetListingsRequest) FilterActive(filterActive bool) ApiGetListingsRequest {
 	r.filterActive = &filterActive
 	return r

@@ -776,7 +776,7 @@ func (r ApiGetUnconfirmedAppointmentsRequest) Execute() (UnconfirmedAppointmentC
 /*
 GetUnconfirmedAppointments List all unconfirmed appointments.
 
-List all unconfirmed appointments. These are appointments that have not been scheduled. 
+List all unconfirmed appointments. These are appointments that have not been scheduled.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetUnconfirmedAppointmentsRequest
@@ -1106,7 +1106,7 @@ func (r ApiPutAppointmentsAppointmentIdCancelRequest) Execute() (AppointmentReso
 /*
 PutAppointmentsAppointmentIdCancel Cancel an appointment.
 
-Cancel an appointment. The appointments order's customer can be optionally notified of this change. 
+Cancel an appointment. The appointments order's customer can be optionally notified of this change.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appointmentId The ID of an appointment.
@@ -1274,7 +1274,7 @@ func (r ApiPutAppointmentsAppointmentIdRescheduleRequest) Execute() (Appointment
 /*
 PutAppointmentsAppointmentIdReschedule Reschedule an appointment.
 
-Reschedule an appointment. The appointments order's customer can be optionally notified of this change. 
+Reschedule an appointment. The appointments order's customer can be optionally notified of this change.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param appointmentId The ID of an appointment.

@@ -195,8 +195,8 @@ paths:
       x-internal: false
   /appointments/{appointment_id}/cancel:
     put:
-      description: 'Cancel an appointment. The appointments order''s customer can
-        be optionally notified of this change. '
+      description: Cancel an appointment. The appointments order's customer can be
+        optionally notified of this change.
       operationId: put-appointments-appointment-id-cancel
       parameters:
       - description: The ID of an appointment.
@@ -260,8 +260,8 @@ paths:
       - appointments
   /appointments/{appointment_id}/reschedule:
     put:
-      description: 'Reschedule an appointment. The appointments order''s customer
-        can be optionally notified of this change. '
+      description: Reschedule an appointment. The appointments order's customer can
+        be optionally notified of this change.
       operationId: put-appointments-appointment-id-reschedule
       parameters:
       - description: The ID of an appointment.
@@ -396,9 +396,9 @@ paths:
           minLength: 1
           type: string
         style: form
-      - description: 'Set as true to return listings that have an active status (e.g.
+      - description: Set as true to return listings that have an active status (e.g.
           active statuses include `COMING_SOON`, `FOR_SALE`, `FOR_LEASE`, `PENDING_SALE`,
-          `PENDING_LEASE`, `SOLD`, `LEASED`). '
+          `PENDING_LEASE`, `SOLD`, `LEASED`).
         explode: true
         in: query
         name: filter[active]
@@ -1281,8 +1281,8 @@ paths:
       x-internal: false
   /unconfirmed-appointments:
     get:
-      description: 'List all unconfirmed appointments. These are appointments that
-        have not been scheduled. '
+      description: List all unconfirmed appointments. These are appointments that
+        have not been scheduled.
       operationId: get-unconfirmed-appointments
       parameters:
       - allowEmptyValue: true
