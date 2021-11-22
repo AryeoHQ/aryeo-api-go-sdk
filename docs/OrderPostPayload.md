@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **AddressId** | Pointer to **string** | ID of the address to associate with the order. UUID Version 4. | [optional] 
 **CustomerId** | Pointer to **string** | ID of the customer to associate with the order. UUID Version 4. | [optional] 
 **Notify** | Pointer to **NullableBool** | Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent. | [optional] 
+**LockDownloadForPayment** | Pointer to **NullableBool** | Indicates if the downloads for the attached listing should be locked while there is an outstanding balance on the order. | [optional] 
+**AllowPaymentsBeforeFulfillment** | Pointer to **NullableBool** | Indicates if the order will allow payments from the customer before the order is marked as fulfilled. | [optional] 
 
 ## Methods
 
@@ -184,6 +186,76 @@ HasNotify returns a boolean if a field has been set.
 `func (o *OrderPostPayload) UnsetNotify()`
 
 UnsetNotify ensures that no value is present for Notify, not even an explicit nil
+### GetLockDownloadForPayment
+
+`func (o *OrderPostPayload) GetLockDownloadForPayment() bool`
+
+GetLockDownloadForPayment returns the LockDownloadForPayment field if non-nil, zero value otherwise.
+
+### GetLockDownloadForPaymentOk
+
+`func (o *OrderPostPayload) GetLockDownloadForPaymentOk() (*bool, bool)`
+
+GetLockDownloadForPaymentOk returns a tuple with the LockDownloadForPayment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLockDownloadForPayment
+
+`func (o *OrderPostPayload) SetLockDownloadForPayment(v bool)`
+
+SetLockDownloadForPayment sets LockDownloadForPayment field to given value.
+
+### HasLockDownloadForPayment
+
+`func (o *OrderPostPayload) HasLockDownloadForPayment() bool`
+
+HasLockDownloadForPayment returns a boolean if a field has been set.
+
+### SetLockDownloadForPaymentNil
+
+`func (o *OrderPostPayload) SetLockDownloadForPaymentNil(b bool)`
+
+ SetLockDownloadForPaymentNil sets the value for LockDownloadForPayment to be an explicit nil
+
+### UnsetLockDownloadForPayment
+`func (o *OrderPostPayload) UnsetLockDownloadForPayment()`
+
+UnsetLockDownloadForPayment ensures that no value is present for LockDownloadForPayment, not even an explicit nil
+### GetAllowPaymentsBeforeFulfillment
+
+`func (o *OrderPostPayload) GetAllowPaymentsBeforeFulfillment() bool`
+
+GetAllowPaymentsBeforeFulfillment returns the AllowPaymentsBeforeFulfillment field if non-nil, zero value otherwise.
+
+### GetAllowPaymentsBeforeFulfillmentOk
+
+`func (o *OrderPostPayload) GetAllowPaymentsBeforeFulfillmentOk() (*bool, bool)`
+
+GetAllowPaymentsBeforeFulfillmentOk returns a tuple with the AllowPaymentsBeforeFulfillment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowPaymentsBeforeFulfillment
+
+`func (o *OrderPostPayload) SetAllowPaymentsBeforeFulfillment(v bool)`
+
+SetAllowPaymentsBeforeFulfillment sets AllowPaymentsBeforeFulfillment field to given value.
+
+### HasAllowPaymentsBeforeFulfillment
+
+`func (o *OrderPostPayload) HasAllowPaymentsBeforeFulfillment() bool`
+
+HasAllowPaymentsBeforeFulfillment returns a boolean if a field has been set.
+
+### SetAllowPaymentsBeforeFulfillmentNil
+
+`func (o *OrderPostPayload) SetAllowPaymentsBeforeFulfillmentNil(b bool)`
+
+ SetAllowPaymentsBeforeFulfillmentNil sets the value for AllowPaymentsBeforeFulfillment to be an explicit nil
+
+### UnsetAllowPaymentsBeforeFulfillment
+`func (o *OrderPostPayload) UnsetAllowPaymentsBeforeFulfillment()`
+
+UnsetAllowPaymentsBeforeFulfillment ensures that no value is present for AllowPaymentsBeforeFulfillment, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

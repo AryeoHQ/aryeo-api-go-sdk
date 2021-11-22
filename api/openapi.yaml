@@ -1635,10 +1635,12 @@ components:
               postal_code: "02111"
               longitude: -71.05763741484657
               county_or_parish: Suffolk County
+            payments_allowed: true
             payment_status: paid
             title: 'Order #100'
             status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
             number: 100
+            downloads_allowed: true
             unconfirmed_appointments:
             - duration: 60
               preference_type: TIME
@@ -2027,10 +2029,12 @@ components:
               postal_code: "02111"
               longitude: -71.05763741484657
               county_or_parish: Suffolk County
+            payments_allowed: true
             payment_status: paid
             title: 'Order #100'
             status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
             number: 100
+            downloads_allowed: true
             unconfirmed_appointments:
             - duration: 60
               preference_type: TIME
@@ -2567,10 +2571,12 @@ components:
               postal_code: "02111"
               longitude: -71.05763741484657
               county_or_parish: Suffolk County
+            payments_allowed: true
             payment_status: paid
             title: 'Order #100'
             status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
             number: 100
+            downloads_allowed: true
             unconfirmed_appointments:
             - duration: 60
               preference_type: TIME
@@ -3772,10 +3778,12 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
+          payments_allowed: true
           payment_status: paid
           title: 'Order #100'
           status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           number: 100
+          downloads_allowed: true
           unconfirmed_appointments:
           - duration: 60
             preference_type: TIME
@@ -4128,10 +4136,12 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
+          payments_allowed: true
           payment_status: paid
           title: 'Order #100'
           status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           number: 100
+          downloads_allowed: true
           unconfirmed_appointments:
           - duration: 60
             preference_type: TIME
@@ -4501,8 +4511,10 @@ components:
       description: Payload for creating an order.
       example:
         fulfillment_status: fulfilled
+        allow_payments_before_fulfillment: true
         internal_notes: Private note about the order!
         address_id: 00000000-0000-4000-8000-000000000000
+        lock_download_for_payment: true
         customer_id: 00000000-0000-4000-8000-000000000000
         notify: true
       properties:
@@ -4547,6 +4559,18 @@ components:
           example: true
           nullable: true
           type: boolean
+        lock_download_for_payment:
+          description: Indicates if the downloads for the attached listing should
+            be locked while there is an outstanding balance on the order.
+          example: true
+          nullable: true
+          type: boolean
+        allow_payments_before_fulfillment:
+          description: Indicates if the order will allow payments from the customer
+            before the order is marked as fulfilled.
+          example: true
+          nullable: true
+          type: boolean
       title: OrderPostPayload
       type: object
     OrderResource:
@@ -4576,10 +4600,12 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
+          payments_allowed: true
           payment_status: paid
           title: 'Order #100'
           status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           number: 100
+          downloads_allowed: true
           unconfirmed_appointments:
           - duration: 60
             preference_type: TIME
@@ -5453,10 +5479,12 @@ components:
             postal_code: "02111"
             longitude: -71.05763741484657
             county_or_parish: Suffolk County
+          payments_allowed: true
           payment_status: paid
           title: 'Order #100'
           status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
           number: 100
+          downloads_allowed: true
           unconfirmed_appointments:
           - duration: 60
             preference_type: TIME
@@ -6442,10 +6470,12 @@ components:
           postal_code: "02111"
           longitude: -71.05763741484657
           county_or_parish: Suffolk County
+        payments_allowed: true
         payment_status: paid
         title: 'Order #100'
         status_url: https://www.aryeo.com/v2/orders/00000000-0000-4000-8000-000000000000/status/public
         number: 100
+        downloads_allowed: true
         unconfirmed_appointments:
         - duration: 60
           preference_type: TIME
@@ -6857,6 +6887,16 @@ components:
           minLength: 0
           nullable: true
           type: string
+        downloads_allowed:
+          description: Indicates if the current user is allowed to download content
+            from the attached listing.
+          example: true
+          type: boolean
+        payments_allowed:
+          description: Indicates if the current user is allowed to make a payment
+            for the order.
+          example: true
+          type: boolean
         address:
           $ref: '#/components/schemas/Address'
         customer:

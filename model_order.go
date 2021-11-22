@@ -32,6 +32,10 @@ type Order struct {
 	PaymentUrl NullableString `json:"payment_url,omitempty"`
 	// A URL of a publicly-accessible webpage to see the order's status.
 	StatusUrl NullableString `json:"status_url"`
+	// Indicates if the current user is allowed to download content from the attached listing.
+	DownloadsAllowed *bool `json:"downloads_allowed,omitempty"`
+	// Indicates if the current user is allowed to make a payment for the order.
+	PaymentsAllowed *bool `json:"payments_allowed,omitempty"`
 	Address *Address `json:"address,omitempty"`
 	Customer *Group `json:"customer,omitempty"`
 	Listing *Listing `json:"listing,omitempty"`
@@ -316,6 +320,70 @@ func (o *Order) SetStatusUrl(v string) {
 	o.StatusUrl.Set(&v)
 }
 
+// GetDownloadsAllowed returns the DownloadsAllowed field value if set, zero value otherwise.
+func (o *Order) GetDownloadsAllowed() bool {
+	if o == nil || o.DownloadsAllowed == nil {
+		var ret bool
+		return ret
+	}
+	return *o.DownloadsAllowed
+}
+
+// GetDownloadsAllowedOk returns a tuple with the DownloadsAllowed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Order) GetDownloadsAllowedOk() (*bool, bool) {
+	if o == nil || o.DownloadsAllowed == nil {
+		return nil, false
+	}
+	return o.DownloadsAllowed, true
+}
+
+// HasDownloadsAllowed returns a boolean if a field has been set.
+func (o *Order) HasDownloadsAllowed() bool {
+	if o != nil && o.DownloadsAllowed != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDownloadsAllowed gets a reference to the given bool and assigns it to the DownloadsAllowed field.
+func (o *Order) SetDownloadsAllowed(v bool) {
+	o.DownloadsAllowed = &v
+}
+
+// GetPaymentsAllowed returns the PaymentsAllowed field value if set, zero value otherwise.
+func (o *Order) GetPaymentsAllowed() bool {
+	if o == nil || o.PaymentsAllowed == nil {
+		var ret bool
+		return ret
+	}
+	return *o.PaymentsAllowed
+}
+
+// GetPaymentsAllowedOk returns a tuple with the PaymentsAllowed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Order) GetPaymentsAllowedOk() (*bool, bool) {
+	if o == nil || o.PaymentsAllowed == nil {
+		return nil, false
+	}
+	return o.PaymentsAllowed, true
+}
+
+// HasPaymentsAllowed returns a boolean if a field has been set.
+func (o *Order) HasPaymentsAllowed() bool {
+	if o != nil && o.PaymentsAllowed != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentsAllowed gets a reference to the given bool and assigns it to the PaymentsAllowed field.
+func (o *Order) SetPaymentsAllowed(v bool) {
+	o.PaymentsAllowed = &v
+}
+
 // GetAddress returns the Address field value if set, zero value otherwise.
 func (o *Order) GetAddress() Address {
 	if o == nil || o.Address == nil {
@@ -536,6 +604,12 @@ func (o Order) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["status_url"] = o.StatusUrl.Get()
+	}
+	if o.DownloadsAllowed != nil {
+		toSerialize["downloads_allowed"] = o.DownloadsAllowed
+	}
+	if o.PaymentsAllowed != nil {
+		toSerialize["payments_allowed"] = o.PaymentsAllowed
 	}
 	if o.Address != nil {
 		toSerialize["address"] = o.Address

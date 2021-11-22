@@ -24,6 +24,10 @@ type OrderPostPayload struct {
 	CustomerId *string `json:"customer_id,omitempty"`
 	// Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent.
 	Notify NullableBool `json:"notify,omitempty"`
+	// Indicates if the downloads for the attached listing should be locked while there is an outstanding balance on the order.
+	LockDownloadForPayment NullableBool `json:"lock_download_for_payment,omitempty"`
+	// Indicates if the order will allow payments from the customer before the order is marked as fulfilled.
+	AllowPaymentsBeforeFulfillment NullableBool `json:"allow_payments_before_fulfillment,omitempty"`
 }
 
 // NewOrderPostPayload instantiates a new OrderPostPayload object
@@ -233,6 +237,90 @@ func (o *OrderPostPayload) UnsetNotify() {
 	o.Notify.Unset()
 }
 
+// GetLockDownloadForPayment returns the LockDownloadForPayment field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OrderPostPayload) GetLockDownloadForPayment() bool {
+	if o == nil || o.LockDownloadForPayment.Get() == nil {
+		var ret bool
+		return ret
+	}
+	return *o.LockDownloadForPayment.Get()
+}
+
+// GetLockDownloadForPaymentOk returns a tuple with the LockDownloadForPayment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OrderPostPayload) GetLockDownloadForPaymentOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.LockDownloadForPayment.Get(), o.LockDownloadForPayment.IsSet()
+}
+
+// HasLockDownloadForPayment returns a boolean if a field has been set.
+func (o *OrderPostPayload) HasLockDownloadForPayment() bool {
+	if o != nil && o.LockDownloadForPayment.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLockDownloadForPayment gets a reference to the given NullableBool and assigns it to the LockDownloadForPayment field.
+func (o *OrderPostPayload) SetLockDownloadForPayment(v bool) {
+	o.LockDownloadForPayment.Set(&v)
+}
+// SetLockDownloadForPaymentNil sets the value for LockDownloadForPayment to be an explicit nil
+func (o *OrderPostPayload) SetLockDownloadForPaymentNil() {
+	o.LockDownloadForPayment.Set(nil)
+}
+
+// UnsetLockDownloadForPayment ensures that no value is present for LockDownloadForPayment, not even an explicit nil
+func (o *OrderPostPayload) UnsetLockDownloadForPayment() {
+	o.LockDownloadForPayment.Unset()
+}
+
+// GetAllowPaymentsBeforeFulfillment returns the AllowPaymentsBeforeFulfillment field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OrderPostPayload) GetAllowPaymentsBeforeFulfillment() bool {
+	if o == nil || o.AllowPaymentsBeforeFulfillment.Get() == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AllowPaymentsBeforeFulfillment.Get()
+}
+
+// GetAllowPaymentsBeforeFulfillmentOk returns a tuple with the AllowPaymentsBeforeFulfillment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OrderPostPayload) GetAllowPaymentsBeforeFulfillmentOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.AllowPaymentsBeforeFulfillment.Get(), o.AllowPaymentsBeforeFulfillment.IsSet()
+}
+
+// HasAllowPaymentsBeforeFulfillment returns a boolean if a field has been set.
+func (o *OrderPostPayload) HasAllowPaymentsBeforeFulfillment() bool {
+	if o != nil && o.AllowPaymentsBeforeFulfillment.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowPaymentsBeforeFulfillment gets a reference to the given NullableBool and assigns it to the AllowPaymentsBeforeFulfillment field.
+func (o *OrderPostPayload) SetAllowPaymentsBeforeFulfillment(v bool) {
+	o.AllowPaymentsBeforeFulfillment.Set(&v)
+}
+// SetAllowPaymentsBeforeFulfillmentNil sets the value for AllowPaymentsBeforeFulfillment to be an explicit nil
+func (o *OrderPostPayload) SetAllowPaymentsBeforeFulfillmentNil() {
+	o.AllowPaymentsBeforeFulfillment.Set(nil)
+}
+
+// UnsetAllowPaymentsBeforeFulfillment ensures that no value is present for AllowPaymentsBeforeFulfillment, not even an explicit nil
+func (o *OrderPostPayload) UnsetAllowPaymentsBeforeFulfillment() {
+	o.AllowPaymentsBeforeFulfillment.Unset()
+}
+
 func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FulfillmentStatus.IsSet() {
@@ -249,6 +337,12 @@ func (o OrderPostPayload) MarshalJSON() ([]byte, error) {
 	}
 	if o.Notify.IsSet() {
 		toSerialize["notify"] = o.Notify.Get()
+	}
+	if o.LockDownloadForPayment.IsSet() {
+		toSerialize["lock_download_for_payment"] = o.LockDownloadForPayment.Get()
+	}
+	if o.AllowPaymentsBeforeFulfillment.IsSet() {
+		toSerialize["allow_payments_before_fulfillment"] = o.AllowPaymentsBeforeFulfillment.Get()
 	}
 	return json.Marshal(toSerialize)
 }

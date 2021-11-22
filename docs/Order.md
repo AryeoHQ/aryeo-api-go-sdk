@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **TotalAmount** | Pointer to **int32** | A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the total order amount that was or will be charged. This accounts for order items and taxes.  | [optional] 
 **PaymentUrl** | Pointer to **NullableString** | A URL of a publicly-accessible webpage to pay for the order. | [optional] 
 **StatusUrl** | **NullableString** | A URL of a publicly-accessible webpage to see the order&#39;s status. | 
+**DownloadsAllowed** | Pointer to **bool** | Indicates if the current user is allowed to download content from the attached listing. | [optional] 
+**PaymentsAllowed** | Pointer to **bool** | Indicates if the current user is allowed to make a payment for the order. | [optional] 
 **Address** | Pointer to [**Address**](Address.md) |  | [optional] 
 **Customer** | Pointer to [**Group**](Group.md) |  | [optional] 
 **Listing** | Pointer to [**Listing**](Listing.md) |  | [optional] 
@@ -254,6 +256,56 @@ SetStatusUrl sets StatusUrl field to given value.
 `func (o *Order) UnsetStatusUrl()`
 
 UnsetStatusUrl ensures that no value is present for StatusUrl, not even an explicit nil
+### GetDownloadsAllowed
+
+`func (o *Order) GetDownloadsAllowed() bool`
+
+GetDownloadsAllowed returns the DownloadsAllowed field if non-nil, zero value otherwise.
+
+### GetDownloadsAllowedOk
+
+`func (o *Order) GetDownloadsAllowedOk() (*bool, bool)`
+
+GetDownloadsAllowedOk returns a tuple with the DownloadsAllowed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDownloadsAllowed
+
+`func (o *Order) SetDownloadsAllowed(v bool)`
+
+SetDownloadsAllowed sets DownloadsAllowed field to given value.
+
+### HasDownloadsAllowed
+
+`func (o *Order) HasDownloadsAllowed() bool`
+
+HasDownloadsAllowed returns a boolean if a field has been set.
+
+### GetPaymentsAllowed
+
+`func (o *Order) GetPaymentsAllowed() bool`
+
+GetPaymentsAllowed returns the PaymentsAllowed field if non-nil, zero value otherwise.
+
+### GetPaymentsAllowedOk
+
+`func (o *Order) GetPaymentsAllowedOk() (*bool, bool)`
+
+GetPaymentsAllowedOk returns a tuple with the PaymentsAllowed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaymentsAllowed
+
+`func (o *Order) SetPaymentsAllowed(v bool)`
+
+SetPaymentsAllowed sets PaymentsAllowed field to given value.
+
+### HasPaymentsAllowed
+
+`func (o *Order) HasPaymentsAllowed() bool`
+
+HasPaymentsAllowed returns a boolean if a field has been set.
+
 ### GetAddress
 
 `func (o *Order) GetAddress() Address`
